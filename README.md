@@ -22,7 +22,7 @@
 	•	安装 Python（推荐 pyenv 或 Anaconda）。
 	•	学会创建虚拟环境（venv / conda）。
 	•	安装 IDE：Jupyter Notebook / VS Code。
-	•	练习：
+	    练习：
 	•	用 print("Hello, Python!") 输出第一行代码。
 	•	在 VS Code + Jupyter 里跑通第一个 .py 文件和 .ipynb 文件。
 
@@ -30,7 +30,7 @@
 	•	学习 Python 的四种基本类型：int, float, str, bool。
 	•	学会使用 type() 查看类型，str() int() float() 做类型转换。
 	•	了解 Python 的动态类型特性。
-	•	练习：
+	    练习：
 	•	写一个小程序，接收用户输入姓名和年龄，并打印一句话. 注意bool的转换:
     - ** bool() 的转换规则是这样的：
 	1 数值：
@@ -69,7 +69,7 @@
 	•	学习比较运算符（== != > < >= <=）。
 	•	学习逻辑运算符（and or not）。
 	•	学习赋值运算符（+=, -=, *=, /=）。
-	•	练习：
+	     练习：
 	•	“Let the user enter a number, and output its square, whether it is greater than 10, and whether it is even.”
 ```python
 	# 让用户输入数字
@@ -90,7 +90,7 @@ print(f"Is the square greater than 10? {greater_than_10}")
 print(f"Is the square even? {is_even}")
 ```
 ⸻
-Day 4：条件语句 if-else
+### Day 4：条件语句 if-else
 	•	if-else 语句语法。
 	•	多分支：if-elif-else。
 	•	练习：
@@ -111,8 +111,7 @@ else:
      grade = "Fail"
 print(f"your grade is: {grade}")
 ```
-⸻
-Day 5：循环 for & while
+### Day 5：循环 for & while
 	•	for i in range(n)。
 	•	while 循环。
 	•	break & continue。
@@ -136,10 +135,7 @@ while i <= 100:
 
 print(f"The sum of numbers from 1 to 100 is: {total}")
 ```
-⸻
-
-⸻
-Day 6：综合练习 — 迷你计算器
+### Day 6：综合练习 — 迷你计算器
 	•	结合 if-else、输入输出、函数。
 	•	实现加、减、乘、除、开方、幂运算。
 	•	进阶： 加入异常处理：不能除以 0。
@@ -190,8 +186,7 @@ while True:
         print("输入无效，请输入数字！")
 ```
 
-⸻
-Day 7：面试风格练习 — 股票最大收益
+### Day 7：面试风格练习 — 股票最大收益
 	•	问题：给定一个股票价格数组，找到最大利润（一次买入卖出）。
 	•	训练点：
 	•	遍历数组。
@@ -232,8 +227,6 @@ def max_profit(prices):
 prices = [7,1,5,3,6,4]
 print(max_profit(prices))  # 输出 5
 ```
-
-⸻
 
 Week 2：数据结构与文件操作
 

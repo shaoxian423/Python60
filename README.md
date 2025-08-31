@@ -22,7 +22,6 @@
 	•	安装 Python（推荐 pyenv 或 Anaconda）。
 	•	学会创建虚拟环境（venv / conda）。
 	•	安装 IDE：Jupyter Notebook / VS Code。
-	    练习：
 	•	用 print("Hello, Python!") 输出第一行代码。
 	•	在 VS Code + Jupyter 里跑通第一个 .py 文件和 .ipynb 文件。
 
@@ -30,76 +29,88 @@
 	•	学习 Python 的四种基本类型：int, float, str, bool。
 	•	学会使用 type() 查看类型，str() int() float() 做类型转换。
 	•	了解 Python 的动态类型特性。
-	    练习：
-	•	写一个小程序，接收用户输入姓名和年龄，并打印一句话. 注意bool的转换:
-    - ** bool() 的转换规则是这样的：
+##### 练习：
+Write a small program that takes the user’s input for name and age, and prints a  sentence. Pay attention to converting to bool:
+```python
+# P2.1 Get user input
+name = input("Enter your name: ")
+age_input = input("Enter your age: ")
+# Convert age to integer
+age = int(age_input)
+# Example of bool conversion: check if age is positive
+is_age_valid = bool(age > 0)
+# Print a sentence
+print(f"Hello, {name}! You are {age} years old. Age valid? {is_age_valid}")
+```
+#### Convert age to integer
+```python
+age = int(age_input)
+```
+#### Example of bool conversion: check if age is positive
+```python
+is_age_valid = bool(age > 0)
+```
+#### bool() 的转换规则是这样的：
 	1 数值：
 	•	0 → False
 	•	任何非零数（比如 -1, 3.14, 100）→ True
 	2 字符串:
 	•	空字符串 "" → False
 	•	任何非空字符串（哪怕只是 " " 一个空格，或 "hello"）→ True
-	
     总结一句话：Python 里只要字符串不是完全空的，就认为它是真 (True)
-
-	- ** list（列表）
+#### list（列表）
 	•	有序、可变的元素集合
 	•	元素可以重复
 	•	通过 索引 (index) 访问
-	        dict（字典）
-	•	无序（Python 3.7+ 实际保持插入顺序）、可变的键值对集合
-	•	键 (key) 唯一，值 (value) 可重复
-	•	通过 键 (key) 访问
-    - ** list 常用方法：
+    - * list 常用方法：
 	•	append(x) → 末尾追加
 	•	insert(i, x) → 指定位置插入
 	•	pop(i) → 删除并返回元素 
 	•	remove(x) → 删除第一个值为 x 的元素
 	•	sort() → 排序
 	•	reverse() → 反转
-    - ** dict 常用方法：
+#### dict（字典）
+	•	无序（Python 3.7+ 实际保持插入顺序）、可变的键值对集合
+	•	键 (key) 唯一，值 (value) 可重复
+	•	通过 键 (key) 访问
+    - * dict 常用方法：
 	•	keys() → 所有键
 	•	values() → 所有值
 	•	items() → 键值对 (tuple)
 	•	get(key, default) → 获取值，找不到返回默认值
 	•	update({...}) → 批量更新
-
 ### Day 3：运算符
 	•	学习算术运算符（+ - * / // % **）。
 	•	学习比较运算符（== != > < >= <=）。
 	•	学习逻辑运算符（and or not）。
 	•	学习赋值运算符（+=, -=, *=, /=）。
-	     练习：
-	•	“Let the user enter a number, and output its square, whether it is greater than 10, and whether it is even.”
+##### 练习：
+Let the user enter a number, and output its square, whether it is greater than 10, and whether it is even.
 ```python
-	# 让用户输入数字
+# P 3.1
 a = int(input("Please input a number: "))
-
 # 计算平方
 square = a * a
-
 # 判断是否大于 10
 greater_than_10 = square > 10
-
 # 判断是否偶数
 is_even = square % 2 == 0
-
 # 输出结果
 print(f"The square of {a} is: {square}")
 print(f"Is the square greater than 10? {greater_than_10}")
 print(f"Is the square even? {is_even}")
 ```
-⸻
 ### Day 4：条件语句 if-else
 	•	if-else 语句语法。
 	•	多分支：if-elif-else。
-	•	练习：
+##### 练习：
 	•	输入一个分数，输出成绩等级：
 	•	90+ 优秀
 	•	70-89 良好
 	•	60-69 及格
 	•	<60 不及格
 ```python
+# P 4.1
 scope = int(input("please input scope:"))
 if scope >= 90:
      grade = "Excellent"
@@ -115,18 +126,19 @@ print(f"your grade is: {grade}")
 	•	for i in range(n)。
 	•	while 循环。
 	•	break & continue。
-	练习:
-# 1. 9x9 multiplication table,,,Write a program to print the multiplication table from 1×1 up to 9×9.
+#### 练习:
+1. 9x9 multiplication table,,,Write a program to print the multiplication table from 1×1 up to 9×9.
 ```python
+# P 5.1
 for i in range(1, 10):
     for j in range(1, i+1):
         print(f"{j}×{i}={i*j}", end="\t")
     print()  # New line after each row
 ```
 
-# 2. Sum with while,,,Use a while loop to calculate the sum of numbers from 1 to 100.
+2. Sum with while,,,Use a while loop to calculate the sum of numbers from 1 to 100.
 ```python
-# Calculate sum from 1 to 100
+# P 5.2 Calculate sum from 1 to 100
 total = 0
 i = 1
 while i <= 100:
@@ -139,6 +151,11 @@ print(f"The sum of numbers from 1 to 100 is: {total}")
 	•	结合 if-else、输入输出、函数。
 	•	实现加、减、乘、除、开方、幂运算。
 	•	进阶： 加入异常处理：不能除以 0。
+#### 综合练习:
+Comprehensive Exercise — Mini Calculator
+	•	Combine if-else, input/output, and functions.
+	•	Implement addition, subtraction, multiplication, division, square root, and exponentiation.
+	•	Advanced: Add exception handling to prevent division by zero.
 ```python
 import math
 
@@ -185,13 +202,13 @@ while True:
     except ValueError:
         print("输入无效，请输入数字！")
 ```
-
+注意: 这里有导入包:math,它是python自带库文件,可以实现已经封装好的计算逻辑(函数)
 ### Day 7：面试风格练习 — 股票最大收益
 	•	问题：给定一个股票价格数组，找到最大利润（一次买入卖出）。
 	•	训练点：
 	•	遍历数组。
 	•	变量存储最小买入价、最大利润。
-	•	练习：
+#### 练习：
 训练点
 	1.	遍历数组
 	•	从头到尾遍历价格数组，每天判断是否能更新最小买入价或最大利润。
@@ -203,7 +220,12 @@ while True:
 	1.	更新最小买入价：min_price = min(min_price, price)
 	2.	计算今天卖出的利润：profit = price - min_price
 	3.	更新最大利润：max_profit = max(max_profit, profit)
+Best Time to Buy and Sell Stock
+	•	You are given a list of stock prices where prices[i] is the price of a given stock on day i...prices = [7,1,5,3,6,4]
+	•	You want to maximize your profit by choosing one day to buy and one later day to sell.
+	•	Write a function that returns the maximum profit you can achieve. If no profit is possible, return 0.
 ```python
+# P 7.1
 def max_profit(prices):
     if not prices:
         return 0

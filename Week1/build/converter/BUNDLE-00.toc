@@ -1,0 +1,3 @@
+([('converter',
+   '/Volumes/D/Invest/Tensorflow/Week1/dist/converter',
+   'EXECUTABLE')],)

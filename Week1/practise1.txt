@@ -1,0 +1,10 @@
+a = float(input('pls input first  digital'))
+b = float(input('pls input second digital'))
+
+print ('''enput your choise
+ 1 for plus 
+ 2 for minus
+ 3 for times
+ 4 for divided ''')
+
+choice = input(‘1/2/3/4’)

@@ -6,13 +6,16 @@ Python 字符/数字图形打印大全
 
 1. 正方形
 
-代码示例
-
+```python
 n = 5
 for i in range(n):
     for j in range(n):
         print("*", end=" ")
     print()
+or:
+i = 9
+for i in range(9):
+    print("i " * 9)
 
 输出
 
@@ -21,37 +24,43 @@ for i in range(n):
 * * * * * 
 * * * * * 
 * * * * * 
-
+```
 
 ⸻
 
 2. 长方形
 
-代码示例
-
+```python
 rows = 3
 cols = 7
 for i in range(rows):
     for j in range(cols):
         print("*", end=" ")
     print()
+or:
+i = 3
+for i in range(3):
+    print("i " * 7)
+
 
 输出
 
 * * * * * * * 
 * * * * * * * 
 * * * * * * * 
-
+```
 
 ⸻
 
 3. 直角三角形
-
-代码示例（左下直角）
-
+```python
 n = 5
 for i in range(1, n+1):
     print("* " * i)
+or:
+i = 9
+for i in range(9):
+    print("i " * i)
 
 输出
 
@@ -60,14 +69,12 @@ for i in range(1, n+1):
 * * * 
 * * * * 
 * * * * * 
-
+```
 
 ⸻
 
 4. 倒直角三角形
-
-代码示例
-
+```python
 n = 5
 for i in range(n, 0, -1):
     print("* " * i)
@@ -79,14 +86,12 @@ for i in range(n, 0, -1):
 * * * 
 * * 
 * 
-
+```
 
 ⸻
 
 5. 等腰三角形（居中三角形）
-
-代码示例
-
+```python
 n = 5
 for i in range(1, n+1):
     print(" " * (n-i) + "* " * i)
@@ -99,13 +104,11 @@ for i in range(1, n+1):
  * * * * 
 * * * * * 
 
-
+```
 ⸻
 
 6. 倒等腰三角形
-
-代码示例
-
+```python
 n = 5
 for i in range(n, 0, -1):
     print(" " * (n-i) + "* " * i)
@@ -118,13 +121,12 @@ for i in range(n, 0, -1):
    * * 
     * 
 
-
+```
 ⸻
 
 7. 菱形
 
-代码示例
-
+```python
 n = 5
 # 上半部分
 for i in range(1, n+1):
@@ -144,14 +146,12 @@ for i in range(n-1, 0, -1):
   * * * 
    * * 
     * 
-
+```
 
 ⸻
 
 8. 空心正方形
-
-代码示例
-
+```python
 n = 5
 for i in range(n):
     for j in range(n):
@@ -169,13 +169,11 @@ for i in range(n):
 *       * 
 * * * * * 
 
-
+```
 ⸻
 
 9. 数字金字塔
-
-代码示例
-
+```python
 n = 5
 for i in range(1, n+1):
     print(" " * (n-i) + (str(i) + " ") * i)
@@ -188,7 +186,7 @@ for i in range(1, n+1):
  4 4 4 4 
 5 5 5 5 5 
 
-
+```
 ⸻
 
 10. 扩展练习

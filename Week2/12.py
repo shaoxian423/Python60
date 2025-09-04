@@ -1,4 +1,4 @@
-import numpy as np
+i = 3
 
-total = np.sum(np.arange(1,101))
-print(total)
+for i in range(3):
+    print("i " * 9)

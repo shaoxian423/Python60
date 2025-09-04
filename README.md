@@ -1,4 +1,4 @@
-# 🐍 Python 10周项目驱动学习计划（丰富版）
+# 🐍 Python 10周项目驱动学习计划 ---QiQi 和她爹的Python基地（丰富版）
 
 ⸻
 
@@ -130,8 +130,8 @@ print(f"your grade is: {grade}")
 1. 9x9 multiplication table,,,Write a program to print the multiplication table from 1×1 up to 9×9.
 ```python
 # P 5.1
-for i in range(1, 10):
-    for j in range(1, i+1):
+for i in range(1, 10): # rows 是外循环来控制
+    for j in range(1, i+1): # clos 是内循环来控制
         print(f"{j}×{i}={i*j}", end="\t")
     print()  # New line after each row
 ```

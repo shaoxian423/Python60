@@ -18,18 +18,18 @@
 📝 小项目2（面试模拟）：
 股票价格数组，求 最大收益区间（买入/卖出）。
 
-### Day 1：环境搭建 & IDE
+### 📑 Day 1：环境搭建 & IDE
 	•	安装 Python（推荐 pyenv 或 Anaconda）。
 	•	学会创建虚拟环境（venv / conda）。
 	•	安装 IDE：Jupyter Notebook / VS Code。
 	•	用 print("Hello, Python!") 输出第一行代码。
 	•	在 VS Code + Jupyter 里跑通第一个 .py 文件和 .ipynb 文件。
 
-### Day 2：变量与数据类型
+### 📑 Day 2：变量与数据类型
 	•	学习 Python 的四种基本类型：int, float, str, bool。
 	•	学会使用 type() 查看类型，str() int() float() 做类型转换。
 	•	了解 Python 的动态类型特性。
-##### 练习：
+##### 🔧练习：
 Write a small program that takes the user’s input for name and age, and prints a  sentence. Pay attention to converting to bool:
 ```python
 # P2.1 Get user input
@@ -79,12 +79,12 @@ is_age_valid = bool(age > 0)
 	•	items() → 键值对 (tuple)
 	•	get(key, default) → 获取值，找不到返回默认值
 	•	update({...}) → 批量更新
-### Day 3：运算符
+### 📑 Day 3：运算符
 	•	学习算术运算符（+ - * / // % **）。
 	•	学习比较运算符（== != > < >= <=）。
 	•	学习逻辑运算符（and or not）。
 	•	学习赋值运算符（+=, -=, *=, /=）。
-##### 练习：
+##### 🔧练习：
 Let the user enter a number, and output its square, whether it is greater than 10, and whether it is even.
 ```python
 # P 3.1
@@ -100,10 +100,10 @@ print(f"The square of {a} is: {square}")
 print(f"Is the square greater than 10? {greater_than_10}")
 print(f"Is the square even? {is_even}")
 ```
-### Day 4：条件语句 if-else
+### 📑 Day 4：条件语句 if-else
 	•	if-else 语句语法。
 	•	多分支：if-elif-else。
-##### 练习：
+##### 🔧练习：
 	•	输入一个分数，输出成绩等级：
 	•	90+ 优秀
 	•	70-89 良好
@@ -122,11 +122,11 @@ else:
      grade = "Fail"
 print(f"your grade is: {grade}")
 ```
-### Day 5：循环 for & while
+### 📑 Day 5：循环 for & while
 	•	for i in range(n)。
 	•	while 循环。
 	•	break & continue。
-#### 练习:
+#### 🔧练习:
 1. 9x9 multiplication table,,,Write a program to print the multiplication table from 1×1 up to 9×9.
 ```python
 # P 5.1
@@ -147,13 +147,13 @@ while i <= 100:
 
 print(f"The sum of numbers from 1 to 100 is: {total}")
 ```
-### Day 6：综合练习 — 迷你计算器
+### 📑 Day 6：综合练习 — 迷你计算器
 	•	结合 if-else、输入输出、函数。
 	•	实现加、减、乘、除、开方、幂运算。
 	•	进阶： 加入异常处理：不能除以 0。
-#### 综合练习:
+#### 🔧🔧🔧综合练习:
 Comprehensive Exercise — Mini Calculator
-	•	Combine if-else, input/output, and functions.
+	•	Combine if-else, input/output, and functions(注意这里有函数的表述).
 	•	Implement addition, subtraction, multiplication, division, square root, and exponentiation.
 	•	Advanced: Add exception handling to prevent division by zero.
 ```python
@@ -208,7 +208,11 @@ while True:
 	•	训练点：
 	•	遍历数组。
 	•	变量存储最小买入价、最大利润。
-#### 练习：
+#### 🔧练习：
+    Best Time to Buy and Sell Stock
+	•	You are given a list of stock prices where prices[i] is the price of a given stock on day i...prices = [7,1,5,3,6,4]
+	•	You want to maximize your profit by choosing one day to buy and one later day to sell.
+	•	Write a function that returns the maximum profit you can achieve. If no profit is possible, return 0.
 训练点
 	1.	遍历数组
 	•	从头到尾遍历价格数组，每天判断是否能更新最小买入价或最大利润。
@@ -220,10 +224,7 @@ while True:
 	1.	更新最小买入价：min_price = min(min_price, price)
 	2.	计算今天卖出的利润：profit = price - min_price
 	3.	更新最大利润：max_profit = max(max_profit, profit)
-Best Time to Buy and Sell Stock
-	•	You are given a list of stock prices where prices[i] is the price of a given stock on day i...prices = [7,1,5,3,6,4]
-	•	You want to maximize your profit by choosing one day to buy and one later day to sell.
-	•	Write a function that returns the maximum profit you can achieve. If no profit is possible, return 0.
+
 ```python
 # P 7.1
 def max_profit(prices):

@@ -1,9 +1,7 @@
-
-for i in range(1, 11):
-       if i % 2 == 0:
-        continue # 跳过偶数
-       print(i)
-
+for i in range(1, 10):
+    for j in range(1, i+1):
+        print(f"{j}×{i}={i*j}", end="\t")
+    print()
 # = 1是把值赋给变量
 # == 1是判断变量的值是否等于1
 # != 1是判断变量的值是否不等于1

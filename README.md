@@ -32,6 +32,14 @@
 			- [🔧练习：读取 txt 文件并捕获异常。](#练习读取-txt-文件并捕获异常)
 			- [🔧🔧🔧综合练习1:  Library Management System with JSON Persistence：](#综合练习1--library-management-system-with-json-persistence)
 			- [🔧🔧🔧综合练习2:（面试模拟）Stock Data Analysis:CSV Reader with Statistics and Volatility：](#综合练习2面试模拟stock-data-analysiscsv-reader-with-statistics-and-volatility)
+	- [Week 3：函数进阶与面向对象](#week-3函数进阶与面向对象)
+		- [Day 15: 函数基础](#day-15-函数基础)
+		- [Day 16: 函数进阶与作用域](#day-16-函数进阶与作用域)
+		- [Day 17: 模块与包](#day-17-模块与包)
+		- [Day 18: 文件操作](#day-18-文件操作)
+		- [Day 19: 异常处理](#day-19-异常处理)
+		- [Day 20: OOP 基础](#day-20-oop-基础)
+		- [Day 21: OOP 进阶](#day-21-oop-进阶)
 
 ⸻
 
@@ -584,7 +592,7 @@ print(f"波动率: {volatility:.2%}")
 ```
 ⸻
 
-Week 3：函数进阶与面向对象
+## Week 3：函数进阶与面向对象
 
 📘 学习内容：
 	•	函数参数（默认参数、可变参数 *args/**kwargs）
@@ -592,7 +600,39 @@ Week 3：函数进阶与面向对象
 	•	面向对象 OOP：类、对象、封装、继承、多态
 	•	魔法方法（__init__, __repr__, __len__）
 	•	装饰器 @decorator
-
+### Day 15: 函数基础
+	•	定义函数
+	•	返回值:
+	•	函数参数类型:位置参数,关键字参数,默认参数,可变阐述 *args/**kwargs
+### Day 16: 函数进阶与作用域
+	•	局部变量 VS 全局变量
+	•	global 与 nonlocal
+	•	匿名函数: lambda
+	•	高阶函数: map(),filter(),reduce(),sorted(),zip()
+### Day 17: 模块与包
+	•	模块导入: import module/from module import func
+	•	常用标准库: math,random,datetime,os,sys
+	•	自定义模块: 创建.py文件并导入
+### Day 18: 文件操作
+	•	打开文件: open(‘file.txt’,mode)
+	•	文件模式: r,w,a,rb,wb
+	•	读取方法: read(),deadline(),readlines()
+	•	写入方法: write(),writelines()
+	•	使用 with 自动关闭文件: 
+### Day 19: 异常处理
+	•	try...except...finally
+	•	捕获特定异常
+	•	自定义异常
+### Day 20: OOP 基础
+	•	类和对象:class className:
+	•	属性与方法
+	•	构造方法: __init__
+	•	实例化对象
+### Day 21: OOP 进阶
+	•	继承与多态
+	•	方法重写
+	•	super()
+	•	类属性与实例属性
 📝 小项目1（综合练习）：
 银行账户管理系统（支持开户、存款、取款、利息计算）。
 

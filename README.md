@@ -1,4 +1,5 @@
 # 🐍 Python 10周项目学习计划 ---QiQi 和她爹的Python基地（丰富版）
+![商科学生技能雷达图](Pics/Skills_Radar_Chart.png)
 - [🐍 Python 10周项目学习计划 ---QiQi 和她爹的Python基地（丰富版）](#-python-10周项目学习计划----qiqi-和她爹的python基地丰富版)
 	- [Week 1：Python 基础与环境](#week-1python-基础与环境)
 		- [📑 Day 1：环境搭建 \& IDE](#-day-1环境搭建--ide)

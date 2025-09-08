@@ -490,7 +490,7 @@ finally: # 无论是否出错,finally里的代码都会执行
 ```
 
 #### 🔧🔧🔧综合练习1:  Library Management System with JSON Persistence：
-简历一个图书管理系统：能添加/删除/查询，并保存到 JSON 文件。
+建立一个图书管理系统：能添加/删除/查询，并保存到 JSON 文件。
 功能点：
 	1.	添加书籍（书名、作者、年份）。
 	2.	删除书籍（通过书名或索引）。
@@ -506,7 +506,7 @@ FILE_NAME = "books.json"
 # 初始化书籍列表
 if os.path.exists(FILE_NAME):
     with open(FILE_NAME, "r") as f:
-        books = json.load(f)
+        books = json.load(f) # 把json文件的内容读出来,并转换成python对象(list或dict)
 else:
     books = []
 
@@ -533,11 +533,11 @@ def delete_book():
     print("未找到该书!")
 
 def query_books():
-    if not books:
+    if not books: # 这里是没有书籍,即书籍列表为空的情况下
         print("没有书籍信息")
         return
     print("当前书籍列表:")
-    for i, book in enumerate(books, start=1):
+    for i, book in enumerate(books, start=1): # enumerate为python的内置函数,它会把列表books 遍历,同时生成索引i, 并从1开始
         print(f"{i}. {book['title']} - {book['author']} ({book['year']})")
 
 # 主循环

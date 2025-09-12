@@ -33,6 +33,13 @@
 			- [🔧练习：读取 txt 文件并捕获异常。](#练习读取-txt-文件并捕获异常)
 			- [🔧🔧🔧综合练习1:  Library Management System with JSON Persistence：](#综合练习1--library-management-system-with-json-persistence)
 			- [🔧🔧🔧综合练习2:（面试模拟）Stock Data Analysis:CSV Reader with Statistics and Volatility：](#综合练习2面试模拟stock-data-analysiscsv-reader-with-statistics-and-volatility)
+			- [🔧🔧🔧综合练习 3: Advanced Movie Collection Manager with JSON Persistence](#综合练习-3-advanced-movie-collection-manager-with-json-persistence)
+				- [Title and Director cannot be empty](#title-and-director-cannot-be-empty)
+				- [Release Year must be a number between 1888 and the current year](#release-year-must-be-a-number-between-1888-and-the-current-year)
+				- [Prevent duplicate titles (case-insensitive)](#prevent-duplicate-titles-case-insensitive)
+				- [Genre is optional; default to "Unknown" if left blank](#genre-is-optional-default-to-unknown-if-left-blank)
+				- [Users can delete by title (case-insensitive) or index number in the list](#users-can-delete-by-title-case-insensitive-or-index-number-in-the-list)
+				- [Sort movies by Release Year](#sort-movies-by-release-year)
 	- [Week 3：函数进阶与面向对象](#week-3函数进阶与面向对象)
 		- [📑 Day 15: 函数基础](#-day-15-函数基础)
 		- [📑 Day 16: 函数进阶与作用域](#-day-16-函数进阶与作用域)
@@ -407,7 +414,7 @@ age = student.get("age")
 # 更新
 student.update({"age": 21, "grade": "A"})
 # 遍历
-for key, value in student.items():
+for key, value in student.items(): # 注意这里定义的两个循环变量:key和value,这种写法就可以自动拆包,如果是for key in student呢?就是只用一个变量呢?结果会是什么样子?
     print(key, ":", value)
 ```
 ### 📑 Day 12：切片与推导式
@@ -595,6 +602,166 @@ volatility = df['Close'].std() / avg_close
 print(f"波动率: {volatility:.2%}")
 ```
 ⸻
+#### 🔧🔧🔧综合练习 3: Advanced Movie Collection Manager with JSON Persistence
+Objective:
+Build a movie collection management system that allows users to add, delete, view, and search movies, with data stored persistently in a JSON file. The system should include input validation and prevent duplicate entries.
+Functional Requirements:
+Add a movie
+Fields: Title, Director, Release Year, Genre
+Validation:
+##### Title and Director cannot be empty
+##### Release Year must be a number between 1888 and the current year
+##### Prevent duplicate titles (case-insensitive)
+##### Genre is optional; default to "Unknown" if left blank
+Delete a movie
+##### Users can delete by title (case-insensitive) or index number in the list
+Print a message if the movie is not found
+View movies
+Display all movies in a readable JSON-like format
+##### Sort movies by Release Year
+Search movies (optional challenge)
+Allow filtering by title, director, or year
+Data persistence
+All movie data must be saved in a JSON file
+On program start, load existing data so the collection persists between sessions
+Extra Challenge (Optional)
+Improve user experience with pretty-printing
+Allow partial search (e.g., searching for "Star" finds "Star Wars")
+Prevent invalid input for all fields
+Starter Hints
+Use the json module to read/write JSON files
+Use os.path.exists() to check if the JSON file exists
+Validate user input before saving
+Use json.dumps(..., indent=4) to display movies neatly
+```python
+import json
+import os
+from datetime import datetime
+
+FILE_NAME = "movies.json"
+
+# Load existing movie data or create empty list
+if os.path.exists(FILE_NAME):
+	with open(FILE_NAME, "r") as f:
+		movies = json.load(f)
+else:
+	movies = []
+
+# Save movies to JSON
+def save_movies():
+	with open(FILE_NAME, "w") as f:
+		json.dump(movies, f, indent=4, ensure_ascii=False)
+
+# Validate year
+def validate_year(year_str):
+	current_year = datetime.now().year
+	if not year_str.isdigit():
+		return False, "Year must be a number!"
+	year = int(year_str)
+	if year < 1888 or year > current_year:  # First movie: 1888
+		return False, f"Year must be between 1888 and {current_year}!"
+	return True, year
+
+# Check for duplicate title
+def is_duplicate(title):
+	for movie in movies:
+		if movie["title"].lower() == title.lower():
+			return True
+	return False
+
+# Add a movie
+def add_movie():
+	title = input("Enter movie title: ").strip()
+	if not title:
+		print("Title cannot be empty!")
+		return
+	if is_duplicate(title):
+		print("This movie already exists in the collection!")
+		return
+	
+	director = input("Enter director name: ").strip()
+	if not director:
+		print("Director cannot be empty!")
+		return
+	
+	year_input = input("Enter release year: ").strip()
+	valid, year_or_msg = validate_year(year_input)
+	if not valid:
+		print(year_or_msg)
+		return
+	year = year_or_msg
+	
+	genre = input("Enter genre: ").strip()
+	if not genre:
+		genre = "Unknown"
+	
+	movies.append({
+		"title": title,
+		"director": director,
+		"year": year,
+		"genre": genre
+	})
+	save_movies()
+	print("Movie added successfully!")
+
+# Delete a movie
+def delete_movie():
+	if not movies:
+		print("No movies to delete.")
+		return
+
+	print("Current movies:")
+	for i, m in enumerate(movies):
+		print(f"{i+1}. {m['title']} ({m['year']})")
+	
+	choice = input("Enter movie title or index to delete: ").strip()
+	if choice.isdigit():
+		index = int(choice) - 1
+		if 0 <= index < len(movies):
+			removed = movies.pop(index)
+			save_movies()
+			print(f"Removed movie: {removed['title']}")
+			return
+		else:
+			print("Invalid index!")
+			return
+	
+	# Delete by title
+	for movie in movies:
+		if movie["title"].lower() == choice.lower():
+			movies.remove(movie)
+			save_movies()
+			print(f"Removed movie: {movie['title']}")
+			return
+	
+	print("Movie not found!")
+
+# Query movies
+def query_movies():
+	if not movies:
+		print("No movies in the collection.")
+		return
+	# Sort by year before displaying
+	sorted_movies = sorted(movies, key=lambda x: x["year"])
+	print(json.dumps(sorted_movies, indent=4, ensure_ascii=False))
+
+# Main loop
+while True:
+	print("\n1 - Add movie, 2 - Delete movie, 3 - View movies, 4 - Exit")
+	choice = input("Enter your choice: ").strip()
+	
+	if choice == "1":
+		add_movie()
+	elif choice == "2":
+		delete_movie()
+	elif choice == "3":
+		query_movies()
+	elif choice == "4":
+		print("Exiting program. Bye!")
+		break
+	else:
+		print("Invalid choice, try again!")
+```
 
 ## Week 3：函数进阶与面向对象
 

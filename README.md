@@ -1,6 +1,6 @@
-# 🐍 Python 10周项目学习计划 ---QiQi 和她爹的Python基地（丰富版）
+# 🐍 Python QiQi 和她爹的Python基地（丰富版）10周
 ![商科学生技能雷达图](Pics/Skills_Radar_Chart.png)
-- [🐍 Python 10周项目学习计划 ---QiQi 和她爹的Python基地（丰富版）](#-python-10周项目学习计划----qiqi-和她爹的python基地丰富版)
+- [🐍 Python QiQi 和她爹的Python基地（丰富版）10周](#-python-qiqi-和她爹的python基地丰富版10周)
 	- [Week 1：Python 基础与环境](#week-1python-基础与环境)
 		- [📑 Day 1：环境搭建 \& IDE](#-day-1环境搭建--ide)
 		- [📑 Day 2：变量与数据类型](#-day-2变量与数据类型)
@@ -12,9 +12,9 @@
 		- [📑 Day 5：循环 for \& while](#-day-5循环-for--while)
 			- [🔧练习:](#练习-3)
 		- [📑 Day 6：综合练习 — 迷你计算器](#-day-6综合练习--迷你计算器)
-			- [🔧🔧🔧综合练习1: Mini Calculator(具体请看Week1子目录下的CalcluaterREADME)](#综合练习1-mini-calculator具体请看week1子目录下的calcluaterreadme)
+			- [🔧🔧综合练习1: Mini Calculator(具体请看Week1子目录下的CalcluaterREADME)](#综合练习1-mini-calculator具体请看week1子目录下的calcluaterreadme)
 		- [📑 Day 7 ：面试模拟  小项目2— 股票最大收益：](#-day-7-面试模拟--小项目2-股票最大收益)
-			- [🔧🔧🔧综合练习2：Best Time to Buy and Sell Stock,(具体请看Week1子目录下的Stock)](#综合练习2best-time-to-buy-and-sell-stock具体请看week1子目录下的stock)
+			- [🔧🔧综合练习2：Best Time to Buy and Sell Stock,(具体请看Week1子目录下的Stock)](#综合练习2best-time-to-buy-and-sell-stock具体请看week1子目录下的stock)
 	- [Week 2：数据结构与文件操作](#week-2数据结构与文件操作)
 		- [数据结构学习内容：](#数据结构学习内容)
 		- [📑 Day 8：list（列表）基础](#-day-8list列表基础)
@@ -31,9 +31,9 @@
 			- [🔧练习：演示浅拷贝和深拷贝的不同。](#练习演示浅拷贝和深拷贝的不同)
 		- [📑 Day 14：文件操作与异常处理](#-day-14文件操作与异常处理)
 			- [🔧练习：读取 txt 文件并捕获异常。](#练习读取-txt-文件并捕获异常)
-			- [🔧🔧🔧综合练习1:  Library Management System with JSON Persistence：](#综合练习1--library-management-system-with-json-persistence)
-			- [🔧🔧🔧综合练习2:（面试模拟）Stock Data Analysis:CSV Reader with Statistics and Volatility：](#综合练习2面试模拟stock-data-analysiscsv-reader-with-statistics-and-volatility)
-			- [🔧🔧🔧综合练习 3: Advanced Movie Collection Manager with JSON Persistence](#综合练习-3-advanced-movie-collection-manager-with-json-persistence)
+			- [🔧🔧综合练习1:  Library Management System with JSON Persistence：](#综合练习1--library-management-system-with-json-persistence)
+			- [🔧🔧综合练习2:（面试模拟）Stock Data Analysis:CSV Reader with Statistics and Volatility：](#综合练习2面试模拟stock-data-analysiscsv-reader-with-statistics-and-volatility)
+			- [🔧🔧综合练习3: Advanced Movie Collection Manager with JSON Persistence](#综合练习3-advanced-movie-collection-manager-with-json-persistence)
 				- [Title and Director cannot be empty](#title-and-director-cannot-be-empty)
 				- [Release Year must be a number between 1888 and the current year](#release-year-must-be-a-number-between-1888-and-the-current-year)
 				- [Prevent duplicate titles (case-insensitive)](#prevent-duplicate-titles-case-insensitive)
@@ -176,7 +176,7 @@ print(f"The sum of numbers from 1 to 100 is: {total}")
 	•	结合 if-else、输入输出、函数。
 	•	实现加、减、乘、除、开方、幂运算。
 	•	进阶： 加入异常处理：不能除以 0。
-#### 🔧🔧🔧综合练习1: Mini Calculator(具体请看Week1子目录下的CalcluaterREADME)
+#### 🔧🔧综合练习1: Mini Calculator(具体请看Week1子目录下的CalcluaterREADME)
 迷你计算器：加减乘除、平方、开方、百分比。
 Comprehensive Exercise — Mini Calculator
 	•	Combine if-else, input/output, and functions(注意这里有函数的表述).
@@ -235,7 +235,7 @@ while True:
 	•	训练点：
 	•	遍历数组。
 	•	变量存储最小买入价、最大利润。
-#### 🔧🔧🔧综合练习2：Best Time to Buy and Sell Stock,(具体请看Week1子目录下的Stock)
+#### 🔧🔧综合练习2：Best Time to Buy and Sell Stock,(具体请看Week1子目录下的Stock)
 	•	You are given a list of stock prices where prices[i] is the price of a given stock on day i...prices = [7,1,5,3,6,4]
 	•	You want to maximize your profit by choosing one day to buy and one later day to sell.
 	•	Write a function that returns the maximum profit you can achieve. If no profit is possible, return 0.
@@ -497,7 +497,7 @@ finally: # 无论是否出错,finally里的代码都会执行
     print("Execution finished.")
 ```
 
-#### 🔧🔧🔧综合练习1:  Library Management System with JSON Persistence：
+#### 🔧🔧综合练习1:  Library Management System with JSON Persistence：
 建立一个图书管理系统：能添加/删除/查询，并保存到 JSON 文件。
 功能点：
 	1.	添加书籍（书名、作者、年份）。
@@ -569,7 +569,7 @@ while True:
 注意: 运行此程序的时候,会提示你添加docstring,要分清注释(#)和文档字符串(docstring)之间的区别:
 docstring是同时给人和机器看的,可通过help()或.__doc__获取;# 只是给人看的.
 
-#### 🔧🔧🔧综合练习2:（面试模拟）Stock Data Analysis:CSV Reader with Statistics and Volatility：
+#### 🔧🔧综合练习2:（面试模拟）Stock Data Analysis:CSV Reader with Statistics and Volatility：
 build a small program that reads historical stock data from a CSV file and computer basic statistics
 读取股票历史数据 CSV，输出：
 	•	最高/最低价
@@ -602,7 +602,7 @@ volatility = df['Close'].std() / avg_close
 print(f"波动率: {volatility:.2%}")
 ```
 ⸻
-#### 🔧🔧🔧综合练习 3: Advanced Movie Collection Manager with JSON Persistence
+#### 🔧🔧综合练习3: Advanced Movie Collection Manager with JSON Persistence
 Objective:
 Build a movie collection management system that allows users to add, delete, view, and search movies, with data stored persistently in a JSON file. The system should include input validation and prevent duplicate entries.
 Functional Requirements:

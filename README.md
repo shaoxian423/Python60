@@ -1,4 +1,4 @@
-# 🐍 Python QiQi 和她爹的Python基地（丰富版）10周
+# 🐍 QiQi 和她爹的Python基地（丰富版）10周
 ![商科学生技能雷达图](Pics/Skills_Radar_Chart.png)
 - [🐍 Python QiQi 和她爹的Python基地（丰富版）10周](#-python-qiqi-和她爹的python基地丰富版10周)
 	- [Week 1：Python 基础与环境](#week-1python-基础与环境)
@@ -624,11 +624,11 @@ Allow filtering by title, director, or year
 Data persistence
 All movie data must be saved in a JSON file
 On program start, load existing data so the collection persists between sessions
-Extra Challenge (Optional)
+##### Extra Challenge (Optional)
 Improve user experience with pretty-printing
 Allow partial search (e.g., searching for "Star" finds "Star Wars")
 Prevent invalid input for all fields
-Starter Hints
+##### Starter Hints
 Use the json module to read/write JSON files
 Use os.path.exists() to check if the JSON file exists
 Validate user input before saving

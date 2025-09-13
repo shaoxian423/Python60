@@ -1,0 +1,8 @@
+Name,Category,Balance
+Cash,Asset,5000
+Accounts Receivable,Asset,3000
+Inventory,Asset,2000
+Accounts Payable,Liability,2500
+Revenue,Revenue,10000
+Cost of Goods Sold,Expense,4000
+Operating Expense,Expense,1500

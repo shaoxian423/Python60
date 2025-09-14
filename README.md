@@ -666,10 +666,11 @@ def validate_year(year_str): # 这里的函数就加了参数(argu,year_str),表
 
 # Check for duplicate title
 def is_duplicate(title):
+	# 遍历每本电影，如果发现有同名（忽略大小写）的，就立刻说“重复了”（True）；遍历完都没找到，就说“不重复”（False）
 	for movie in movies:
 		if movie["title"].lower() == title.lower():
 			return True
-	return False
+	return False()
 
 # Add a movie
 def add_movie():

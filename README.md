@@ -655,19 +655,20 @@ def save_movies():
 # Validate year
 def validate_year(year_str): # 这里的函数就加了参数(argu,year_str),表明要调用(callable)它的时候需要提供输入值,它是函数的行参,validate_year("2020"),这个时候2020会传递给year_str,函数内部就可以直接使用year_str了,这时2020是实参.
 	current_year = datetime.now().year # 获取当前年份的数值
-	if not year_str.isdigit():# 检查它是否全部由数字组成
+	if not year_str.isdigit():# 检查它是否全部由数字组成,注意这句if not，它在python就是：如果失败 / 不存在 / 无效的意思
 		return False, "Year must be a number!"# 
 	year = int(year_str)
-	if year < 1888 or year > current_year:  # First movie: 1888,等价于if 1888<= year <= current_year
+	if year < 1888 or year > current_year:  # First movie: 1888,等价于if 1888<= year <= current_year，但如果写：如果在范围内，就需要加上else：
 		return False, f"Year must be between 1888 and {current_year}!"
-	return True, year # 注意,这个函数里有三条return!!! 第一站是数字合法,第二种是数字范围,第三种是正确.
+	return True, year # 注意,这个函数里有三条return!!! 第一种是数字合法,第二种是数字范围,第三种是正确.
 
 # Check for duplicate title
-def is_duplicate(title):
+def is_duplicate(title):# 这就是为真的假设工具函数，如果它重复，就返回真
 	for movie in movies:
 		if movie["title"].lower() == title.lower():
 			return True
 	return False
+
 
 # Add a movie
 def add_movie():

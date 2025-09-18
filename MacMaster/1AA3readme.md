@@ -89,7 +89,7 @@ st.header("1️⃣ 数据导入")
 upload_option = st.radio("选择数据导入方式:", ["上传 Excel/CSV", "模拟 API 数据"])
 
 if upload_option == "上传 Excel/CSV":
-    uploaded_file = st.file_uploader("选择 Excel/CSV 文件", type=["xlsx","csv"])
+    uploaded_file = st.file_uploader("选择 Excel/CSV 文件", type=["xlsx", "csv"])
     if uploaded_file:
         try:
             if uploaded_file.name.endswith('.csv'):
@@ -103,9 +103,9 @@ if upload_option == "上传 Excel/CSV":
 else:
     st.info("模拟 API 导入数据")
     df = pd.DataFrame({
-        "Name": ["Cash","Accounts Receivable","Inventory","Accounts Payable","Revenue","Cost of Goods Sold","Operating Expense"],
-        "Category": ["Asset","Asset","Asset","Liability","Revenue","Expense","Expense"],
-        "Balance": [5000,3000,2000,2500,10000,4000,1500]
+        "Name": ["Cash", "Accounts Receivable", "Inventory", "Accounts Payable", "Revenue", "Cost of Goods Sold", "Operating Expense"],
+        "Category": ["Asset", "Asset", "Asset", "Liability", "Revenue", "Expense", "Expense"],
+        "Balance": [5000, 3000, 2000, 2500, 10000, 4000, 1500]
     })
     st.dataframe(df)
 
@@ -117,18 +117,18 @@ st.header("2️⃣ 数据清洗与验证")
 if 'df' in locals():
     st.subheader("数据摘要")
     st.write(df.describe(include='all'))
-    
+
     # 缺失值检查
     missing_values = df.isnull().sum()
     st.write("缺失值检查:")
-    st.dataframe(missing_values[missing_values>0])
-    
+    st.dataframe(missing_values[missing_values > 0])
+
     # 重复值检查
     duplicates = df.duplicated().sum()
     st.write(f"重复条目数量: {duplicates}")
-    
+
     # 异常值检测（简单: 负数余额警告）
-    negative_values = df[df['Balance']<0]
+    negative_values = df[df['Balance'] < 0]
     st.write("异常值检测（负数余额）:")
     st.dataframe(negative_values)
 
@@ -138,14 +138,15 @@ if 'df' in locals():
 st.header("3️⃣ 财务指标计算")
 
 if 'df' in locals():
-    assets = df[df['Category'].str.lower()=='asset']['Balance'].sum()
-    liabilities = df[df['Category'].str.lower()=='liability']['Balance'].sum()
-    revenue = df[df['Category'].str.lower()=='revenue']['Balance'].sum()
-    expenses = df[df['Category'].str.lower()=='expense']['Balance'].sum()
+    assets = df[df['Category'].str.lower() == 'asset']['Balance'].sum()
+    liabilities = df[df['Category'].str.lower() ==
+                     'liability']['Balance'].sum()
+    revenue = df[df['Category'].str.lower() == 'revenue']['Balance'].sum()
+    expenses = df[df['Category'].str.lower() == 'expense']['Balance'].sum()
     net_income = revenue - expenses
     equity = assets - liabilities
     debt_to_equity = liabilities / equity if equity != 0 else np.nan
-    profit_margin = net_income / revenue if revenue !=0 else np.nan
+    profit_margin = net_income / revenue if revenue != 0 else np.nan
 
     st.subheader("主要财务指标")
     st.write(f"**总资产 (Assets):** {assets}")
@@ -163,8 +164,8 @@ st.header("4️⃣ 财务报表生成")
 if 'df' in locals():
     # 资产负债表
     st.subheader("资产负债表")
-    assets_df = df[df['Category'].str.lower()=='asset']
-    liabilities_df = df[df['Category'].str.lower()=='liability']
+    assets_df = df[df['Category'].str.lower() == 'asset']
+    liabilities_df = df[df['Category'].str.lower() == 'liability']
     st.write("**资产**")
     st.dataframe(assets_df)
     st.write("**负债**")
@@ -178,15 +179,17 @@ if 'df' in locals():
     # 导出报表
     def to_excel(df_dict):
         output = BytesIO()
-        writer = pd.ExcelWriter(output, engine='openpyxl')
-        for sheet_name, df_sheet in df_dict.items():
-            df_sheet.to_excel(writer, sheet_name=sheet_name, index=False)
-        writer.save()
+    # 使用 with 上下文，自动关闭 writer
+        with pd.ExcelWriter(output, engine='openpyxl') as writer:
+            for sheet_name, df_sheet in df_dict.items():
+                df_sheet.to_excel(writer, sheet_name=sheet_name, index=False)
         processed_data = output.getvalue()
         return processed_data
 
-    excel_data = to_excel({"Balance Sheet": pd.concat([assets_df, liabilities_df]), "Income Statement": pd.DataFrame({"Revenue":[revenue],"Expenses":[expenses],"Net Income":[net_income]})})
-    st.download_button(label="下载 Excel 报表", data=excel_data, file_name="FinAuto_Report.xlsx")
+    excel_data = to_excel({"Balance Sheet": pd.concat([assets_df, liabilities_df]), "Income Statement": pd.DataFrame(
+        {"Revenue": [revenue], "Expenses": [expenses], "Net Income": [net_income]})})
+    st.download_button(label="下载 Excel 报表", data=excel_data,
+                       file_name="FinAuto_Report.xlsx")
 
 # =========================
 # 5. 可视化与分析
@@ -195,8 +198,9 @@ st.header("5️⃣ 财务可视化与分析")
 
 if 'df' in locals():
     st.subheader("柱状图: 资产/负债/收入/费用")
-    categories = ['Asset','Liability','Revenue','Expense']
-    sums = [df[df['Category'].str.lower()==cat.lower()]['Balance'].sum() for cat in categories]
+    categories = ['Asset', 'Liability', 'Revenue', 'Expense']
+    sums = [df[df['Category'].str.lower() == cat.lower()]['Balance'].sum()
+            for cat in categories]
     fig, ax = plt.subplots()
     sns.barplot(x=categories, y=sums, palette="Set2", ax=ax)
     ax.set_ylabel("金额")
@@ -204,9 +208,10 @@ if 'df' in locals():
 
     st.subheader("KPI 仪表盘 (Plotly)")
     kpi_df = pd.DataFrame({
-        "KPI": ["Assets","Liabilities","Equity","Net Income","Profit Margin"],
+        "KPI": ["Assets", "Liabilities", "Equity", "Net Income", "Profit Margin"],
         "Value": [assets, liabilities, equity, net_income, profit_margin]
     })
     fig2 = px.bar(kpi_df, x="KPI", y="Value", color="KPI", text="Value")
     st.plotly_chart(fig2)
+
 ```

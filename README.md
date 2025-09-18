@@ -1,6 +1,6 @@
 # 🐍 QiQi 和她爹的Python基地（丰富版）10周
 ![商科学生技能雷达图](Pics/Skills_Radar_Chart.png)
-- [🐍 Python QiQi 和她爹的Python基地（丰富版）10周](#-python-qiqi-和她爹的python基地丰富版10周)
+- [🐍 QiQi 和她爹的Python基地（丰富版）10周](#-qiqi-和她爹的python基地丰富版10周)
 	- [Week 1：Python 基础与环境](#week-1python-基础与环境)
 		- [📑 Day 1：环境搭建 \& IDE](#-day-1环境搭建--ide)
 		- [📑 Day 2：变量与数据类型](#-day-2变量与数据类型)
@@ -40,6 +40,8 @@
 				- [Genre is optional; default to "Unknown" if left blank](#genre-is-optional-default-to-unknown-if-left-blank)
 				- [Users can delete by title (case-insensitive) or index number in the list](#users-can-delete-by-title-case-insensitive-or-index-number-in-the-list)
 				- [Sort movies by Release Year](#sort-movies-by-release-year)
+				- [Extra Challenge (Optional)](#extra-challenge-optional)
+				- [Starter Hints](#starter-hints)
 	- [Week 3：函数进阶与面向对象](#week-3函数进阶与面向对象)
 		- [📑 Day 15: 函数基础](#-day-15-函数基础)
 		- [📑 Day 16: 函数进阶与作用域](#-day-16-函数进阶与作用域)
@@ -642,15 +644,15 @@ FILE_NAME = "movies.json"
 
 # Load existing movie data or create empty list
 if os.path.exists(FILE_NAME):
-	with open(FILE_NAME, "r") as f:
-		movies = json.load(f)
+	with open(FILE_NAME, "r") as f: # 以只读模式打开指定文件，并把文件对象命名为 f，在代码块结束时会自动关闭文件。
+		movies = json.load(f) # 从文件 f 里读取 JSON 格式的数据，把它转换成 Python 的对象（比如列表或字典），并赋值给变量 movies。
 else:
 	movies = []
 
 # Save movies to JSON
 def save_movies():
-	with open(FILE_NAME, "w") as f:
-		json.dump(movies, f, indent=4, ensure_ascii=False)
+	with open(FILE_NAME, "w") as f: # 以写入模式打开指定文件，并把文件对象命名为 f，在代码块结束时会自动关闭文件。
+		json.dump(movies, f, indent=4, ensure_ascii=False) # 把 movies 这个 Python 数据（列表/字典）转成 JSON 格式，并写进文件 f 里，还排版好缩进，保证能显示中文而不是乱码。
 
 # Validate year
 def validate_year(year_str): # 这里的函数就加了参数(argu,year_str),表明要调用(callable)它的时候需要提供输入值,它是函数的行参,validate_year("2020"),这个时候2020会传递给year_str,函数内部就可以直接使用year_str了,这时2020是实参.
@@ -663,11 +665,11 @@ def validate_year(year_str): # 这里的函数就加了参数(argu,year_str),表
 	return True, year # 注意,这个函数里有三条return!!! 第一种是数字合法,第二种是数字范围,第三种是正确.
 
 # Check for duplicate title
-def is_duplicate(title):# 这就是为真的假设工具函数，如果它重复，就返回真
+def is_duplicate(title):
 	for movie in movies:
 		if movie["title"].lower() == title.lower():
 			return True
-	return False
+	return False()
 
 
 # Add a movie

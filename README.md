@@ -665,11 +665,11 @@ def validate_year(year_str): # 这里的函数就加了参数(argu,year_str),表
 	return True, year # 注意,这个函数里有三条return!!! 第一种是数字合法,第二种是数字范围,第三种是正确.
 
 # Check for duplicate title
-def is_duplicate(title):
+def is_duplicate(title): #
 	for movie in movies:
 		if movie["title"].lower() == title.lower():
 			return True
-	return False()
+	return False
 
 
 # Add a movie
@@ -778,44 +778,132 @@ while True:
 	•	定义函数
 	•	返回值:
 	•	函数参数类型:位置参数,关键字参数,默认参数,可变阐述 *args/**kwargs
+#### 🔧练习：定义函数示例
+```python
+
+def greet(name):
+    return f"Hello, {name}!"
+
+if __name__ == "__main__":
+    print(greet("Shaoxian"))
+
+```
+
 ### 📑 Day 16: 函数进阶与作用域
 	•	局部变量 VS 全局变量
 	•	global 与 nonlocal
 	•	匿名函数: lambda
 	•	高阶函数: map(),filter(),reduce(),sorted(),zip()
+#### 🔧练习：局部变量、全局变量示例
+```python
+count = 0  # 全局变量
+
+def increment():
+    global count
+    count += 1
+    return count
+
+if __name__ == "__main__":
+    print(increment())
+```
 ### 📑 Day 17: 模块与包
 	•	模块导入: import module/from module import func
 	•	常用标准库: math,random,datetime,os,sys
 	•	自定义模块: 创建.py文件并导入
+#### 🔧练习:模块导入与自定义模块示例
+```python
+import math
+
+def circle_area(r):
+    return math.pi * r ** 2
+
+if __name__ == "__main__":
+    print(circle_area(5))
+```
 ### 📑 Day 18: 文件操作
 	•	打开文件: open(‘file.txt’,mode)
 	•	文件模式: r,w,a,rb,wb
 	•	读取方法: read(),deadline(),readlines()
 	•	写入方法: write(),writelines()
 	•	使用 with 自动关闭文件: 
+#### 🔧练习:文件读写示例
+```python
+with open("movies.txt", "w") as f:
+    f.write("Inception, Nolan, 2010\n")
+
+with open("movies.txt", "r") as f:
+    print(f.read())
+```
 ### 📑 Day 19: 异常处理
 	•	try...except...finally
 	•	捕获特定异常
 	•	自定义异常
+#### 🔧练习:try/except示例
+```python
+try:
+    x = int(input("Enter a number: "))
+    y = int(input("Enter another number: "))
+    print(x / y)
+except ZeroDivisionError:
+    print("Cannot divide by zero!")
+except ValueError:
+    print("Invalid input!")
+```
 ### 📑 Day 20: OOP 基础
 	•	类和对象:class className:
 	•	属性与方法
 	•	构造方法: __init__
 	•	实例化对象
+#### 🔧练习:类和对象示例
+```python
+class Movie:
+    def __init__(self, title, author, year):
+        self.title = title
+        self.author = author
+        self.year = year
+
+if __name__ == "__main__":
+    m = Movie("Inception", "Nolan", 2010)
+    print(m.title, m.year)
+```
 ### 📑 Day 21: OOP 进阶
 	•	继承与多态
 	•	方法重写
 	•	super()
 	•	类属性与实例属性
-📝 小项目1（综合练习）：
-银行账户管理系统（支持开户、存款、取款、利息计算）。
+#### 🔧练习:继承、多态示例
+```python
 
-📝 小项目2（面试模拟）：
-设计一个 股票投资组合类：
+class Book:
+    def __init__(self, title):
+        self.title = title
+    def info(self):
+        print("Book title:", self.title)
+
+class EBook(Book):
+    def __init__(self, title, size):
+        super().__init__(title)
+        self.size = size
+    def info(self):
+        print("EBook title:", self.title, "Size:", self.size)
+
+if __name__ == "__main__":
+    ebook = EBook("Python 101", 5)
+    ebook.info()
+```
+#### 🔧🔧综合练习1:📝 项目1（综合练习）：
+银行账户管理系统（支持开户、存款、取款、利息计算）。
+```python
+
+```
+#### 🔧🔧综合练习2:📝 项目2（面试模拟）：
+股票投资组合类（添加/删除股票、计算总市值/收益率、支持多种货币）。设计一个 股票投资组合类：
 	•	添加/删除股票
 	•	计算总市值、收益率
 	•	支持多种货币（汇率转换）
+```python
 
+```
 ⸻
 
 Week 4：模块、库与工具

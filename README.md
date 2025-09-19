@@ -1023,14 +1023,15 @@ except ValueError:
 	•	构造方法: __init__：用来在对象创建时初始化属性。self 代表当前对象实例。
 ```python
 class Movie:
-	def __init__(self, title, director, year):
+	def __init__(self, title, director, year): # 在 Python 中，self 不是关键字，但是在定义类的方法时，它是一个 约定俗成的名字，必须作为实例方法的第一个参数。
+		"""这个类的初始化方法种，它有四个个形参，但self是它本身而已self 是 类实例自身的引用，真正有用的是下面三个形参"""
 		self.title = title        # 实例属性
 		self.director = director
 		self.year = year
 ```
 •   创建对象
 ```python
-m = Movie("Inception", "Nolan", 2010)
+m = Movie("Inception", "Nolan", 2010) #这里是创建对象和真正的初始化
 print(m.title)       # Inception
 print(m.director)    # Nolan
 print(m.year)        # 2010
@@ -1052,14 +1053,39 @@ print(m.info())   # Inception (2010), directed by Nolan
 #### 🔧练习:类和对象示例
 ```python
 class Movie:
-    def __init__(self, title, author, year):
+    def __init__(self, title, director, year, genre="Unknown"):
         self.title = title
-        self.author = author
+        self.director = director
         self.year = year
+        self.genre = genre
+        self.rating = None  # 初始化评分为空
 
+    def info(self):
+        """返回电影的完整信息"""
+        return f"{self.title} ({self.year}), directed by {self.director}, Genre: {self.genre}, Rating: {self.rating or 'N/A'}"
+
+    def set_rating(self, rating):
+        """给电影评分"""
+        if 0 <= rating <= 10:
+            self.rating = rating
+        else:
+            print("Rating must be between 0 and 10")
+
+# 模拟电影收藏
 if __name__ == "__main__":
-    m = Movie("Inception", "Nolan", 2010)
-    print(m.title, m.year)
+    # 创建多个电影对象
+    m1 = Movie("Inception", "Nolan", 2010, "Sci-Fi")
+    m2 = Movie("The Matrix", "Wachowski", 1999, "Action")
+    m3 = Movie("Interstellar", "Nolan", 2014, "Sci-Fi")
+
+    # 设置评分
+    m1.set_rating(9)
+    m2.set_rating(8.5)
+
+    # 打印电影信息
+    for movie in [m1, m2, m3]:
+        print(movie.info())
+
 ```
 ### 📑 Day 21。1: OOP 进阶
 	•	继承与多态：Inheritance and Polymorphism

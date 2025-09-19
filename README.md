@@ -1028,14 +1028,14 @@ class Movie:
 		self.director = director
 		self.year = year
 ```
-	•   创建对象
+•   创建对象
 ```python
 m = Movie("Inception", "Nolan", 2010)
 print(m.title)       # Inception
 print(m.director)    # Nolan
 print(m.year)        # 2010
 ```
-	•	实例化对象: 类里面定义的函数，必须带上 self。
+•	实例化对象: 类里面定义的函数，必须带上 self。
 ```python
 class Movie:
 	def __init__(self, title, director, year):

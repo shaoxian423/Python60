@@ -856,75 +856,75 @@ print(checkout(apple=3, banana=2, milk=5))
 	•	global 与 nonlocal：如果想在函数内部修改全局变量，需要用 global 关键字。
 
 ```python
-		count = 0  # 全局变量
+count = 0  # 全局变量
 
-		def increment():
-			global count
-			count += 1
-			return count
+def increment():
+	global count
+	count += 1
+	return count
 
-		print(increment())  # 1
-		print(increment())  # 2
+print(increment())  # 1
+print(increment())  # 2
 
 ```
 nonlocal：如果函数内部嵌套了一个函数，nonlocal 可以让内层函数修改外层函数的局部变量。
 ```python
-		def outer():
-		x = 10
-		def inner():
-			nonlocal x
-			x += 5
-			return x
-		return inner()
+def outer():
+x = 10
+def inner():
+	nonlocal x
+	x += 5
+	return x
+return inner()
 
-		print(outer())  # 15
+print(outer())  # 15
 
 ```
 •	匿名函数: lambda:  用于定义 简短的匿名函数，常和高阶函数配合使用。
 		语法：lambda 参数: 表达式
 ```python
-		square = lambda x: x * x
-		print(square(5))  # 25
+square = lambda x: x * x
+print(square(5))  # 25
 ```
 📌 与普通函数对比：
 ```python
-		def square_func(x):
-    	return x * x
+def square_func(x):
+return x * x
 ```
 •	高阶函数: map(),filter(),reduce(),sorted(),zip()
 map():对序列中的每个元素应用一个函数，返回迭代器。
 ```python
-		nums = [1, 2, 3, 4]
-		squares = list(map(lambda x: x**2, nums))
-		print(squares)  # [1, 4, 9, 16]
+nums = [1, 2, 3, 4]
+squares = list(map(lambda x: x**2, nums))
+print(squares)  # [1, 4, 9, 16]
 ```
 filter():过滤序列，返回符合条件的元素。
 ```python
-		nums = [1, 2, 3, 4, 5, 6]
-		evens = list(filter(lambda x: x % 2 == 0, nums))
-		print(evens)  # [2, 4, 6]
+nums = [1, 2, 3, 4, 5, 6]
+evens = list(filter(lambda x: x % 2 == 0, nums))
+print(evens)  # [2, 4, 6]
 ```
 reduce():累积运算，需要从 functools 导入。
 ```python
-		from functools import reduce
-		nums = [1, 2, 3, 4]
-		product = reduce(lambda x, y: x * y, nums)
-		print(product)  # 24
+from functools import reduce
+nums = [1, 2, 3, 4]
+product = reduce(lambda x, y: x * y, nums)
+print(product)  # 24
 ```
 
 sorted():支持自定义排序规则。
 ```python
-		words = ["banana", "apple", "pear", "watermelon"]
-		sorted_words = sorted(words, key=lambda w: len(w))
-		print(sorted_words)  # ['pear', 'apple', 'banana', 'watermelon']
+words = ["banana", "apple", "pear", "watermelon"]
+sorted_words = sorted(words, key=lambda w: len(w))
+print(sorted_words)  # ['pear', 'apple', 'banana', 'watermelon']
 ```
 
 zip():把多个可迭代对象打包成元组。
 ```python
-		names = ["Alice", "Bob", "Cathy"]
-		scores = [85, 90, 95]
-		zipped = list(zip(names, scores))
-		print(zipped)  # [('Alice', 85), ('Bob', 90), ('Cathy', 95)]
+names = ["Alice", "Bob", "Cathy"]
+scores = [85, 90, 95]
+zipped = list(zip(names, scores))
+print(zipped)  # [('Alice', 85), ('Bob', 90), ('Cathy', 95)]
 ```
 #### 🔧练习：局部变量、全局变量示例
 ```python
@@ -954,29 +954,29 @@ if __name__ == "__main__":
 	•	自定义模块: 创建.py文件并导入
 	    例子：创建文件 mymath.py：
 ```python
-		def add(a, b):
-    	return a + b
+def add(a, b):
+return a + b
 
-		def subtract(a, b):
-	   	return a - b
+def subtract(a, b):
+return a - b
 ```
 导入自定义模块:
 ```python
-		import mymath
+import mymath
 
-		print(mymath.add(3, 5))       # 8
-		print(mymath.subtract(10, 4)) # 6
+print(mymath.add(3, 5))       # 8
+print(mymath.subtract(10, 4)) # 6
 ```
 •	包/package:
 	    包：一个文件夹，里面有多个模块，并包含 __init__.py 文件。用于更大规模的项目组织。
 		结构示例：
 mypackage/
-    		__init__.py
-    		utils.py
-    		calculator.py
+	__init__.py
+	utils.py
+	calculator.py
 使用：
-		from mypackage import utils
-		from mypackage.calculator import add
+	from mypackage import utils
+	from mypackage.calculator import add
 
 #### 🔧练习:模块导入与自定义模块示例
 ```python
@@ -1022,32 +1022,32 @@ except ValueError:
 	•	属性与方法：学会定义 属性 (Attributes) 和 方法 (Methods)
 	•	构造方法: __init__：用来在对象创建时初始化属性。self 代表当前对象实例。
 ```python
-		class Movie:
-    		def __init__(self, title, director, year):
-				self.title = title        # 实例属性
-				self.director = director
-				self.year = year
+class Movie:
+	def __init__(self, title, director, year):
+		self.title = title        # 实例属性
+		self.director = director
+		self.year = year
 ```
 	•   创建对象
 ```python
-			m = Movie("Inception", "Nolan", 2010)
-			print(m.title)       # Inception
-			print(m.director)    # Nolan
-			print(m.year)        # 2010
+m = Movie("Inception", "Nolan", 2010)
+print(m.title)       # Inception
+print(m.director)    # Nolan
+print(m.year)        # 2010
 ```
 	•	实例化对象: 类里面定义的函数，必须带上 self。
 ```python
-			class Movie:
-    			def __init__(self, title, director, year):
-					self.title = title
-					self.director = director
-					self.year = year
-				
-    			def info(self):  # 实例方法
-        			return f"{self.title} ({self.year}), directed by {self.director}"
+class Movie:
+	def __init__(self, title, director, year):
+		self.title = title
+		self.director = director
+		self.year = year
+	
+	def info(self):  # 实例方法
+		return f"{self.title} ({self.year}), directed by {self.director}"
 
-			m = Movie("Inception", "Nolan", 2010)
-			print(m.info())   # Inception (2010), directed by Nolan
+m = Movie("Inception", "Nolan", 2010)
+print(m.info())   # Inception (2010), directed by Nolan
 ```
 #### 🔧练习:类和对象示例
 ```python
@@ -1065,13 +1065,13 @@ if __name__ == "__main__":
 	•	继承与多态：Inheritance and Polymorphism
 	    - 继承：子类继承父类的属性和方法。
 ```python
-		class Animal:
-    		def speak(self):
-        		return "Some sound"
+class Animal:
+	def speak(self):
+		return "Some sound"
 
-		class Dog(Animal):
-			def speak(self):
-				return "Woof!"  # 方法重写
+class Dog(Animal):
+	def speak(self):
+		return "Woof!"  # 方法重写
 
 ```
         - 多态：不同对象调用相同方法，表现不同结果。
@@ -1084,28 +1084,27 @@ if __name__ == "__main__":
 	•	方法重写：Override
 	•	super():学会使用super（）调用父类方法
 ```python
-	class Person:
-    	def __init__(self, name):
-        	self.name = name
+class Person:
+	def __init__(self, name):
+		self.name = name
 
-	class Student(Person):
-		def __init__(self, name, student_id):
-			super().__init__(name)   # 调用父类构造方法
-			self.student_id = student_id
+class Student(Person):
+	def __init__(self, name, student_id):
+		super().__init__(name)   # 调用父类构造方法
+		self.student_id = student_id
 ```
 	•	类属性与实例属性的区分
 	类属性：所有对象共享的。实例属性：每个对象单独的。
 ```python
-	class Circle:
+class Circle:
     pi = 3.14159   # 类属性
     
-    def __init__(self, r):
-        self.r = r   # 实例属性
-
+def __init__(self, r):
+    self.r = r   # 实例属性
 	c1 = Circle(5)
 	c2 = Circle(10)
-	print(c1.pi, c2.pi)   # 3.14159 3.14159
-	print(c1.r, c2.r)     # 5 10
+print(c1.pi, c2.pi)   # 3.14159 3.14159
+print(c1.r, c2.r)     # 5 10
 ```
 #### 🔧练习:继承、多态示例
 ```python

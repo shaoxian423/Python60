@@ -781,15 +781,75 @@ while True:
 
 ### 📑 Day 15: 函数基础
 	•	定义函数
+	    为什么需要函数？函数是 把代码组织成可重用模块 的方式。避免重复代码，提高可读性和可维护性。
+		可以像“黑箱”一样调用函数，而不用关心内部实现。
 	•	返回值:
 	•	函数参数类型:位置参数,关键字参数,默认参数,可变阐述 *args/**kwargs
-#### 🔧练习：定义函数示例
+		1 位置参数（positional arguments）按照顺序传入
 ```python
-def greet(name):
-    return f"Hello, {name}!"
+	def add(a, b):
+		return a + b
+
+	print(add(3, 5))  # 8
+```
+		2 关键字参数（keyword arguments）通过“参数名=值”方式传入，不依赖顺序。
+```python
+	def student_info(name, age):
+		return f"{name} is {age} years old."
+
+	print(student_info(age=20, name="QiQi"))
+
+```
+		3 默认参数（default arguments）参数有默认值，不传参时使用默认值。
+```python
+	def greet(name, msg="Hello"):
+		return f"{msg}, {name}!"
+
+	print(greet("Shaoxian"))        # Hello, Shaoxian!
+	print(greet("Shaoxian", "Hi"))  # Hi, Shaoxian!
+
+```	
+	⚠️ 注意：默认参数 必须放在非默认参数之后，否则报错
+		4 可变参数
+*args：接收任意数量的 位置参数，打包成元组。
+**kwargs：接收任意数量的 关键字参数，打包成字典。
+```python
+	def show_args(*args, **kwargs):
+		print("args:", args)
+		print("kwargs:", kwargs)
+
+	show_args(1, 2, 3, name="QiQi", age=5)
+	# args: (1, 2, 3)
+	# kwargs: {'name': 'QiQi', 'age': 5}
+
+```
+	返回值：return 可以返回 单个值，也可以返回 多个值（实际上是元组），如果没有写 return，函数默认返回 None
+
+#### 🔧练习1：定义函数示例
+```python
+def greet(name):# name是参数，形参（placeholder）调用函数时传入的 "Shaoxian" 是 实参。
+	return f"Hello, {name}!" 。# return 表达式会把结果返回给调用者
 
 if __name__ == "__main__":
     print(greet("Shaoxian"))
+```
+#### 🔧练习2：返回统计信息
+输入一组分数，返回最高分、最低分、平均分。
+```python
+def stats(scores):
+    return max(scores), min(scores), sum(scores) / len(scores)
+
+print(stats([89, 95, 72, 100, 85]))
+```
+#### 🔧练习3：购物小票
+写一个函数，接收商品和价格（关键字参数形式），计算总价。
+```python
+def checkout(**items):
+    total = sum(items.values())
+    return f"Items: {list(items.keys())}, Total: {total}"
+
+print(checkout(apple=3, banana=2, milk=5))
+
 ```
 ### 📑 Day 16: 函数进阶与作用域
 	•	局部变量 VS 全局变量

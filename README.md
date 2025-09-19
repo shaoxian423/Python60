@@ -1054,11 +1054,12 @@ print(m.info())   # Inception (2010), directed by Nolan
 ```python
 class Movie:
     def __init__(self, title, director, year, genre="Unknown"):
+		"""=unknown是展示如何给属性设置默认值"""
         self.title = title
         self.director = director
         self.year = year
         self.genre = genre
-        self.rating = None  # 初始化评分为空
+        self.rating = None  # rating 不是构造函数的参数，而是直接在对象里创建一个属性，无论调用时是否传参，rating 都会被创建，只是初始值为空
 
     def info(self):
         """返回电影的完整信息"""
@@ -1087,7 +1088,7 @@ if __name__ == "__main__":
         print(movie.info())
 
 ```
-### 📑 Day 21。1: OOP 进阶
+### 📑 Day 21.1: OOP 进阶
 	•	继承与多态：Inheritance and Polymorphism
 	    - 继承：子类继承父类的属性和方法。
 ```python
@@ -1100,15 +1101,14 @@ class Dog(Animal):
 		return "Woof!"  # 方法重写
 
 ```
-        - 多态：不同对象调用相同方法，表现不同结果。
+• 多态：不同对象调用相同方法，表现不同结果。
 ```python
 		animals = [Dog(), Animal()]
 		for a in animals:
     		print(a.speak())  # Woof! / Some sound
 ```
-
-	•	方法重写：Override
-	•	super():学会使用super（）调用父类方法
+• 方法重写：Override
+• super():学会使用super（）调用父类方法
 ```python
 class Person:
 	def __init__(self, name):
@@ -1119,8 +1119,8 @@ class Student(Person):
 		super().__init__(name)   # 调用父类构造方法
 		self.student_id = student_id
 ```
-	•	类属性与实例属性的区分
-	类属性：所有对象共享的。实例属性：每个对象单独的。
+• 类属性与实例属性的区分
+  类属性：所有对象共享的。实例属性：每个对象单独的。
 ```python
 class Circle:
     pi = 3.14159   # 类属性

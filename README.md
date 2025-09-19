@@ -844,7 +844,7 @@ print(stats([89, 95, 72, 100, 85]))
 #### 🔧练习3：购物小票
 写一个函数，接收商品和价格（关键字参数形式），计算总价。
 ```python
-def checkout(**items):
+def checkout(**items): ## **是解包， .values()和.keys()是两个方法
     total = sum(items.values())
     return f"Items: {list(items.keys())}, Total: {total}"
 

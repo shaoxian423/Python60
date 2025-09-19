@@ -36,7 +36,7 @@
 			- [🔧🔧综合练习3: 增强电影管理](#综合练习3-advanced-movie-collection-manager-with-json-persistence)
 	- [Week 3：函数进阶与面向对象](#week-3函数进阶与面向对象)
     	- [📑 Day 15: 函数基础](#-day-15-函数基础)
-        	- [🔧练习 定义函数](#练习定义函数示例)
+        	- [🔧练习 定义函数](#练习1定义函数示例)
     	- [📑 Day 16: 函数进阶与作用域](#-day-16-函数进阶与作用域)
         	- [🔧练习 全局和局部变量](#练习局部变量全局变量示例)
     	- [📑 Day 17: 模块与包](#-day-17-模块与包)
@@ -49,7 +49,7 @@
         	- [🔧练习 OOP](#练习类和对象示例)
     	- [📑 Day 21: OOP 进阶](#-day-21-oop-进阶)
         	- [🔧练习 继承多态](#练习继承多态示例)
-        	- [🔧🔧综合练习1：银行账户管理](#综合练习1-银行账户管理)
+        	- [🔧🔧综合练习1： 银行账户管理](#综合练习1-银行账户管理)
         	- [🔧🔧综合练习2： 股票投资组合](#综合练习2-股票投资组合类面试模拟)
     - [week 4: 模块、库与工具](#week-4模块库与工具)
 	- [week 5: 数学分析基础  ](#week-5pandas-数据分析基础)
@@ -852,10 +852,79 @@ print(checkout(apple=3, banana=2, milk=5))
 
 ```
 ### 📑 Day 16: 函数进阶与作用域
-	•	局部变量 VS 全局变量
-	•	global 与 nonlocal
-	•	匿名函数: lambda
+	•	局部变量 VS 全局变量: 局部：在函数内部定义，只能在函数内部使用； 全局：在函数外部定义，整个文件都可以访问。
+	•	global 与 nonlocal：如果想在函数内部修改全局变量，需要用 global 关键字。
+	```python
+		count = 0  # 全局变量
+
+		def increment():
+			global count
+			count += 1
+			return count
+
+		print(increment())  # 1
+		print(increment())  # 2
+
+	```
+	nonlocal：如果函数内部嵌套了一个函数，nonlocal 可以让内层函数修改外层函数的局部变量。
+	```python
+		def outer():
+		x = 10
+		def inner():
+			nonlocal x
+			x += 5
+			return x
+		return inner()
+
+		print(outer())  # 15
+
+	```
+	•	匿名函数: lambda:  用于定义 简短的匿名函数，常和高阶函数配合使用。
+		语法：lambda 参数: 表达式
+		```python
+		square = lambda x: x * x
+		print(square(5))  # 25
+		```
+		📌 与普通函数对比：
+		```python
+		def square_func(x):
+    	return x * x
+		```
 	•	高阶函数: map(),filter(),reduce(),sorted(),zip()
+		map():对序列中的每个元素应用一个函数，返回迭代器。
+		```python
+		nums = [1, 2, 3, 4]
+		squares = list(map(lambda x: x**2, nums))
+		print(squares)  # [1, 4, 9, 16]
+		```
+		filter():过滤序列，返回符合条件的元素。
+		```python
+		nums = [1, 2, 3, 4, 5, 6]
+		evens = list(filter(lambda x: x % 2 == 0, nums))
+		print(evens)  # [2, 4, 6]
+		```
+		reduce():累积运算，需要从 functools 导入。
+		```python
+		from functools import reduce
+		nums = [1, 2, 3, 4]
+		product = reduce(lambda x, y: x * y, nums)
+		print(product)  # 24
+		```
+
+		sorted():支持自定义排序规则。
+		```python
+		words = ["banana", "apple", "pear", "watermelon"]
+		sorted_words = sorted(words, key=lambda w: len(w))
+		print(sorted_words)  # ['pear', 'apple', 'banana', 'watermelon']
+		```
+
+		zip():把多个可迭代对象打包成元组。
+		```python
+		names = ["Alice", "Bob", "Cathy"]
+		scores = [85, 90, 95]
+		zipped = list(zip(names, scores))
+		print(zipped)  # [('Alice', 85), ('Bob', 90), ('Cathy', 95)]
+		```
 #### 🔧练习：局部变量、全局变量示例
 ```python
 count = 0  # 全局变量
@@ -869,8 +938,45 @@ if __name__ == "__main__":
 ```
 ### 📑 Day 17: 模块与包
 	•	模块导入: import module/from module import func
+		**模块**：就是一个 `.py` 文件，里面包含了函数、类、变量等。  
+		好处：  
+  		   代码复用（写一次，多处调用）  
+  		   代码组织更清晰  
+  		   避免文件过大、难以维护
+		**模块导入**
+		普通导入  		 ：import math
+		选择性导入		 ：from math import sqrt, pi
+		导入并起别名	 ：import datetime as dt
+		导入所有（不推荐）：from math import * #⚠️ 缺点：容易和已有变量冲突。
+
 	•	常用标准库: math,random,datetime,os,sys
 	•	自定义模块: 创建.py文件并导入
+	    例子：创建文件 mymath.py：
+		```python
+		def add(a, b):
+    	return a + b
+
+		def subtract(a, b):
+    	return a - b
+		```
+		导入自定义模块:
+		```python
+		import mymath
+
+		print(mymath.add(3, 5))       # 8
+		print(mymath.subtract(10, 4)) # 6
+		```
+	•	包/package:
+	    包：一个文件夹，里面有多个模块，并包含 __init__.py 文件。用于更大规模的项目组织。
+		结构示例：
+		mypackage/
+    		__init__.py
+    		utils.py
+    		calculator.py
+		使用：
+		from mypackage import utils
+		from mypackage.calculator import add
+
 #### 🔧练习:模块导入与自定义模块示例
 ```python
 import math
@@ -911,10 +1017,37 @@ except ValueError:
     print("Invalid input!")
 ```
 ### 📑 Day 20: OOP 基础
-	•	类和对象:class className:
-	•	属性与方法
-	•	构造方法: __init__
-	•	实例化对象
+	•	类和对象:class and object, 类 (Class)：描述一类事物的模板，比如“电影”;对象 (Object)：类的具体实例，比如《指环王》。
+	•	属性与方法：学会定义 属性 (Attributes) 和 方法 (Methods)
+	•	构造方法: __init__：用来在对象创建时初始化属性。self 代表当前对象实例。
+	    ```python
+		class Movie:
+    		def __init__(self, title, director, year):
+				self.title = title        # 实例属性
+				self.director = director
+				self.year = year
+		```
+	•   创建对象
+	    ```python
+			m = Movie("Inception", "Nolan", 2010)
+			print(m.title)       # Inception
+			print(m.director)    # Nolan
+			print(m.year)        # 2010
+		```
+	•	实例化对象: 类里面定义的函数，必须带上 self。
+		```python
+			class Movie:
+    			def __init__(self, title, director, year):
+					self.title = title
+					self.director = director
+					self.year = year
+				
+    			def info(self):  # 实例方法
+        			return f"{self.title} ({self.year}), directed by {self.director}"
+
+			m = Movie("Inception", "Nolan", 2010)
+			print(m.info())   # Inception (2010), directed by Nolan
+		```
 #### 🔧练习:类和对象示例
 ```python
 class Movie:
@@ -927,11 +1060,52 @@ if __name__ == "__main__":
     m = Movie("Inception", "Nolan", 2010)
     print(m.title, m.year)
 ```
-### 📑 Day 21: OOP 进阶
-	•	继承与多态
-	•	方法重写
-	•	super()
-	•	类属性与实例属性
+### 📑 Day 21。1: OOP 进阶
+	•	继承与多态：Inheritance and Polymorphism
+	    - 继承：子类继承父类的属性和方法。
+		```python
+		class Animal:
+    		def speak(self):
+        		return "Some sound"
+
+		class Dog(Animal):
+			def speak(self):
+				return "Woof!"  # 方法重写
+
+		```
+        - 多态：不同对象调用相同方法，表现不同结果。
+		```python
+		animals = [Dog(), Animal()]
+		for a in animals:
+    		print(a.speak())  # Woof! / Some sound
+		```
+
+	•	方法重写：Override
+	•	super():学会使用super（）调用父类方法
+	```python
+	class Person:
+    	def __init__(self, name):
+        	self.name = name
+
+	class Student(Person):
+		def __init__(self, name, student_id):
+			super().__init__(name)   # 调用父类构造方法
+			self.student_id = student_id
+	```
+	•	类属性与实例属性的区分
+	类属性：所有对象共享的。实例属性：每个对象单独的。
+	```python
+	class Circle:
+    pi = 3.14159   # 类属性
+    
+    def __init__(self, r):
+        self.r = r   # 实例属性
+
+	c1 = Circle(5)
+	c2 = Circle(10)
+	print(c1.pi, c2.pi)   # 3.14159 3.14159
+	print(c1.r, c2.r)     # 5 10
+	```
 #### 🔧练习:继承、多态示例
 ```python
 
@@ -952,6 +1126,132 @@ if __name__ == "__main__":
     ebook = EBook("Python 101", 5)
     ebook.info()
 ```
+### 📑 Day 21.2: OOP 高级 
+学习目标
+理解 类方法 (classmethod) 与 静态方法 (staticmethod) 的区别与应用
+学习 封装 (Encapsulation) 与 @property 装饰器
+掌握常见 魔法方法 (dunder methods)
+提升对 OOP 的实用性和 Python 风格的理解
+• 类方法 (@classmethod)
+第一个参数是 cls（类本身），而不是 self（对象实例）。
+常用于定义 工厂方法（创建对象的另一种方式）。
+```python
+class Student:
+    def __init__(self, name, grade):
+        self.name = name
+        self.grade = grade
+    
+    @classmethod
+    def from_string(cls, info_str):
+        name, grade = info_str.split("-")
+        return cls(name, int(grade))
+
+s = Student.from_string("Alice-90")
+print(s.name, s.grade)   # Alice 90
+
+```
+• 静态方法 (@staticmethod)
+不需要 self 或 cls 参数。
+类似于普通函数，只是逻辑上放在类里面。
+```python
+class MathHelper:
+    @staticmethod
+    def add(a, b):
+        return a + b
+
+print(MathHelper.add(3, 5))  # 8
+
+```
+• 封装与属性控制
+Python 没有严格的 private，但约定以下划线 _ 开头表示 受保护属性。
+使用 @property 装饰器来优雅地 控制属性访问。
+```python
+class Account:
+    def __init__(self, balance):
+        self._balance = balance   # 受保护属性
+    
+    @property
+    def balance(self):
+        return self._balance
+    
+    @balance.setter
+    def balance(self, amount):
+        if amount >= 0:
+            self._balance = amount
+        else:
+            raise ValueError("余额不能为负数")
+```
+• 魔法方法 (Dunder Methods)
+Python 内置以 __xxx__ 命名的方法，控制对象行为。
+
+常用的魔法方法：
+__str__: 控制 print(obj) 的显示
+__len__: 定义 len(obj) 行为
+__eq__: 定义 == 行为
+__add__: 定义 + 运算符行为
+```python
+class Vector:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+    
+    def __str__(self):
+        return f"Vector({self.x}, {self.y})"
+    
+    def __add__(self, other):
+        return Vector(self.x + other.x, self.y + other.y)
+
+v1 = Vector(1, 2)
+v2 = Vector(3, 4)
+print(v1)          # Vector(1, 2)
+print(v1 + v2)     # Vector(4, 6)
+```
+#### 🔧 练习：综合 OOP 高级特性
+```python
+class Employee:
+    raise_rate = 1.05  # 类属性
+    
+    def __init__(self, name, salary):
+        self.name = name
+        self._salary = salary
+    
+    @property
+    def salary(self):
+        return self._salary
+    
+    @salary.setter
+    def salary(self, value):
+        if value >= 0:
+            self._salary = value
+        else:
+            raise ValueError("Salary cannot be negative")
+    
+    def apply_raise(self):
+        self._salary *= self.raise_rate
+    
+    @classmethod
+    def set_raise_rate(cls, rate):
+        cls.raise_rate = rate
+    
+    @staticmethod
+    def is_workday(day):
+        return day.weekday() < 5  # 0-4 是工作日
+    
+    def __str__(self):
+        return f"{self.name} earns {self._salary}"
+
+# 使用示例
+import datetime
+e = Employee("Bob", 5000)
+print(e)   # Bob earns 5000
+e.apply_raise()
+print(e)   # Bob earns 5250
+Employee.set_raise_rate(1.1)
+e.apply_raise()
+print(e)   # Bob earns 5775
+print(Employee.is_workday(datetime.date(2025, 9, 19)))  # True / False
+```
+
 #### 🔧🔧综合练习1:📝 银行账户管理：
 银行账户管理系统（支持开户、存款、取款、利息计算）。
 ```python

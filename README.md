@@ -785,14 +785,14 @@ while True:
 		可以像“黑箱”一样调用函数，而不用关心内部实现。
 	•	返回值:
 	•	函数参数类型:位置参数,关键字参数,默认参数,可变阐述 *args/**kwargs
-		1 位置参数（positional arguments）按照顺序传入
+1 位置参数（positional arguments）按照顺序传入
 ```python
 	def add(a, b):
 		return a + b
 
 	print(add(3, 5))  # 8
 ```
-		2 关键字参数（keyword arguments）通过“参数名=值”方式传入，不依赖顺序。
+2 关键字参数（keyword arguments）通过“参数名=值”方式传入，不依赖顺序。
 ```python
 	def student_info(name, age):
 		return f"{name} is {age} years old."
@@ -800,7 +800,7 @@ while True:
 	print(student_info(age=20, name="QiQi"))
 
 ```
-		3 默认参数（default arguments）参数有默认值，不传参时使用默认值。
+3 默认参数（default arguments）参数有默认值，不传参时使用默认值。
 ```python
 	def greet(name, msg="Hello"):
 		return f"{msg}, {name}!"
@@ -810,9 +810,10 @@ while True:
 
 ```	
 	⚠️ 注意：默认参数 必须放在非默认参数之后，否则报错
-		4 可变参数
-*args：接收任意数量的 位置参数，打包成元组。
-**kwargs：接收任意数量的 关键字参数，打包成字典。
+4 可变参数: * 和 ** 才是 Python 语法的一部分
+*args：接收任意数量的 位置参数(positional arguments)，打包成元组,也就是说：* 用来“打散”位置参数（tuple 解包）。
+** kwargs：接收任意数量的 关键字参数(keyword arguments)，参数名=值，打包成字典，也就是说：** 用来“打散”关键字参数（dict 解包）。
+args 和 kwargs 只是变量名，换成别的名字也能用,常用它们只不过是约定成俗的写法，但* 和**是固定语法。
 ```python
 	def show_args(*args, **kwargs):
 		print("args:", args)
@@ -1143,14 +1144,14 @@ class Book:
 
 class EBook(Book):
     def __init__(self, title, size):
-        super().__init__(title)
-        self.size = size
+        super().__init__(title) # 调用父类，初始化title
+        self.size = size # 增加子类的一个属性
     def info(self):
         print("EBook title:", self.title, "Size:", self.size)
 
 if __name__ == "__main__":
-    ebook = EBook("Python 101", 5)
-    ebook.info()
+    ebook = EBook("Python 101", 5) # 创建并执行对象，先用父类初始化title，传进去title名，再设置size=5
+    ebook.info() #调用子类的info方法
 ```
 ### 📑 Day 21.2: OOP 高级 
 学习目标
@@ -1158,6 +1159,7 @@ if __name__ == "__main__":
 学习 封装 (Encapsulation) 与 @property 装饰器
 掌握常见 魔法方法 (dunder methods)
 提升对 OOP 的实用性和 Python 风格的理解
+![alt text](image.png)
 • 类方法 (@classmethod)
 第一个参数是 cls（类本身），而不是 self（对象实例）。
 常用于定义 工厂方法（创建对象的另一种方式）。
@@ -1167,12 +1169,17 @@ class Student:
         self.name = name
         self.grade = grade
     
-    @classmethod
-    def from_string(cls, info_str):
-        name, grade = info_str.split("-")
-        return cls(name, int(grade))
+    @classmethod 
+	"""类方法 @classmethod 是类内部定义的一个方法，所以它的缩进必须 
+	在类的作用域里，不能和类定义平齐"""
+    def from_string(cls, info_str): # 只是定义了一个方法，不执行也不创建，在类方法 (@classmethod) 中，第一个参数通常写作 cls，代表类本身，而不是实例
+        name, grade = info_str.split("-") # 用split()来进行序列解包，把传入的字符串拆分成两个部分，并赋值给变量 name 和 grade
+        return cls(name, int(grade)) # 创建并返回一个 Student 对象：创建并返回一个 Student 对象；return 将这个实例返回给调用者
 
 s = Student.from_string("Alice-90")
+	"""注意这个知识点：工厂函数方法，原本类直接可以实例化，但用工厂方法的话，可以从不同来源生成对象，隐藏对象初始化的细节
+	拆分和类型转换逻辑 都在类方法里，调用者只关心“给我一个字符串，我得到对象”，无需知道内部实现，如果输入格式改了，
+	只要改 from_string 方法就行"""
 print(s.name, s.grade)   # Alice 90
 
 ```
@@ -1181,7 +1188,8 @@ print(s.name, s.grade)   # Alice 90
 类似于普通函数，只是逻辑上放在类里面。
 ```python
 class MathHelper:
-    @staticmethod
+	"""静态方法 更多是组织代码的一种风格，让函数与类关联，而不是放在全局，增强可读性和可维护性。"""
+    @staticmethod #
     def add(a, b):
         return a + b
 
@@ -1194,9 +1202,10 @@ Python 没有严格的 private，但约定以下划线 _ 开头表示 受保护�
 ```python
 class Account:
     def __init__(self, balance):
-        self._balance = balance   # 受保护属性
+        self._balance = balance   # 以单下划线 _ 开头的变量是 Python 的约定：是受保护属性，提示程序员不要在类外直接访问。
     
     @property
+	"""让 _balance 变成“可读属性” balance,调用时像访问普通属性一样，不需要加括号"""
     def balance(self):
         return self._balance
     
@@ -1206,6 +1215,10 @@ class Account:
             self._balance = amount
         else:
             raise ValueError("余额不能为负数")
+	"""封装的作用
+	隐藏内部实现：外部只看到 balance 属性，而不是 _balance,
+	控制访问逻辑：可以在 setter 中加入合法性检查
+	保持接口不变：以后内部实现改变，外部代码无需修改，只要接口一致即可"""
 ```
 • 魔法方法 (Dunder Methods)
 Python 内置以 __xxx__ 命名的方法，控制对象行为。

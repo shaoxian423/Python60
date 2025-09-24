@@ -1159,7 +1159,7 @@ if __name__ == "__main__":
 学习 封装 (Encapsulation) 与 @property 装饰器
 掌握常见 魔法方法 (dunder methods)
 提升对 OOP 的实用性和 Python 风格的理解
-![alt text](image.png)
+![alt text](Pics/property.png)
 • 类方法 (@classmethod)
 第一个参数是 cls（类本身），而不是 self（对象实例）。
 常用于定义 工厂方法（创建对象的另一种方式）。
@@ -1247,40 +1247,43 @@ print(v1 + v2)     # Vector(4, 6)
 ```
 #### 🔧 练习：综合 OOP 高级特性
 ```python
+import datetime
+
+
 class Employee:
     raise_rate = 1.05  # 类属性
-    
+
     def __init__(self, name, salary):
         self.name = name
         self._salary = salary
-    
-    @property
+
+    @property  # 属性方法
     def salary(self):
         return self._salary
-    
-    @salary.setter
+
+    @salary.setter  # 属性方法（带setter）
     def salary(self, value):
         if value >= 0:
             self._salary = value
         else:
             raise ValueError("Salary cannot be negative")
-    
-    def apply_raise(self):
+
+    def apply_raise(self):  # 实例方法
         self._salary *= self.raise_rate
-    
-    @classmethod
+
+    @classmethod  # 类方法
     def set_raise_rate(cls, rate):
         cls.raise_rate = rate
-    
-    @staticmethod
+
+    @staticmethod  # 静态方法
     def is_workday(day):
-        return day.weekday() < 5  # 0-4 是工作日
-    
-    def __str__(self):
+        return day.weekday() < 5  # 0-4 是工作日；如果用isoweekday（）的话是1-7
+
+    def __str__(self):  # 魔法方法
         return f"{self.name} earns {self._salary}"
 
+
 # 使用示例
-import datetime
 e = Employee("Bob", 5000)
 print(e)   # Bob earns 5000
 e.apply_raise()
@@ -1293,6 +1296,7 @@ print(Employee.is_workday(datetime.date(2025, 9, 19)))  # True / False
 
 #### 🔧🔧综合练习1:📝 银行账户管理：
 银行账户管理系统（支持开户、存款、取款、利息计算）。
+![银行系统四种写法比较](Pics/account.png)
 ```python
 
 ```

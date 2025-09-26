@@ -12,7 +12,7 @@ class Account:
         self._balance = balance
         self.interest_rate = interest_rate
 
-    @property
+    @property # 用装饰器把它变成只读属性
     def balance(self):
         return self._balance
 

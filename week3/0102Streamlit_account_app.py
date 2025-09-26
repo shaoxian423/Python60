@@ -9,7 +9,7 @@ st.title("🏦 银行账户管理系统")
 # 创建账户
 # ========================
 with st.form("create_form"):
-    st.header("📌 创建账户")
+    st.header("🧨 创建账户")
     account_id = st.text_input("账户ID", key="create_id")
     owner = st.text_input("账户持有人", key="owner")
     initial_balance = st.number_input(

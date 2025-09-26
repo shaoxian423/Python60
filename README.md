@@ -1170,16 +1170,19 @@ class Student:
         self.grade = grade
     
     @classmethod 
-	"""类方法 @classmethod 是类内部定义的一个方法，所以它的缩进必须 
-	在类的作用域里，不能和类定义平齐"""
+	# 类方法 @classmethod 是类内部定义的一个方法，所以它的缩进必须 
+	# 在类的作用域里，不能和类定义平齐
+	
     def from_string(cls, info_str): # 只是定义了一个方法，不执行也不创建，在类方法 (@classmethod) 中，第一个参数通常写作 cls，代表类本身，而不是实例
         name, grade = info_str.split("-") # 用split()来进行序列解包，把传入的字符串拆分成两个部分，并赋值给变量 name 和 grade
         return cls(name, int(grade)) # 创建并返回一个 Student 对象：创建并返回一个 Student 对象；return 将这个实例返回给调用者
 
 s = Student.from_string("Alice-90")
-	"""注意这个知识点：工厂函数方法，原本类直接可以实例化，但用工厂方法的话，可以从不同来源生成对象，隐藏对象初始化的细节
+	"""
+	注意这个知识点：工厂函数方法，原本类直接可以实例化，但用工厂方法的话，可以从不同来源生成对象，隐藏对象初始化的细节
 	拆分和类型转换逻辑 都在类方法里，调用者只关心“给我一个字符串，我得到对象”，无需知道内部实现，如果输入格式改了，
-	只要改 from_string 方法就行"""
+	只要改 from_string 方法就行
+	"""
 print(s.name, s.grade)   # Alice 90
 
 ```
@@ -1188,13 +1191,23 @@ print(s.name, s.grade)   # Alice 90
 类似于普通函数，只是逻辑上放在类里面。
 ```python
 class MathHelper:
-	"""静态方法 更多是组织代码的一种风格，让函数与类关联，而不是放在全局，增强可读性和可维护性。"""
-    @staticmethod #
+	"""
+	静态方法 更多是组织代码的一种风格，让函数与类关联，而不是放在全局，增强可读性和可维护性。
+	表示这个方法 属于类，但 不依赖实例 (self) 或类对象 (cls)
+    可以用类直接调用，也可以用实例调用，但它内部 不能访问实例属性或类属性
+	"""
+    @staticmethod 
     def add(a, b):
         return a + b
 
 print(MathHelper.add(3, 5))  # 8
-
+    """
+	静态方法 (@staticmethod)
+    属于类，但 不接收 self 或 cls
+	可以用类名直接调用
+	不能访问实例或类属性
+	不是“类函数”严格意义上的概念，官方叫 Static Method
+	"""
 ```
 • 封装与属性控制
 Python 没有严格的 private，但约定以下划线 _ 开头表示 受保护属性。

@@ -1338,15 +1338,14 @@ print(Employee.is_workday(datetime.date(2025, 9, 19)))  # True / False
 ⸻
 
 ## Week 4：模块、库与工具
-
 📘 学习内容：
-	•	Python 内置模块：os, sys, datetime, collections, itertools, functools
-	•	collections（Counter, defaultdict, deque）
-	•	itertools（组合、排列、笛卡尔积）
-	•	functools（partial, lru_cache）
-	•	虚拟环境与依赖管理（pip, requirements.txt, poetry）
-	•	学习正则表达式与迭代器/生成器（增强数据处理能力）
-	•	通过小项目练习工程化思维
+    • 	Python 内置模块：os, sys, datetime, collections, itertools, functools
+	• 	collections（Counter, defaultdict, deque）
+  	• 	itertools（组合、排列、笛卡尔积）
+	• 	functools（partial, lru_cache）
+	• 	虚拟环境与依赖管理（pip, requirements.txt, poetry）
+	• 	学习正则表达式与迭代器/生成器（增强数据处理能力）
+	• 	通过小项目练习工程化思维
 
 ### 📑 Day 22 ：os, sys, pathlib
 	•	os.getcwd() / os.listdir()
@@ -1408,7 +1407,6 @@ print(Employee.is_workday(datetime.date(2025, 9, 19)))  # True / False
 ⸻
 
 ## Week 5：Pandas 数据分析基础
-
 📘 学习内容：
 	•	Pandas 数据结构：Series, DataFrame
 	•	导入数据（CSV, Excel, JSON, SQL）
@@ -1431,7 +1429,6 @@ print(Employee.is_workday(datetime.date(2025, 9, 19)))  # True / False
 ⸻
 
 ## Week 6：数据可视化
-
 📘 学习内容：
 	•	matplotlib：折线图、柱状图、散点图
 	•	seaborn：分布图、热力图

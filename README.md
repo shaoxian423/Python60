@@ -296,10 +296,11 @@ def max_profit(prices):
 # 测试
 prices = [7,1,5,3,6,4]
 print(max_profit(prices))  # 输出 5
-```
 
+```
 ## Week 2：数据结构与文件操作
 ### 数据结构学习内容：
+```
 	•	数据结构：list、tuple、set、dict
 	•	切片、推导式（list/dict comprehension）
 	•	深拷贝 vs 浅拷贝
@@ -1339,6 +1340,7 @@ print(Employee.is_workday(datetime.date(2025, 9, 19)))  # True / False
 
 ## Week 4：模块、库与工具
 📘 学习内容：
+```
     • 	Python 内置模块：os, sys, datetime, collections, itertools, functools
 	• 	collections（Counter, defaultdict, deque）
   	• 	itertools（组合、排列、笛卡尔积）
@@ -1346,32 +1348,466 @@ print(Employee.is_workday(datetime.date(2025, 9, 19)))  # True / False
 	• 	虚拟环境与依赖管理（pip, requirements.txt, poetry）
 	• 	学习正则表达式与迭代器/生成器（增强数据处理能力）
 	• 	通过小项目练习工程化思维
-
+```
 ### 📑 Day 22 ：os, sys, pathlib
-	•	os.getcwd() / os.listdir()
-	•	sys.argv 获取命令行参数
-	•	pathlib.Path 操作文件路径
+	•	os.getcwd()  👉 就是 获取当前工作目录（Current Working Directory, CWD） 的函数。
+	•	os.listdir() 👉 用来 列出指定目录下的所有文件和文件夹名称（不递归子目录）。
+	•	sys.argv 	 👉 获取命令行参数
+	•	pathlib.Path 👉 操作文件路径
 
 #### 🔧练习 sys
 写一个脚本，遍历某文件夹，统计 .py 文件数量。
+```
+import os
+import sys
+from pathlib import Path
+
+def count_py_files(folder_path: str) -> int:
+    """统计指定文件夹下的 .py 文件数量"""
+    folder = Path(folder_path)
+    if not folder.exists() or not folder.is_dir():
+        print(f"❌ 错误: {folder_path} 不是有效的文件夹路径")
+        return 0
+    
+    count = sum(1 for f in folder.iterdir() if f.is_file() and f.suffix == ".py")
+    return count
+
+if __name__ == "__main__":
+    # sys.argv[0] 是脚本本身的名字，参数从 sys.argv[1] 开始
+    if len(sys.argv) < 2: 
+        print("用法: python count_py_files.py <folder_path>")
+        sys.exit(1)
+    
+    folder_path = sys.argv[1]
+    num_files = count_py_files(folder_path)
+    print(f"📂 文件夹: {folder_path}")
+    print(f"共有 {num_files} 个 .py 文件")
+
+```
+💻 使用方法
+假设你把脚本保存为 count_py_files.py，然后在命令行执行：
+```
+python count_py_files.py ./myproject
+```
+📝 说明
+1. 用 sys.argv 获取命令行参数 → 这是 Day 22 的重点
+2. 用 pathlib.Path 遍历文件夹 → 更现代，推荐替代 os.listdir()
+3. 如果不给参数，会提示用法
 
 ### 📑 Day 23 ：datetime + 金融应用
 	•	datetime.date, datetime.timedelta
 	•	判断周末，跳到下一个工作日
+![datetime](Pics/datetime.png)
 
+
+1️⃣ datetime 基础
+1.1 datetime.date
+```
+from datetime import date, timedelta
+
+today = date.today()
+print("今天:", today)
+
+# 加 5 天
+future = today + timedelta(days=5)
+print("5天后:", future)
+
+# 减 3 天
+past = today - timedelta(days=3)
+print("3天前:", past)
+```
+1.2 datetime.timedelta
+timedelta 表示 两个日期/时间之间的差值，也可以用来做日期运算。
+```
+from datetime import date, timedelta
+
+today = date.today()
+print("今天:", today)
+
+# 加 5 天
+future = today + timedelta(days=5)
+print("5天后:", future)
+
+# 减 3 天
+past = today - timedelta(days=3)
+print("3天前:", past)
+```
+2️⃣ 判断周末
+date.weekday() 返回 周几（0=周一, 6=周日）
+周末 = 5 或 6(周六或周日)
+```
+from datetime import date
+
+def is_weekend(d: date) -> bool:
+    return d.weekday() >= 5  # True 表示周六/周日
+
+d1 = date(2025, 10, 4)  # 周六
+d2 = date(2025, 10, 6)  # 周一
+
+print(is_weekend(d1))  # True
+print(is_weekend(d2))  # False
+```
+3️⃣ 跳到下一个工作日（金融应用）
+金融应用中，如果交易日遇到周末或节假日，需要跳到下一个交易日。
+```
+from datetime import date, timedelta
+
+def next_working_day(d: date, holidays=None) -> date:
+    """
+    输入日期 d，返回下一个工作日
+    holidays: 可选节假日列表（date对象）
+    """
+    if holidays is None:
+        holidays = []
+
+    next_day = d + timedelta(days=1)
+    # 循环跳过周末和节假日
+    while next_day.weekday() >= 5 or next_day in holidays:
+        next_day += timedelta(days=1)
+    return next_day
+
+# 示例
+holidays = [date(2025, 10, 7)]  # 假设 10/7 是节假日
+d = date(2025, 10, 4)  # 周六
+next_day = next_working_day(d, holidays)
+print("下一个交易日:", next_day)
+
+```
+4️⃣ 扩展应用（可选）
+如果你有完整 节假日表，可以传入 holidays，函数会自动跳过节假日，非常适合股票或期货交易日计算。
+```
+trading_days = []
+start_date = date(2025, 10, 1)
+for _ in range(5):
+    next_day = next_working_day(start_date, holidays=[date(2025, 10, 7)])
+    trading_days.append(next_day)
+    start_date = next_day
+print(trading_days)
+
+```
 #### 🔧练习 date
 实现函数 next_trading_day(date_str)，输入日期（含节假日列表），返回下一个交易日
+```
+from datetime import datetime, timedelta
+
+def next_trading_day(date_str: str, holidays=None) -> str:
+    """
+    输入：
+        date_str: 日期字符串，格式 "YYYY-MM-DD"
+        holidays: 节假日列表，元素为 "YYYY-MM-DD" 字符串
+    返回：
+        下一个交易日的日期字符串 "YYYY-MM-DD"
+    """
+    if holidays is None:
+        holidays = []
+
+    # 转换日期字符串为 date 对象
+    current = datetime.strptime(date_str, "%Y-%m-%d").date()
+    # 转换节假日为 date 对象
+    holidays_dates = [datetime.strptime(h, "%Y-%m-%d").date() for h in holidays]
+
+    # 循环找到下一个交易日
+    next_day = current + timedelta(days=1)
+    while next_day.weekday() >= 5 or next_day in holidays_dates:  # 周末或节假日
+        next_day += timedelta(days=1)
+    
+    return next_day.strftime("%Y-%m-%d")
+
+# 🔹 示例
+holidays = ["2025-10-07", "2025-10-08"]  # 节假日列表
+print(next_trading_day("2025-10-04", holidays))  # 周六 → 输出 2025-10-06
+print(next_trading_day("2025-10-06", holidays))  # 工作日 → 输出 2025-10-09
+
+```
+✅ 说明
+1. 周末判断：weekday() >= 5 → 周六或周日
+2. 节假日判断：通过 holidays_dates 列表判断
+3. 输入/输出：都使用 "YYYY-MM-DD" 字符串格式，方便在金融系统或 CSV/数据库中使用
+
 ### 📑 Day 24 ：collections
 	•	Counter → 词频统计
 	•	defaultdict → 避免 KeyError
 	•	deque → 双端队列（股票价格滑动窗口常用）
+Python 内置的 collections 模块提供了一些高级容器，比普通的 list/dict/set 功能更强大、更高效。
+常用容器：
+1. Counter → 计数器，常用于词频统计或事件计数
+2. defaultdict → 自动初始化字典值，避免 KeyError
+3. deque → 双端队列，快速头尾操作，常用于滑动窗口、缓存
 
-#### 🔧练习 Counter
-用 Counter 统计文本单词，用 deque 实现最近 N 天移动平均。
+1️⃣ Counter（计数器）: Counter 是 字典的子类，用来统计元素出现次数，非常方便。
+```
+from collections import Counter
 
+# 示例 1：列表计数
+data = ['apple', 'banana', 'apple', 'orange', 'banana', 'apple']
+c = Counter(data)
+print(c)
+# 输出：Counter({'apple': 3, 'banana': 2, 'orange': 1})
+
+# 获取最常见的元素
+print(c.most_common(2))  # [('apple', 3), ('banana', 2)]
+
+# 示例 2：字符串计数（词频统计）
+text = "apple apple banana apple orange banana"
+words = text.split()
+word_count = Counter(words)
+print(word_count)
+# 输出：Counter({'apple': 3, 'banana': 2, 'orange': 1})
+
+```
+💡 金融场景应用：
+1. 统计交易品种成交次数
+2. 统计股票涨跌事件频率
+3. 高频新闻关键词统计
+
+2️⃣ defaultdict（避免 KeyError）
+defaultdict 是字典的子类，可以为 不存在的 key 自动设置默认值。
+```
+from collections import defaultdict
+
+# 默认值为 int（即 0）
+dd = defaultdict(int)
+dd['apple'] += 1
+dd['banana'] += 2
+print(dd)
+# 输出：defaultdict(<class 'int'>, {'apple': 1, 'banana': 2})
+
+# 默认值为 list
+dd_list = defaultdict(list)
+dd_list['fruits'].append('apple')
+dd_list['fruits'].append('banana')
+print(dd_list)
+# 输出：defaultdict(<class 'list'>, {'fruits': ['apple', 'banana']})
+
+```
+💡 金融场景应用：
+1. 按股票代码分组存储交易数据
+2. 构建多维字典存储时间序列数据
+3. 聚合事件、新闻或信号
+
+3️⃣ deque（双端队列）
+deque（double-ended queue）是 双端队列，支持快速 头尾添加或删除，效率比 list 高。
+```
+from collections import deque
+
+# 创建 deque
+dq = deque([1, 2, 3])
+print(dq)  # deque([1, 2, 3])
+
+# 末尾添加
+dq.append(4)
+# 开头添加
+dq.appendleft(0)
+print(dq)  # deque([0, 1, 2, 3, 4])
+
+# 删除元素
+dq.pop()        # 删除尾部
+dq.popleft()    # 删除头部
+print(dq)       # deque([1, 2, 3])
+
+```
+💡 滑动窗口应用（股票/金融时间序列）：
+假设我们需要计算 过去 3 天的平均股价，可以用 deque 来实现：
+```
+from collections import deque
+
+prices = [100, 102, 101, 105, 107]
+window_size = 3
+window = deque(maxlen=window_size)  # 限制长度
+
+for price in prices:
+    window.append(price)
+    avg = sum(window) / len(window)
+    print(f"窗口内价格: {list(window)}, 平均价: {avg}")
+
+```
+输出：
+```
+窗口内价格: [100], 平均价: 100.0
+窗口内价格: [100, 102], 平均价: 101.0
+窗口内价格: [100, 102, 101], 平均价: 101.0
+窗口内价格: [102, 101, 105], 平均价: 102.66666666666667
+窗口内价格: [101, 105, 107], 平均价: 104.33333333333333
+```
+✅ 特点：
+1. deque(maxlen=N) 自动丢弃最旧元素
+2. O(1) 时间复杂度的头尾操作，比 list 高效
+
+![collections](Pics/collections.png)
+
+#### 🔧练习 TradeStats Portfolio Manager:最小可用版 Gradio 股票账户展示工具
+
+对交易数据进行多维统计和分析.
+1️⃣ 项目结构
+```
+GradioTrade/
+├─ trade_portfolio.py   # 核心逻辑
+├─ app.py               # Gradio 前端+图表
+├─ data/
+│   └─ trades.csv       # 示例买卖记录
+├─ requirements.txt
+└─ README.md
+```
+2️⃣ 核心持仓逻辑 trade_portfolio.py
+```
+# trade_portfolio.py
+import pandas as pd
+import os
+
+DATA_DIR = "data"  # 指向 data 目录
+TRADES_FILE = os.path.join(DATA_DIR, "trades.csv")
+
+
+def load_trades(file_path=TRADES_FILE):
+    df = pd.read_csv(file_path)
+    return df
+
+
+def calculate_portfolio(trades):
+    portfolio = {}
+    for _, row in trades.iterrows():
+        stock = row['stock']
+        action = row['action']
+        qty = row['quantity']
+        price = row['price']
+
+        if stock not in portfolio:
+            portfolio[stock] = {'quantity': 0, 'book_cost': 0}
+
+        if action == 'buy':
+            portfolio[stock]['quantity'] += qty
+            portfolio[stock]['book_cost'] += qty * price
+        elif action == 'sell':
+            # 卖出时减少数量和账面成本（简单处理）
+            portfolio[stock]['quantity'] -= qty
+            portfolio[stock]['book_cost'] -= min(qty,
+                                                 portfolio[stock]['quantity'] + qty) * price
+
+    # 计算平均成本
+    for stock in portfolio:
+        q = portfolio[stock]['quantity']
+        portfolio[stock]['average_cost'] = round(
+            portfolio[stock]['book_cost']/q, 2) if q else 0
+    return portfolio
+
+
+def get_portfolio_summary(portfolio, market_prices):
+    summary = []
+    total_market_value = sum(
+        portfolio[s]['quantity']*market_prices.get(s, 0) for s in portfolio)
+    for stock, data in portfolio.items():
+        qty = data['quantity']
+        book_cost = data['book_cost']
+        avg_cost = data['average_cost']
+        market_value = qty * market_prices.get(stock, 0)
+        gain_loss = market_value - book_cost
+        pct = round(market_value/total_market_value *
+                    100, 2) if total_market_value else 0
+        summary.append({
+            "Stock": stock,
+            "Quantity": qty,
+            "Market Value": round(market_value, 2),
+            "Gain/Loss": round(gain_loss, 2),
+            "Average Cost": avg_cost,
+            "Book Cost": round(book_cost, 2),
+            "Portfolio %": pct
+        })
+    return summary
+```
+3️⃣ Gradio 前端 app.py
+```
+import gradio as gr
+import pandas as pd
+import yfinance as yf
+from trade_portfolio import load_trades, calculate_portfolio, get_portfolio_summary
+import plotly.express as px
+
+# 加载交易记录
+trades = load_trades()
+
+# 获取所有股票代码
+stocks = sorted(trades['stock'].unique())
+
+# 获取实时市场价格
+
+
+def get_market_prices(stocks):
+    prices = {}
+    for s in stocks:
+        try:
+            ticker = yf.Ticker(s)
+            prices[s] = ticker.history(period="1d")['Close'].iloc[-1]
+        except Exception as e:
+            prices[s] = 0  # 出错时默认价格为0
+    return prices
+
+# 更新投资组合
+
+
+def update_portfolio():
+    market_price = get_market_prices(stocks)
+    portfolio = calculate_portfolio(trades)
+    summary = get_portfolio_summary(portfolio, market_price)
+    df = pd.DataFrame(summary)
+
+    # 饼图：持仓占比
+    pie_fig = px.pie(df, names='Stock', values='Portfolio %',
+                     title='Portfolio %')
+
+    # 条形图：盈亏
+    bar_fig = px.bar(df, x='Stock', y='Gain/Loss', title='Gain/Loss per Stock')
+
+    return df, pie_fig, bar_fig
+
+
+# Gradio 界面
+with gr.Blocks() as demo:
+    gr.Markdown("## 📊 Real-Time Stock Portfolio Dashboard")
+
+    update_btn = gr.Button("Refresh Portfolio")
+
+    portfolio_table = gr.Dataframe(
+        headers=["Stock", "Quantity", "Market Value", "Gain/Loss",
+                 "Average Cost", "Book Cost", "Portfolio %"],
+        datatype=["str", "number", "number",
+                  "number", "number", "number", "number"]
+    )
+    pie_chart = gr.Plot()
+    bar_chart = gr.Plot()
+
+    update_btn.click(
+        fn=update_portfolio,
+        inputs=[],
+        outputs=[portfolio_table, pie_chart, bar_chart]
+    )
+
+demo.launch()
+```
+4️⃣ requirements.txt
+```
+gradio
+pandas
+plotly
+```
 ### 📑 Day 25 ：itertools + functools
 	•	itertools：product、permutations、combinations、groupby
 	•	functools：partial、lru_cache
+1️⃣ itertools 模块（迭代器工具）
+itertools 用于生成复杂迭代序列，尤其适合组合、排列、笛卡尔积、分组等任务。
+![itertools](Pics/itertools.png)
+应用场景
+1. 股票策略测试：所有买卖组合 (product)
+2. 组合分析：从一篮子股票挑选组合 (combinations)
+3. 排列测试：交易顺序敏感策略 (permutations)
+4. 数据分组：按行业、日期分组统计收益 (groupby)
+
+2️⃣ functools 模块（函数工具）
+functools 用于高阶函数操作，如部分参数固定、函数缓存、函数包装等。
+![funtools](Pics/funtools.png)
+应用场景
+1. 高频计算：缓存重复计算的函数，节省性能
+2. 策略回测：同一参数组合下结果缓存
+3. 函数定制：快速生成带固定参数的函数，简化代码
 
 #### 🔧练习 itertools
 写一个函数，生成扑克牌所有可能的 5 张牌组合（52 choose 5）。

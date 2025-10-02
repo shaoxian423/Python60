@@ -2,38 +2,38 @@
 ![商科学生技能雷达图](Pics/Skills_Radar_Chart.png)
 - [🐍 QiQi 和她爹的Python基地（丰富版）10周](#-qiqi-和她爹的python基地丰富版10周)
 	- [Week 1：Python 基础与环境](#week-1python-基础与环境)
-		- [📑 Day 1：环境搭建 \& IDE](#-day-1环境搭建--ide)
-		- [📑 Day 2：变量与数据类型](#-day-2变量与数据类型)
+		- [📑 Day 1：环境搭建 \& IDE](#-day-1-环境搭建--ide)
+		- [📑 Day 2：变量与数据类型](#-day-2-变量与数据类型)
 			- [🔧练习：](#练习)
 		- [📑 Day 3：运算符](#-day-3运算符)
 			- [🔧练习：](#练习-1)
-		- [📑 Day 4：条件语句 if-else](#-day-4条件语句-if-else)
+		- [📑 Day 4：条件语句 if-else](#-day-4-条件语句-if-else)
 			- [🔧练习：](#练习-2)
-		- [📑 Day 5：循环 for \& while](#-day-5循环-for--while)
+		- [📑 Day 5：循环 for \& while](#-day-5-循环-for--while)
 			- [🔧练习:](#练习-3)
-		- [📑 Day 6：综合练习 — 迷你计算器](#-day-6综合练习--迷你计算器)
+		- [📑 Day 6：综合练习 — 迷你计算器](#-day-6-综合练习--迷你计算器)
 			- [🔧🔧综合练习1: Mini Calculator(具体请看Week1子目录下)](#综合练习1-mini-calculator具体请看week1子目录下的calcluaterreadme)
 		- [📑 Day 7 ：面试模拟  小项目2— 股票最大收益：](#-day-7-面试模拟--小项目2-股票最大收益)
-			- [🔧🔧综合练习2：最佳买卖股票,(具体请看Week1子目录下)](#综合练习2best-time-to-buy-and-sell-stock具体请看week1子目录下的stock)
+			- [🔧🔧综合练习2：最佳买卖股票,(具体请看Week1子目录下)](#综合练习2-best-time-to-buy-and-sell-stock具体请看week1子目录下的stock)
 	- [Week 2：数据结构与文件操作](#week-2数据结构与文件操作)
 		- [数据结构学习内容：](#数据结构学习内容)
-		- [📑 Day 8：list（列表）基础](#-day-8list列表基础)
+		- [📑 Day 8：list（列表）基础](#-day-8-list列表基础)
 			- [🔧练习：创建一个 list，增加、插入、删除元素，并排序输出。](#练习创建一个-list增加插入删除元素并排序输出)
-		- [📑 Day 9：tuple（元组）基础](#-day-9tuple元组基础)
+		- [📑 Day 9：tuple（元组）基础](#-day-9-tuple元组基础)
 			- [🔧练习：创建一个 tuple，统计元素出现次数，并查找索引。](#练习创建一个-tuple统计元素出现次数并查找索引)
-		- [📑 Day 10：set（集合）基础](#-day-10set集合基础)
+		- [📑 Day 10：set（集合）基础](#-day-10-set集合基础)
 			- [🔧练习：创建两个 set，并进行集合运算。](#练习创建两个-set并进行集合运算)
-		- [📑 Day 11：dict（字典）基础](#-day-11dict字典基础)
+		- [📑 Day 11：dict（字典）基础](#-day-11-dict字典基础)
 			- [🔧练习：创建一个字典，访问、更新和遍历元素。](#练习创建一个字典访问更新和遍历元素)
-		- [📑 Day 12：切片与推导式](#-day-12切片与推导式)
+		- [📑 Day 12：切片与推导式](#-day-12-切片与推导式)
 			- [🔧练习：使用切片和推导式创建新的 list。](#练习使用切片和推导式创建新的-list)
-		- [📑 Day 13：深拷贝 vs 浅拷贝](#-day-13深拷贝-vs-浅拷贝)
+		- [📑 Day 13：深拷贝 vs 浅拷贝](#-day-13-深拷贝-vs-浅拷贝)
 			- [🔧练习：演示浅拷贝和深拷贝的不同。](#练习演示浅拷贝和深拷贝的不同)
-		- [📑 Day 14：文件操作与异常处理](#-day-14文件操作与异常处理)
+		- [📑 Day 14：文件操作与异常处理](#-day-14-文件操作与异常处理)
 			- [🔧练习：读取 txt 文件并捕获异常。](#练习读取-txt-文件并捕获异常)
-			- [🔧🔧综合练习1: 图书管理系统：](#综合练习1--library-management-system-with-json-persistence)
-			- [🔧🔧综合练习2:（面试模拟）股票分析：](#综合练习2面试模拟stock-data-analysiscsv-reader-with-statistics-and-volatility)
-			- [🔧🔧综合练习3: 增强电影管理](#综合练习3-advanced-movie-collection-manager-with-json-persistence)
+			- [🔧🔧综合练习3: 图书管理系统：](#综合练习3-library-management-system-with-json-persistence)
+			- [🔧🔧综合练习4:（面试模拟）股票分析：](#综合练习4-面试模拟stock-data-analysiscsv-reader-with-statistics-and-volatility)
+			- [🔧🔧综合练习5: 增强电影管理](#综合练习5-advanced-movie-collection-manager-with-json-persistence)
 	- [Week 3：函数进阶与面向对象](#week-3函数进阶与面向对象)
     	- [📑 Day 15: 函数基础](#-day-15-函数基础)
         	- [🔧练习 定义函数](#练习1定义函数示例)
@@ -49,9 +49,22 @@
         	- [🔧练习 OOP](#练习类和对象示例)
     	- [📑 Day 21: OOP 进阶](#-day-21-oop-进阶)
         	- [🔧练习 继承多态](#练习继承多态示例)
-        	- [🔧🔧综合练习1： 银行账户管理](#综合练习1-银行账户管理)
-        	- [🔧🔧综合练习2： 股票投资组合](#综合练习2-股票投资组合类面试模拟)
+        	- [🔧🔧综合练习6： 银行账户管理](#综合练习6-银行账户管理)
+        	- [🔧🔧综合练习7： 股票投资组合](#综合练习7-股票投资组合类面试模拟)
     - [week 4: 模块、库与工具](#week-4模块库与工具)
+    	- [📑 Day 22: os-sys-pathlib](#-day-22-os-sys-pathlib)
+        	- [🔧练习 sys](#练习-sys)
+    	- [📑 Day 23: datetime](#-day-23-datetime--金融应用)
+			- [🔧练习 date](#练习-date)
+    	- [📑 Day 24: collections](#-day-24-collections)
+        	- [🔧练习 Counter](#练习-counter)
+    	- [📑 Day 25: itertools](#-day-25-itertools--functools)
+        	- [🔧练习 itertools](#练习-itertools)
+    	- [📑 Day 26: 迭代器与生成器](#-day-26-迭代器与生成器)
+        	- [🔧练习 迭代器与生成器](#练习-迭代器与生成器)
+    	- [📑 Day 27: 正则表达式](#-day-27-正则表达式-re)
+        	- [🔧练习 正则表达式](#练习-正则表达式)
+    	- [📑 Day 28: 虚拟环境与依赖管理](#-day-28-虚拟环境与依赖管理)
 	- [week 5: 数学分析基础  ](#week-5pandas-数据分析基础)
 	- [week 6: 数据可视化    ](#week-6数据可视化)
 	- [week 7: 数据获取方法  ](#week-7爬虫与数据获取)
@@ -505,7 +518,7 @@ finally: # 无论是否出错,finally里的代码都会执行
     print("Execution finished.")
 ```
 
-#### 🔧🔧综合练习1:  Library Management System with JSON Persistence：
+#### 🔧🔧综合练习3:  Library Management System with JSON Persistence：
 建立一个图书管理系统：能添加/删除/查询，并保存到 JSON 文件。
 功能点：
 	1.	添加书籍（书名、作者、年份）。
@@ -577,7 +590,7 @@ while True:
 注意: 运行此程序的时候,会提示你添加docstring,要分清注释(#)和文档字符串(docstring)之间的区别:
 docstring是同时给人和机器看的,可通过help()或.__doc__获取;# 只是给人看的.
 
-#### 🔧🔧综合练习2:（面试模拟）Stock Data Analysis:CSV Reader with Statistics and Volatility：
+#### 🔧🔧综合练习4:（面试模拟）Stock Data Analysis:CSV Reader with Statistics and Volatility：
 build a small program that reads historical stock data from a CSV file and computer basic statistics
 读取股票历史数据 CSV，输出：
 	•	最高/最低价
@@ -610,7 +623,7 @@ volatility = df['Close'].std() / avg_close
 print(f"波动率: {volatility:.2%}")
 ```
 ⸻
-#### 🔧🔧综合练习3: Advanced Movie Collection Manager with JSON Persistence
+#### 🔧🔧综合练习5: Advanced Movie Collection Manager with JSON Persistence
 Objective:
 Build a movie collection management system that allows users to add, delete, view, and search movies, with data stored persistently in a JSON file. The system should include input validation and prevent duplicate entries.
 Functional Requirements:
@@ -1307,13 +1320,13 @@ print(e)   # Bob earns 5775
 print(Employee.is_workday(datetime.date(2025, 9, 19)))  # True / False
 ```
 
-#### 🔧🔧综合练习1:📝 银行账户管理：
+#### 🔧🔧综合练习6:📝 银行账户管理：
 银行账户管理系统（支持开户、存款、取款、利息计算）。
 ![银行系统四种写法比较](Pics/account.png)
 ```python
-
+见week3子目录
 ```
-#### 🔧🔧综合练习2:📝 股票投资组合类（面试模拟）：
+#### 🔧🔧综合练习7:📝 股票投资组合类（面试模拟）：
 股票投资组合类（添加/删除股票、计算总市值/收益率、支持多种货币）。设计一个 股票投资组合类：
 	•	添加/删除股票
 	•	计算总市值、收益率
@@ -1327,12 +1340,65 @@ print(Employee.is_workday(datetime.date(2025, 9, 19)))  # True / False
 ## Week 4：模块、库与工具
 
 📘 学习内容：
-	•	Python 内置模块：os, sys, math, random, datetime
+	•	Python 内置模块：os, sys, datetime, collections, itertools, functools
 	•	collections（Counter, defaultdict, deque）
 	•	itertools（组合、排列、笛卡尔积）
 	•	functools（partial, lru_cache）
 	•	虚拟环境与依赖管理（pip, requirements.txt, poetry）
+	•	学习正则表达式与迭代器/生成器（增强数据处理能力）
+	•	通过小项目练习工程化思维
 
+### 📑 Day 22 ：os, sys, pathlib
+	•	os.getcwd() / os.listdir()
+	•	sys.argv 获取命令行参数
+	•	pathlib.Path 操作文件路径
+
+#### 🔧练习 sys
+写一个脚本，遍历某文件夹，统计 .py 文件数量。
+
+### 📑 Day 23 ：datetime + 金融应用
+	•	datetime.date, datetime.timedelta
+	•	判断周末，跳到下一个工作日
+
+#### 🔧练习 date
+实现函数 next_trading_day(date_str)，输入日期（含节假日列表），返回下一个交易日
+### 📑 Day 24 ：collections
+	•	Counter → 词频统计
+	•	defaultdict → 避免 KeyError
+	•	deque → 双端队列（股票价格滑动窗口常用）
+
+#### 🔧练习 Counter
+用 Counter 统计文本单词，用 deque 实现最近 N 天移动平均。
+
+### 📑 Day 25 ：itertools + functools
+	•	itertools：product、permutations、combinations、groupby
+	•	functools：partial、lru_cache
+
+#### 🔧练习 itertools
+写一个函数，生成扑克牌所有可能的 5 张牌组合（52 choose 5）。
+
+### 📑 Day 26 ：迭代器与生成器
+	•	自定义迭代器：实现 __iter__ 和 __next__
+	•	生成器 yield 与惰性计算
+	•	yield from 简化嵌套生成器
+
+#### 🔧练习 迭代器与生成器
+写一个生成器，逐行读取大文件（模拟日志流）。
+
+### 📑 Day 27 ：正则表达式 re
+	•	findall, search, sub
+	•	常见模式：邮箱、手机号、日期、URL
+
+#### 🔧练习 正则表达式
+写一个函数，判断用户输入是否是合法邮箱。
+### 📑 Day 28 ：虚拟环境与依赖管理
+	•	venv 基础操作
+	•	pip freeze > requirements.txt
+	•	poetry 初体验：创建虚拟环境、安装依赖
+
+小项目 1
+
+实现随机密码生成器（支持长度、字母/数字/特殊符号选项）。
 📝 小项目1（综合练习）：
 随机密码生成器（支持字母/数字/特殊符号）。
 

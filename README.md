@@ -1638,6 +1638,7 @@ for price in prices:
 #### 🔧练习 TradeStats Portfolio Manager:最小可用版 Gradio 股票账户展示工具
 
 对交易数据进行多维统计和分析.
+
 1️⃣ 项目结构
 ```
 GradioTrade/
@@ -1792,18 +1793,22 @@ plotly
 ### 📑 Day 25 ：itertools + functools
 	•	itertools：product、permutations、combinations、groupby
 	•	functools：partial、lru_cache
+
 1️⃣ itertools 模块（迭代器工具）
 itertools 用于生成复杂迭代序列，尤其适合组合、排列、笛卡尔积、分组等任务。
 ![itertools](Pics/itertools.png)
+
 应用场景
 1. 股票策略测试：所有买卖组合 (product)
 2. 组合分析：从一篮子股票挑选组合 (combinations)
 3. 排列测试：交易顺序敏感策略 (permutations)
 4. 数据分组：按行业、日期分组统计收益 (groupby)
+5. 未来策略模拟 / 风险测试 / what-if 分析 → 笛卡尔积非常有用. 核心价值在于：系统化枚举可能操作组合，帮助做量化决策
 
 2️⃣ functools 模块（函数工具）
 functools 用于高阶函数操作，如部分参数固定、函数缓存、函数包装等。
 ![funtools](Pics/funtools.png)
+
 应用场景
 1. 高频计算：缓存重复计算的函数，节省性能
 2. 策略回测：同一参数组合下结果缓存

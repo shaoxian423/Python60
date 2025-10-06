@@ -66,10 +66,28 @@
         	- [🔧练习 正则表达式](#练习-正则表达式)
     	- [📑 Day 28: 虚拟环境与依赖管理](#-day-28-虚拟环境与依赖管理)
 	- [week 5: 数学分析基础  ](#week-5pandas-数据分析基础)
+	    - [📑 Day 29: 认识pandas](#day-29-认识-pandas-与-series--dataframe)
+        	- [🔧练习 创建并操作简单数据](#练习29)
+    	- [📑 Day 30: 数据导入与初步查看](#day-30-数据导入与初步查看)
+			- [🔧练习 读取 CSV / Excel / JSON](#练习30)
+    	- [📑 Day 31: 数据清洗缺失值与重复值](#day-31-数据清洗缺失值与重复值)
+        	- [🔧练习 处理缺失与重复值](#练习31)
+    	- [📑 Day 32: 统计分析与分组聚合](#day-32-统计分析与分组聚合)
+        	- [🔧练习 groupby + pivot_table](#练习32)
+    	- [📑 Day 33: 模拟项目](#day-33-股票收益分析面试模拟项目)
+        	- [🔧练习 收益率、累计收益、波动率](#练习33)
+		- [📑 Day 34: pandas进阶](#day-34-pandas-进阶技巧与性能优化)
+        	- [🔧练习 多级索引、apply、自定义函数](#练习34)
+    	- [📑 Day 35: 可视化](#day-35pandas-可视化与综合实战)
+        	- [🔧练习 销售与收益可视化](#练习35销售与收益可视化仪表板)
 	- [week 6: 数据可视化    ](#week-6数据可视化)
+
 	- [week 7: 数据获取方法  ](#week-7爬虫与数据获取)
+
 	- [week 8: 算法与数据结构](#week-8算法与数据结构应用)
+
 	- [week 9: 机器学习基础  ](#week-9机器学习基础)
+
 	- [week 10: 综合考察     ](#week-10综合项目--模拟面试)
 
 ## Week 1：Python 基础与环境
@@ -2123,18 +2141,24 @@ Python 项目开发中，为了避免不同项目间的包冲突，通常会使�
 
 1️⃣ venv 基础操作
 Python 内置模块 venv 用于创建虚拟环境：
-# 创建虚拟环境（Windows）
+1,1 创建虚拟环境（Windows）
 ```
 python -m venv venv
 ```
-# 激活虚拟环境
-# Windows
+1.2 激活虚拟环境
+for Windows
+```
 venv\Scripts\activate
-# macOS/Linux
+```
+for macOS/Linux
+```
 source venv/bin/activate
-# 退出虚拟环境
-deactivate
 
+```
+1.3 退出虚拟环境
+```
+deactivate
+```
 激活后，安装的所有包都会在该环境内，不会影响全局 Python。
 
 2️⃣ 依赖管理与复现
@@ -2212,17 +2236,174 @@ week4 大项目：全功能量化回测（见week4目录）
 	•	统计分析：均值、中位数、方差、相关性
 	•	分组聚合：groupby, pivot_table
 
-📝 小项目1（综合练习）：
-销售数据分析：
-	•	每月总销售额
-	•	最畅销商品
-	•	客户购买频率
+### 📑Day 29：认识 Pandas 与 Series / DataFrame**
+**学习重点：**
+- 导入 Pandas：`import pandas as pd`
+- Pandas 的两个核心数据结构：  
+  - `Series`：一维数组，带标签索引  
+  - `DataFrame`：二维表格，带行列标签  
+- 创建、索引与切片：
+  ```python
+  import pandas as pd
+  s = pd.Series([10, 20, 30], index=['a', 'b', 'c'])
+  df = pd.DataFrame({'Name': ['A', 'B'], 'Sales': [200, 300]})
+  df.loc[0, 'Sales']  # 按标签
+  df.iloc[1, 0]       # 按位置
+  ```
 
-📝 小项目2（面试模拟）：
-股票 CSV → 计算：
-	•	日收益率
-	•	累计收益率曲线
-	•	波动率（标准差）
+#### 🔧练习29
+- 创建自己的 `Series` 和 `DataFrame`
+- 练习 `.head()`, `.tail()`, `.info()`, `.describe()` 等常用方法
+
+---
+
+### 📑Day 30：数据导入与初步查看**
+**学习重点：**
+- 导入多种格式：
+  ```python
+  pd.read_csv('data.csv')
+  pd.read_excel('data.xlsx', sheet_name=0)
+  pd.read_json('data.json')
+  pd.read_sql('SELECT * FROM table', conn)
+  ```
+- 基本查看与筛选：
+  - `.columns`, `.shape`, `.dtypes`
+  - 逻辑筛选：`df[df['Sales'] > 1000]`
+  - 列选择与重命名
+
+#### 🔧练习30
+- 导入一份 CSV 文件（如销售或股票数据）
+- 筛选出满足特定条件的数据，如“销售额 > 1000”
+
+---
+
+### 📑Day 31：数据清洗（缺失值与重复值）**
+**学习重点：**
+- 缺失值处理：
+  ```python
+  df.isnull().sum()
+  df.fillna(0, inplace=True)
+  df.dropna(subset=['Price'], inplace=True)
+  ```
+- 重复值去除：
+  ```python
+  df.drop_duplicates(inplace=True)
+  ```
+- 数据类型转换：`df['Date'] = pd.to_datetime(df['Date'])`
+
+#### 🔧练习31
+- 检查数据中的空值、重复行并清洗
+- 转换日期列格式并排序
+
+---
+
+### 📑Day 32：统计分析与分组聚合**
+**学习重点：**
+- 基本统计：
+  ```python
+  df['Sales'].mean()
+  df['Sales'].std()
+  df.corr()
+  ```
+- 分组聚合：
+  ```python
+  df.groupby('Month')['Sales'].sum()
+  df.pivot_table(values='Sales', index='Month', columns='Region', aggfunc='sum')
+  ```
+
+#### 🔧练习32
+使用销售数据（或模拟数据），完成：
+1. 每月总销售额  
+2. 最畅销商品  
+3. 客户购买频率  
+
+---
+
+### 📑Day 33：股票收益分析（面试模拟项目）**
+**学习重点：**
+- 计算日收益率：
+  ```python
+  df['Daily_Return'] = df['Close'].pct_change()
+  ```
+- 累计收益率：
+  ```python
+  df['Cumulative_Return'] = (1 + df['Daily_Return']).cumprod()
+  ```
+- 计算波动率（标准差）：
+  ```python
+  volatility = df['Daily_Return'].std()
+  ```
+
+#### 🔧练习33
+导入某只股票的 CSV 数据，完成以下计算并画图：
+1. 日收益率  
+2. 累计收益率曲线（`matplotlib` 可视化）  
+3. 波动率数值输出  
+
+---
+### 📑Day 34：Pandas 进阶技巧与性能优化
+
+📘 学习重点：
+
+多重索引（MultiIndex）：处理分层数据
+```
+df = df.set_index(['Region', 'Month'])
+df.loc['North']
+```
+
+apply / lambda 自定义函数：
+```
+df['Profit_Rate'] = df.apply(lambda x: x['Profit'] / x['Sales'], axis=1)
+```
+
+矢量化运算 vs 循环性能差异
+内存优化与类型转换：
+```
+df['Category'] = df['Category'].astype('category')
+```
+
+#### 🔧练习34:
+
+给销售或股票数据加多级索引（如 Region + Month）
+
+比较 for 循环与 apply、vectorized 的速度差异（可用 %timeit）
+
+### 📑Day 35：Pandas 可视化与综合实战
+
+📘 学习重点：
+
+内置绘图功能（基于 Matplotlib）：
+```
+df['Sales'].plot(kind='line')
+df.groupby('Month')['Sales'].sum().plot(kind='bar')
+```
+
+多个指标对比图：
+```
+df[['Sales', 'Profit']].plot(kind='line')
+```
+
+直方图 / 箱型图查看分布：
+```
+df['Sales'].hist()
+df.boxplot(column='Sales', by='Region'
+```
+#### 🔧练习35：销售与收益可视化仪表板
+
+整合 销售 与 股票 数据
+
+绘制：
+每月销售趋势
+股票累计收益率曲线
+区域销售占比饼图
+添加 rolling() 平滑曲线、对比波动趋势
+---
+
+🎯 **总结**
+- 掌握 Pandas 的数据结构与基本操作
+- 能独立导入、清洗、分析数据
+- 完成两个小项目：销售分析 & 股票收益分析
+
 
 ⸻
 
@@ -2234,11 +2415,110 @@ week4 大项目：全功能量化回测（见week4目录）
 	•	双轴图、子图
 	•	交互式可视化：plotly
 
-📝 小项目1（综合练习）：
-绘制 销售额趋势图 + 热力图。
+### 📑Day 36：Matplotlib 基础
+**重点内容**：
+- 折线图、散点图
+- 设置标题、坐标轴、颜色、线型
+- 保存图像 `plt.savefig()`
 
-📝 小项目2（面试模拟）：
-绘制 股票价格 K 线图，叠加 移动平均线。
+**练习**：
+- 绘制日收益率折线图
+- 修改颜色、线型、标题和字体
+
+---
+
+### 📑Day 37：Matplotlib 进阶
+**重点内容**：
+- 子图布局（`subplot`, `subplots`）
+- 条形图、饼图、直方图
+- 添加注释、文字、图例
+
+**练习**：
+- 绘制产品销售对比条形图
+- 收益分布直方图
+
+---
+
+### 📑Day 38：Seaborn 基础
+**重点内容**：
+- 统计图：`histplot`, `boxplot`, `scatterplot`, `lineplot`
+- 设置风格 `sns.set(style='whitegrid')`
+- 使用 `hue` 分组增强可读性
+
+**练习**：
+- 绘制箱型图与散点图
+- 分析不同客户或区域的销售分布
+
+---
+
+### 📑Day 39：Seaborn 高级
+**重点内容**：
+- FacetGrid、catplot、pairplot、violinplot
+- 热力图 `sns.heatmap()` 分析相关性
+
+**练习**：
+- 绘制股票相关性热力图
+- 区域销售分布对比图
+
+---
+
+### 📑Day 40：Plotly 交互式可视化
+**重点内容**：
+- Plotly Express 创建交互式折线、柱状、散点图
+- hover 信息、缩放、导出 HTML
+
+**练习**：
+- 绘制交互式股票累计收益图
+- 区域销售柱状图 + hover 显示具体数值
+
+---
+### 📑Day 41：Altair 声明式可视化
+**重点内容**：
+- 简洁声明式语法，自动美观
+- 支持交互：缩放、选择、过滤
+- 与 Pandas DataFrame 集成完美
+
+**练习**：
+```python
+import altair as alt
+import pandas as pd
+
+df = pd.DataFrame({
+    'Month': ['Jan','Feb','Mar','Apr'],
+    'Sales': [200, 300, 250, 400]
+})
+
+chart = alt.Chart(df).mark_line(point=True).encode(
+    x='Month',
+    y='Sales'
+)
+chart.interactive()
+```
+### 📑Day 42：综合可视化项目
+
+综合任务：
+
+使用 Matplotlib + Seaborn + Plotly + Altair
+
+示例项目：
+
+股票收益可视化
+
+Matplotlib 折线图 + 移动平均
+Seaborn箱型图、热力图
+Plotly 交互式累计收益图
+Altair 声明式折线图 + hover
+销售绩效仪表盘
+每月销售趋势折线图
+区域销售占比饼图
+顾客消费柱状图
+Altair 或 Plotly 实现交互式仪表盘
+
+目标：
+
+完整展示静态 + 统计 + 交互 + 声明式图表
+能用 Python 输出可交互 HTML 仪表盘
+
 
 ⸻
 

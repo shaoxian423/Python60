@@ -1,6 +1,6 @@
 # 🐍 QiQi 和她爹的Python基地（丰富版）10周
 ![商科学生技能雷达图](Pics/Skills_Radar_Chart.png)
-	- [🐍 QiQi 和她爹的Python基地（丰富版）](#-qiqi-和她爹的python基地丰富版10周)
+- [🐍 QiQi 和她爹的Python基地（丰富版）](#-qiqi-和她爹的python基地丰富版10周)
 	- [Week 1：Python 基础与环境](#week-1-python-基础与环境)
 		- [📑 Day 1：环境搭建 \& IDE](#-day-1-环境搭建--ide)
 		- [📑 Day 2：变量与数据类型](#-day-2-变量与数据类型)

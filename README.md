@@ -1,71 +1,71 @@
 # 🐍 QiQi 和她爹的Python基地（丰富版）10周
 ![商科学生技能雷达图](Pics/Skills_Radar_Chart.png)
-- [🐍 QiQi 和她爹的Python基地（丰富版）10周](#-qiqi-和她爹的python基地丰富版10周)
-	- [Week 1：Python 基础与环境](#week-1python-基础与环境)
+	- [🐍 QiQi 和她爹的Python基地（丰富版）](#-qiqi-和她爹的python基地丰富版10周)
+	- [Week 1：Python 基础与环境](#week-1-python-基础与环境)
 		- [📑 Day 1：环境搭建 \& IDE](#-day-1-环境搭建--ide)
 		- [📑 Day 2：变量与数据类型](#-day-2-变量与数据类型)
-			- [🔧练习：](#练习)
-		- [📑 Day 3：运算符](#-day-3运算符)
-			- [🔧练习：](#练习-1)
+			- [🔧练习：](#练习2)
+		- [📑 Day 3：运算符](#-day-3-运算符)
+			- [🔧练习：](#)
 		- [📑 Day 4：条件语句 if-else](#-day-4-条件语句-if-else)
-			- [🔧练习：](#练习-2)
+			- [🔧练习：](#练习4)
 		- [📑 Day 5：循环 for \& while](#-day-5-循环-for--while)
-			- [🔧练习:](#练习-3)
+			- [🔧练习:](#练习5)
 		- [📑 Day 6：综合练习 — 迷你计算器](#-day-6-综合练习--迷你计算器)
 			- [🔧🔧综合练习1: Mini Calculator(具体请看Week1子目录下)](#综合练习1-mini-calculator具体请看week1子目录下的calcluaterreadme)
 		- [📑 Day 7 ：面试模拟  小项目2— 股票最大收益：](#-day-7-面试模拟--小项目2-股票最大收益)
 			- [🔧🔧综合练习2：最佳买卖股票,(具体请看Week1子目录下)](#综合练习2-best-time-to-buy-and-sell-stock具体请看week1子目录下的stock)
-	- [Week 2：数据结构与文件操作](#week-2数据结构与文件操作)
+	- [Week 2：数据结构与文件操作](#week-2-数据结构与文件操作)
 		- [数据结构学习内容：](#数据结构学习内容)
 		- [📑 Day 8：list（列表）基础](#-day-8-list列表基础)
-			- [🔧练习：创建一个 list，增加、插入、删除元素，并排序输出。](#练习创建一个-list增加插入删除元素并排序输出)
-		- [📑 Day 9：tuple（元组）基础](#-day-9-tuple元组基础)
-			- [🔧练习：创建一个 tuple，统计元素出现次数，并查找索引。](#练习创建一个-tuple统计元素出现次数并查找索引)
+			- [🔧练习：创建一个 list，增加、插入、删除元素，并排序输出。](#练习8)
+		- [📑 Day 9：tuple（元组）基础](#-day-9tuple元组基础)
+			- [🔧练习：创建一个 tuple，统计元素出现次数，并查找索引。](#练习9)
 		- [📑 Day 10：set（集合）基础](#-day-10-set集合基础)
-			- [🔧练习：创建两个 set，并进行集合运算。](#练习创建两个-set并进行集合运算)
+			- [🔧练习：创建两个 set，并进行集合运算。](#练习10)
 		- [📑 Day 11：dict（字典）基础](#-day-11-dict字典基础)
-			- [🔧练习：创建一个字典，访问、更新和遍历元素。](#练习创建一个字典访问更新和遍历元素)
+			- [🔧练习：创建一个字典，访问、更新和遍历元素。](#练习11)
 		- [📑 Day 12：切片与推导式](#-day-12-切片与推导式)
-			- [🔧练习：使用切片和推导式创建新的 list。](#练习使用切片和推导式创建新的-list)
+			- [🔧练习：使用切片和推导式创建新的 list。](#练习12)
 		- [📑 Day 13：深拷贝 vs 浅拷贝](#-day-13-深拷贝-vs-浅拷贝)
-			- [🔧练习：演示浅拷贝和深拷贝的不同。](#练习演示浅拷贝和深拷贝的不同)
+			- [🔧练习：演示浅拷贝和深拷贝的不同。](#练习13)
 		- [📑 Day 14：文件操作与异常处理](#-day-14-文件操作与异常处理)
-			- [🔧练习：读取 txt 文件并捕获异常。](#练习读取-txt-文件并捕获异常)
+			- [🔧练习：读取 txt 文件并捕获异常。](#练习14)
 			- [🔧🔧综合练习3: 图书管理系统：](#综合练习3-library-management-system-with-json-persistence)
-			- [🔧🔧综合练习4:（面试模拟）股票分析：](#综合练习4-面试模拟stock-data-analysiscsv-reader-with-statistics-and-volatility)
+			- [🔧🔧综合练习4:（面试模拟）股票分析](#综合练习4-stock-data-analysis)
 			- [🔧🔧综合练习5: 增强电影管理](#综合练习5-advanced-movie-collection-manager-with-json-persistence)
-	- [Week 3：函数进阶与面向对象](#week-3函数进阶与面向对象)
+	- [Week 3：函数进阶与面向对象](#week-3-函数进阶与面向对象)
     	- [📑 Day 15: 函数基础](#-day-15-函数基础)
-        	- [🔧练习 定义函数](#练习1定义函数示例)
+        	- [🔧练习 定义函数](#练习15-1)
     	- [📑 Day 16: 函数进阶与作用域](#-day-16-函数进阶与作用域)
-        	- [🔧练习 全局和局部变量](#练习局部变量全局变量示例)
+        	- [🔧练习 全局和局部变量](#练习16)
     	- [📑 Day 17: 模块与包](#-day-17-模块与包)
-        	- [🔧练习 模块导入](#练习模块导入与自定义模块示例)
+        	- [🔧练习 模块导入](#练习17)
     	- [📑 Day 18: 文件操作](#-day-18-文件操作)
-        	- [🔧练习 文件读写](#练习文件读写示例)
+        	- [🔧练习 文件读写](#练习18)
     	- [📑 Day 19: 异常处理](#-day-19-异常处理)
-        	- [🔧练习 tryexcept](#练习tryexcept示例)
+        	- [🔧练习 tryexcept](#练习19)
     	- [📑 Day 20: OOP 基础](#-day-20-oop-基础)
-        	- [🔧练习 OOP](#练习类和对象示例)
-    	- [📑 Day 21: OOP 进阶](#-day-21-oop-进阶)
-        	- [🔧练习 继承多态](#练习继承多态示例)
+        	- [🔧练习 OOP](#练习20)
+    	- [📑 Day 21: OOP 进阶](#-day-21-1-oop-进阶)
+        	- [🔧练习 继承多态](#练习21-1)
         	- [🔧🔧综合练习6： 银行账户管理](#综合练习6-银行账户管理)
         	- [🔧🔧综合练习7： 股票投资组合](#综合练习7-股票投资组合类面试模拟)
-    - [week 4: 模块、库与工具](#week-4模块库与工具)
+    - [week 4: 模块、库与工具](#week-4-模块库与工具)
     	- [📑 Day 22: os-sys-pathlib](#-day-22-os-sys-pathlib)
-        	- [🔧练习 sys](#练习-sys)
+        	- [🔧练习 sys](#练习22)
     	- [📑 Day 23: datetime](#-day-23-datetime--金融应用)
-			- [🔧练习 date](#练习-date)
+			- [🔧练习 date](#练习23)
     	- [📑 Day 24: collections](#-day-24-collections)
-        	- [🔧练习 Counter](#练习-counter)
+        	- [🔧练习 TradeStats Portfolio Manager](#练习24)
     	- [📑 Day 25: itertools](#-day-25-itertools--functools)
-        	- [🔧练习 itertools](#练习-itertools)
+        	- [🔧练习 itertools](#练习25)
     	- [📑 Day 26: 迭代器与生成器](#-day-26-迭代器与生成器)
-        	- [🔧练习 迭代器与生成器](#练习-迭代器与生成器)
-    	- [📑 Day 27: 正则表达式](#-day-27-正则表达式-re)
-        	- [🔧练习 正则表达式](#练习-正则表达式)
+        	- [🔧练习 迭代器与生成器](#练习26)
+    	- [📑 Day 27: 正则表达式](#-day-27-正则表达式-regular-expressions)
+        	- [🔧练习 正则表达式](#练习27)
     	- [📑 Day 28: 虚拟环境与依赖管理](#-day-28-虚拟环境与依赖管理)
-	- [week 5: 数学分析基础  ](#week-5pandas-数据分析基础)
+	- [week 5: 数学分析基础](#week-5-pandas-数据分析基础)
 	    - [📑 Day 29: 认识pandas](#day-29-认识-pandas-与-series--dataframe)
         	- [🔧练习 创建并操作简单数据](#练习29)
     	- [📑 Day 30: 数据导入与初步查看](#day-30-数据导入与初步查看)
@@ -78,9 +78,9 @@
         	- [🔧练习 收益率、累计收益、波动率](#练习33)
 		- [📑 Day 34: pandas进阶](#day-34-pandas-进阶技巧与性能优化)
         	- [🔧练习 多级索引、apply、自定义函数](#练习34)
-    	- [📑 Day 35: 可视化](#day-35pandas-可视化与综合实战)
+    	- [📑 Day 35: 可视化](#day-34-pandas-进阶技巧与性能优化)
         	- [🔧练习 销售与收益可视化](#练习35销售与收益可视化仪表板)
-	- [week 6: 数据可视化    ](#week-6数据可视化)
+	- [week 6: 数据可视化](#week-6-数据可视化)
 		- [📑 Day 36: matplotlib-基础](#day-36-matplotlib-基础)
         	- [🔧练习 绘制折线图](#练习36)
     	- [📑 Day 37: matplotlib-进阶](#day-37-matplotlib-进阶)
@@ -95,7 +95,7 @@
         	- [🔧练习 Altair和pandas练习](#练习41)
     	- [📑 Day 42: 综合可视化项目](#day-42-综合可视化项目)
         	- [🔧练习 股票收益可视化](#练习42-示例项目)
-	- [week 7: 爬虫与数据获取](#week-7爬虫与数据获取)
+	- [week 7: 爬虫与数据获取](#week-7-爬虫与数据获取)
 		- [📑 Day 43: requests-基础与网页请求](#day-43-requests-基础与网页请求)
         	- [🔧练习 请求网页](#练习43)
     	- [📑 Day 44: html-解析与-beautifulsoup](#day-44-html-解析与-beautifulsoup)
@@ -109,7 +109,7 @@
 		- [📑 Day 48: 新闻标题爬取](#day-48-小项目1--新闻标题爬取)
         	- [🔧练习 新闻标题爬取](#)
     	- [📑 Day 49: api-实战](#day-49-小项目2--金融数据-api-实战)
-	- [week 8: 算法与数据结构](#week-8算法与数据结构应用)
+	- [week 8: 算法与数据结构](#week-8-算法与数据结构应用)
 		- [📑 Day 50: 算法与复杂度基础](#day-50-算法与复杂度基础)
         - [🔧练习 线性查找函数](#练习50)
     	- [📑 Day 51: 排序算法基础1](#day-51-排序算法基础1)
@@ -123,7 +123,7 @@
 		- [📑 Day 55: 动态规划dp入门](#day-55-动态规划dp入门)
         	- [🔧练习 Fibonacci 练习](#练习55)
     	- [📑 Day 56: 项目实战与综合应用](#day-56-项目实战与综合应用)
-	- [week 9: 模块化与性能优化  ](#week-9模块化与性能优化)
+	- [week 9: 模块化与性能优化](#week-9-模块化与性能优化)
 		- [📑 Day 57: 项目模块化设计](#️-day-57-项目模块化设计)
         - [🔧练习 创建示例项目目录结构](#练习57)
     	- [📑 Day 58: 函数与类的模块化](#️-day-58-函数与类的模块化)
@@ -138,28 +138,28 @@
         	- [🔧练习 代码优化](#练习62)
     	- [📑 Day 63: 项目重构与总结](#️-day-63-项目重构与总结)
 
-## Week 1：Python 基础与环境
-
+## Week 1: Python 基础与环境
 📘 学习内容：
+```
 	•	Python 环境与 IDE（Anaconda / venv / pyenv）
 	•	基础语法：变量、数据类型（int, float, str, bool）
 	•	运算符：算术、逻辑、比较
 	•	控制语句：if-else，循环（for、while）
 	•	输入输出：input()、print() 格式化输出
 	•	注释、代码风格（PEP 8）
-
-### 📑 Day 1：环境搭建 & IDE
+```
+### 📑 Day 1: 环境搭建 & IDE
 	•	安装 Python（推荐 pyenv 或 Anaconda）。
 	•	学会创建虚拟环境（venv / conda）。
 	•	安装 IDE：Jupyter Notebook / VS Code。
 	•	用 print("Hello, Python!") 输出第一行代码。
 	•	在 VS Code + Jupyter 里跑通第一个 .py 文件和 .ipynb 文件。
 
-### 📑 Day 2：变量与数据类型
+### 📑 Day 2: 变量与数据类型
 	•	学习 Python 的四种基本类型：int, float, str, bool。
 	•	学会使用 type() 查看类型，str() int() float() 做类型转换。
 	•	了解 Python 的动态类型特性。
-#### 🔧练习：
+#### 🔧练习2:
 Write a small program that takes the user’s input for name and age, and prints a  sentence. Pay attention to converting to bool:
 ```python
 # P2.1 Get user input
@@ -189,12 +189,12 @@ bool() 的转换规则是这样的：
 	•	任何非空字符串（哪怕只是 " " 一个空格，或 "hello"）→ True
     总结一句话：Python 里只要字符串不是完全空的，就认为它是真 (True)
 
-### 📑 Day 3：运算符
+### 📑 Day 3: 运算符
 	•	学习算术运算符（+ - * / // % **）。
 	•	学习比较运算符（== != > < >= <=）。
 	•	学习逻辑运算符（and or not）。
 	•	学习赋值运算符（+=, -=, *=, /=）。
-#### 🔧练习：
+#### 🔧练习3:
 Let the user enter a number, and output its square, whether it is greater than 10, and whether it is even.
 ```python
 # P 3.1
@@ -210,10 +210,10 @@ print(f"The square of {a} is: {square}")
 print(f"Is the square greater than 10? {greater_than_10}")
 print(f"Is the square even? {is_even}")
 ```
-### 📑 Day 4：条件语句 if-else
+### 📑 Day 4: 条件语句 if-else
 	•	if-else 语句语法。
 	•	多分支：if-elif-else。
-#### 🔧练习：
+#### 🔧练习4:
 	•	输入一个分数，输出成绩等级：
 	•	90+ 优秀
 	•	70-89 良好
@@ -233,11 +233,11 @@ else:
 print(f"your grade is: {grade}")
 ```
 ![alt text](Pics/ifelse.png)
-### 📑 Day 5：循环 for & while
+### 📑 Day 5: 循环 for & while
 	•	for i in range(n)。
 	•	while 循环。
 	•	break & continue。
-#### 🔧练习:
+#### 🔧练习5:
 1. 9x9 multiplication table,,,Write a program to print the multiplication table from 1×1 up to 9×9.
 ```python
 # P 5.1
@@ -259,7 +259,7 @@ while i <= 100:
 print(f"The sum of numbers from 1 to 100 is: {total}")
 ```
 ![alt text](Pics/forwhile.png)
-### 📑 Day 6：综合练习 — 迷你计算器
+### 📑 Day 6: 综合练习 — 迷你计算器
 	•	结合 if-else、输入输出、函数。
 	•	实现加、减、乘、除、开方、幂运算。
 	•	进阶： 加入异常处理：不能除以 0。
@@ -316,13 +316,13 @@ while True:
         print("输入无效，请输入数字！")
 ```
 注意: 这里有导入包:math,它是python自带库文件,可以实现已经封装好的计算逻辑(函数)
-### 📑 Day 7 ：面试模拟  小项目2— 股票最大收益：
+### 📑 Day 7: 面试模拟  小项目2— 股票最大收益
 股票价格数组，求 最大收益区间（买入/卖出）。
 	•	问题：给定一个股票价格数组，找到最大利润（一次买入卖出）。
 	•	训练点：
 	•	遍历数组。
 	•	变量存储最小买入价、最大利润。
-#### 🔧🔧综合练习2：Best Time to Buy and Sell Stock,(具体请看Week1子目录下的Stock)
+#### 🔧🔧综合练习2: Best Time to Buy and Sell Stock,(具体请看Week1子目录下的Stock)
 	•	You are given a list of stock prices where prices[i] is the price of a given stock on day i...prices = [7,1,5,3,6,4]
 	•	You want to maximize your profit by choosing one day to buy and one later day to sell.
 	•	Write a function that returns the maximum profit you can achieve. If no profit is possible, return 0.
@@ -364,8 +364,8 @@ prices = [7,1,5,3,6,4]
 print(max_profit(prices))  # 输出 5
 
 ```
-## Week 2：数据结构与文件操作
-### 数据结构学习内容：
+## Week 2: 数据结构与文件操作
+📘 学习内容：
 ```
 	•	数据结构：list、tuple、set、dict
 	•	切片、推导式（list/dict comprehension）
@@ -423,12 +423,13 @@ tuple	✅		❌		❌		✅		 固定数据、函数返回值
 set		❌		✅		✅		❌		 去重、集合运算
 dict	❌		✅		键唯一	通过 key	键值映射
 ```
-### 📑 Day 8：list（列表）基础
+### 📑 Day 8: list（列表）基础
 	•	学习 list 的有序性、可变性和重复元素特性。
 	•	学会通过索引访问元素。
 	•	掌握 append(), insert(), pop(), remove(), sort(), reverse() 方法。
 
-#### 🔧练习：创建一个 list，增加、插入、删除元素，并排序输出。
+#### 🔧练习8: 
+创建一个 list，增加、插入、删除元素，并排序输出。
 ```python
 # P8.1 List操作练习
 fruits = ["apple", "banana", "cherry"]
@@ -451,7 +452,8 @@ print("Popped element:", popped)
 	•	通过索引访问元素。
 	•	掌握 count(), index() 方法。
 	•	了解 tuple 常用于固定数据或函数返回多个值。
-#### 🔧练习：创建一个 tuple，统计元素出现次数，并查找索引。
+#### 🔧练习9:
+创建一个 tuple，统计元素出现次数，并查找索引。
 ```python
 # P9.1 Tuple练习
 numbers = (1, 2, 3, 2, 4, 2) # 注意tuple用(),而list用[],而且count() 和 index() 都可以用在 有序序列（list 或 tuple）上,他们是这两种序列的方法。count是计数,计算它出现的次数,而index是它索引的位置.
@@ -462,12 +464,13 @@ print("Tuple:", numbers)
 print("Count of 2:", count_2)
 print("Index of 3:", index_3)
 ```
-### 📑 Day 10：set（集合）基础
+### 📑 Day 10: set（集合）基础
 	•	学习 set 的无序性、可变性和唯一性。
 	•	掌握集合运算：交集、并集、差集、对称差集。
 	•	学会使用 add(), remove(), discard(), pop() 方法。
 
-#### 🔧练习：创建两个 set，并进行集合运算。
+#### 🔧练习10:
+创建两个 set，并进行集合运算。
 ```python
 # P10.1 Set操作练习,非空集合可以用 {},空集合必须用 set(),可以用 set() 将 list、tuple、字符串等可迭代对象转换为集合.
 a = {1, 2, 3, 4}
@@ -488,12 +491,13 @@ print("Union:", union_set)
 print("Intersection:", intersection_set)
 print("Difference:", diff_set)
 ```
-### 📑 Day 11：dict（字典）基础
+### 📑 Day 11: dict（字典）基础
 	•	学习 dict 的键唯一、值可重复、可变特性。
 	•	通过 key 访问元素。
 	•	掌握 keys(), values(), items(), get(), update() 方法。
 
-#### 🔧练习：创建一个字典，访问、更新和遍历元素。
+#### 🔧练习11:
+创建一个字典，访问、更新和遍历元素。
 ```python
 # P11.1 Dict操作练习
 student = {"name": "Alice", "age": 20, "major": "CS"}
@@ -505,12 +509,13 @@ student.update({"age": 21, "grade": "A"})
 for key, value in student.items(): # 注意这里定义的两个循环变量:key和value,这种写法就可以自动拆包,如果是for key in student呢?就是只用一个变量呢?结果会是什么样子?
     print(key, ":", value)
 ```
-### 📑 Day 12：切片与推导式
+### 📑 Day 12: 切片与推导式
 	•	学习 list、tuple 的切片方法。
 	•	学习 list/dict comprehension。
 	•	了解推导式在创建新集合中的优势。
 
-#### 🔧练习：使用切片和推导式创建新的 list。
+#### 🔧练习12:
+使用切片和推导式创建新的 list。
 ```python
 # P12.1 切片与推导式
 numbers = [0, 1, 2, 3, 4, 5, 6]
@@ -521,12 +526,13 @@ squares = [x*x for x in numbers if x%2==0]
 print("Slice:", slice_numbers)
 print("Squares of even numbers:", squares)
 ```
-### 📑 Day 13：深拷贝 vs 浅拷贝
+### 📑 Day 13: 深拷贝 vs 浅拷贝
 	•	理解浅拷贝 (shallow copy) 与深拷贝 (deep copy) 的区别。
 	•	学会使用 copy() 和 deepcopy()。
 	•	了解嵌套列表复制的注意点。
 
-#### 🔧练习：演示浅拷贝和深拷贝的不同。
+#### 🔧练习13:
+演示浅拷贝和深拷贝的不同。
 ```python
 # P13.1
 import copy
@@ -565,12 +571,13 @@ c[2][0] = 77
 print(a) # [1, 2, [3, 4]] 外层完全不受影响
 print(c) # [99,2, [77, 4]]
 ```
-### 📑 Day 14：文件操作与异常处理
+### 📑 Day 14: 文件操作与异常处理
 	•	学习文件读写 txt、CSV、JSON。
 	•	掌握异常处理 try-except-finally。
 	•	了解文件操作中的常见错误及处理方法。
 
-#### 🔧练习：读取 txt 文件并捕获异常。
+#### 🔧练习14:
+读取 txt 文件并捕获异常。
 ```python
 # P14.1 文件操作练习
 try: # try表示“尝试执行下面的执行块, 如果出错,会转到except
@@ -585,7 +592,7 @@ finally: # 无论是否出错,finally里的代码都会执行
     print("Execution finished.")
 ```
 
-#### 🔧🔧综合练习3:  Library Management System with JSON Persistence：
+#### 🔧🔧综合练习3: Library Management System with JSON Persistence：
 建立一个图书管理系统：能添加/删除/查询，并保存到 JSON 文件。
 功能点：
 	1.	添加书籍（书名、作者、年份）。
@@ -657,8 +664,9 @@ while True:
 注意: 运行此程序的时候,会提示你添加docstring,要分清注释(#)和文档字符串(docstring)之间的区别:
 docstring是同时给人和机器看的,可通过help()或.__doc__获取;# 只是给人看的.
 
-#### 🔧🔧综合练习4:（面试模拟）Stock Data Analysis:CSV Reader with Statistics and Volatility：
-build a small program that reads historical stock data from a CSV file and computer basic statistics
+#### 🔧🔧综合练习4: Stock Data Analysis
+CSV Reader with Statistics and Volatility
+build a small program that reads historical stock data from a CSV file and computer basic statistics and Volatility
 读取股票历史数据 CSV，输出：
 	•	最高/最低价
 	•	平均收盘价
@@ -697,26 +705,26 @@ Functional Requirements:
 Add a movie
 Fields: Title, Director, Release Year, Genre
 Validation:
-##### Title and Director cannot be empty
-##### Release Year must be a number between 1888 and the current year
-##### Prevent duplicate titles (case-insensitive)
-##### Genre is optional; default to "Unknown" if left blank
+Title and Director cannot be empty
+Release Year must be a number between 1888 and the current year
+Prevent duplicate titles (case-insensitive)
+Genre is optional; default to "Unknown" if left blank
 Delete a movie
-##### Users can delete by title (case-insensitive) or index number in the list
+Users can delete by title (case-insensitive) or index number in the list
 Print a message if the movie is not found
 View movies
 Display all movies in a readable JSON-like format
-##### Sort movies by Release Year
+Sort movies by Release Year
 Search movies (optional challenge)
 Allow filtering by title, director, or year
 Data persistence
 All movie data must be saved in a JSON file
 On program start, load existing data so the collection persists between sessions
-##### Extra Challenge (Optional)
+Extra Challenge (Optional)
 Improve user experience with pretty-printing
 Allow partial search (e.g., searching for "Star" finds "Star Wars")
 Prevent invalid input for all fields
-##### Starter Hints
+Starter Hints
 Use the json module to read/write JSON files
 Use os.path.exists() to check if the JSON file exists
 Validate user input before saving
@@ -851,14 +859,15 @@ while True:
 	else:
 		print("Invalid choice, try again!")
 ```
-## Week 3：函数进阶与面向对象
+## Week 3: 函数进阶与面向对象
 📘 学习内容：
+```
 	•	函数参数（默认参数、可变参数 *args/**kwargs）
 	•	Lambda、map、filter、reduce
 	•	面向对象 OOP：类、对象、封装、继承、多态
 	•	魔法方法（__init__, __repr__, __len__）
 	•	装饰器 @decorator
-
+```
 ### 📑 Day 15: 函数基础
 	•	定义函数
 	    为什么需要函数？函数是 把代码组织成可重用模块 的方式。避免重复代码，提高可读性和可维护性。
@@ -906,7 +915,8 @@ args 和 kwargs 只是变量名，换成别的名字也能用,常用它们只不
 ```
 	返回值：return 可以返回 单个值，也可以返回 多个值（实际上是元组），如果没有写 return，函数默认返回 None
 
-#### 🔧练习1：定义函数示例
+#### 🔧练习15-1: 
+定义函数示例
 ```python
 def greet(name):# name是参数，形参（placeholder）调用函数时传入的 "Shaoxian" 是 实参。
 	return f"Hello, {name}!" 。# return 表达式会把结果返回给调用者
@@ -914,7 +924,8 @@ def greet(name):# name是参数，形参（placeholder）调用函数时传入�
 if __name__ == "__main__":
     print(greet("Shaoxian"))
 ```
-#### 🔧练习2：返回统计信息
+#### 🔧练习15-2: 
+返回统计信息
 输入一组分数，返回最高分、最低分、平均分。
 ```python
 def stats(scores):
@@ -922,7 +933,8 @@ def stats(scores):
 
 print(stats([89, 95, 72, 100, 85]))
 ```
-#### 🔧练习3：购物小票
+#### 🔧练习15-3:
+购物小票
 写一个函数，接收商品和价格（关键字参数形式），计算总价。
 ```python
 def checkout(**items): ## **是解包， .values()和.keys()是两个方法
@@ -1007,7 +1019,8 @@ scores = [85, 90, 95]
 zipped = list(zip(names, scores))
 print(zipped)  # [('Alice', 85), ('Bob', 90), ('Cathy', 95)]
 ```
-#### 🔧练习：局部变量、全局变量示例
+#### 🔧练习16:
+局部变量、全局变量示例
 ```python
 count = 0  # 全局变量
 def increment():
@@ -1059,7 +1072,8 @@ mypackage/
 	from mypackage import utils
 	from mypackage.calculator import add
 
-#### 🔧练习:模块导入与自定义模块示例
+#### 🔧练习17:
+模块导入与自定义模块示例
 ```python
 import math
 
@@ -1075,7 +1089,8 @@ if __name__ == "__main__":
 	•	读取方法: read(),deadline(),readlines()
 	•	写入方法: write(),writelines()
 	•	使用 with 自动关闭文件: 
-#### 🔧练习:文件读写示例
+#### 🔧练习18:
+文件读写示例
 ```python
 with open("movies.txt", "w") as f:
     f.write("Inception, Nolan, 2010\n")
@@ -1087,7 +1102,8 @@ with open("movies.txt", "r") as f:
 	•	try...except...finally
 	•	捕获特定异常
 	•	自定义异常
-#### 🔧练习:try/except示例
+#### 🔧练习19:
+try/except示例
 ```python
 try:
     x = int(input("Enter a number: "))
@@ -1131,7 +1147,8 @@ class Movie:
 m = Movie("Inception", "Nolan", 2010)
 print(m.info())   # Inception (2010), directed by Nolan
 ```
-#### 🔧练习:类和对象示例
+#### 🔧练习20:
+类和对象示例
 ```python
 class Movie:
     def __init__(self, title, director, year, genre="Unknown"):
@@ -1169,7 +1186,7 @@ if __name__ == "__main__":
         print(movie.info())
 
 ```
-### 📑 Day 21.1: OOP 进阶
+### 📑 Day 21-1: OOP 进阶
 	•	继承与多态：Inheritance and Polymorphism
 	    - 继承：子类继承父类的属性和方法。
 ```python
@@ -1213,7 +1230,8 @@ def __init__(self, r):
 print(c1.pi, c2.pi)   # 3.14159 3.14159
 print(c1.r, c2.r)     # 5 10
 ```
-#### 🔧练习:继承、多态示例
+#### 🔧练习21-1:
+继承、多态示例
 ```python
 
 class Book:
@@ -1233,7 +1251,7 @@ if __name__ == "__main__":
     ebook = EBook("Python 101", 5) # 创建并执行对象，先用父类初始化title，传进去title名，再设置size=5
     ebook.info() #调用子类的info方法
 ```
-### 📑 Day 21.2: OOP 高级 
+### 📑 Day 21-2: OOP 高级 
 学习目标
 理解 类方法 (classmethod) 与 静态方法 (staticmethod) 的区别与应用
 学习 封装 (Encapsulation) 与 @property 装饰器
@@ -1338,7 +1356,8 @@ v2 = Vector(3, 4)
 print(v1)          # Vector(1, 2)
 print(v1 + v2)     # Vector(4, 6)
 ```
-#### 🔧 练习：综合 OOP 高级特性
+#### 🔧 练习:21-2:
+综合 OOP 高级特性
 ```python
 import datetime
 
@@ -1404,7 +1423,7 @@ print(Employee.is_workday(datetime.date(2025, 9, 19)))  # True / False
 
 ⸻
 
-## Week 4：模块、库与工具
+## Week 4: 模块、库与工具
 📘 学习内容：
 ```
     • 	Python 内置模块：os, sys, datetime, collections, itertools, functools
@@ -1421,7 +1440,8 @@ print(Employee.is_workday(datetime.date(2025, 9, 19)))  # True / False
 	•	sys.argv 	 👉 获取命令行参数
 	•	pathlib.Path 👉 操作文件路径
 
-#### 🔧练习 sys
+#### 🔧练习22:
+os,sys
 写一个脚本，遍历某文件夹，统计 .py 文件数量。
 ```
 import os
@@ -1551,7 +1571,8 @@ for _ in range(5):
 print(trading_days)
 
 ```
-#### 🔧练习 date
+#### 🔧练习23:
+date
 实现函数 next_trading_day(date_str)，输入日期（含节假日列表），返回下一个交易日
 ```
 from datetime import datetime, timedelta
@@ -1701,7 +1722,8 @@ for price in prices:
 
 ![collections](Pics/collections.png)
 
-#### 🔧练习 TradeStats Portfolio Manager:最小可用版 Gradio 股票账户展示工具
+#### 🔧练习24:
+TradeStats Portfolio Manager:最小可用版 Gradio 股票账户展示工具
 
 对交易数据进行多维统计和分析.
 
@@ -1881,7 +1903,8 @@ functools 用于高阶函数操作，如部分参数固定、函数缓存、函�
 2. 策略回测：同一参数组合下结果缓存
 3. 函数定制：快速生成带固定参数的函数，简化代码
 
-#### 🔧练习 itertools
+#### 🔧练习25:
+itertools
 写一个函数，生成扑克牌所有可能的 5 张牌组合（52 choose 5）。
 ```
 import itertools
@@ -2067,7 +2090,8 @@ def read_all_stocks(files):
 自动顺序迭代所有生成器的元素
 保持惰性计算，大文件也不会一次性加载到内存
 
-#### 🔧练习 迭代器与生成器
+#### 🔧练习26:
+迭代器与生成器
 写一个生成器，逐行读取大文件（模拟日志流）。
 ```
 # generator_log_reader.py
@@ -2178,10 +2202,11 @@ date_pattern = (
 [12][0-9] → 10~29
 3[01] → 30,31
 
-#### 🔧练习 正则表达式
+#### 🔧练习27:
+正则表达式
 写一个函数，判断用户输入是否是合法邮箱。
 
-### 📑 Day 28 ：虚拟环境与依赖管理
+### 📑 Day 28: 虚拟环境与依赖管理
 Python 项目开发中，为了避免不同项目间的包冲突，通常会使用 虚拟环境 来隔离依赖，同时记录依赖版本方便复现。
 	•	venv 基础操作
 	•	pip freeze > requirements.txt
@@ -2276,14 +2301,15 @@ week4 大项目：全功能量化回测（见week4目录）
 
 ⸻
 
-## Week 5：Pandas 数据分析基础
+## Week 5: Pandas 数据分析基础
 📘 学习内容：
+```
 	•	Pandas 数据结构：Series, DataFrame
 	•	导入数据（CSV, Excel, JSON, SQL）
 	•	数据清洗：缺失值处理、重复值去除
 	•	统计分析：均值、中位数、方差、相关性
 	•	分组聚合：groupby, pivot_table
-
+```
 ### 📑Day 29: 认识 Pandas 与 Series / DataFrame
 **学习重点：**
 - 导入 Pandas：`import pandas as pd`
@@ -2299,7 +2325,7 @@ week4 大项目：全功能量化回测（见week4目录）
   df.iloc[1, 0]       # 按位置
   ```
 
-#### 🔧练习29
+#### 🔧练习29:
 - 创建自己的 `Series` 和 `DataFrame`
 - 练习 `.head()`, `.tail()`, `.info()`, `.describe()` 等常用方法
 
@@ -2319,7 +2345,7 @@ week4 大项目：全功能量化回测（见week4目录）
   - 逻辑筛选：`df[df['Sales'] > 1000]`
   - 列选择与重命名
 
-#### 🔧练习30
+#### 🔧练习30:
 - 导入一份 CSV 文件（如销售或股票数据）
 - 筛选出满足特定条件的数据，如“销售额 > 1000”
 
@@ -2339,7 +2365,7 @@ week4 大项目：全功能量化回测（见week4目录）
   ```
 - 数据类型转换：`df['Date'] = pd.to_datetime(df['Date'])`
 
-#### 🔧练习31
+#### 🔧练习31:
 - 检查数据中的空值、重复行并清洗
 - 转换日期列格式并排序
 
@@ -2359,7 +2385,7 @@ week4 大项目：全功能量化回测（见week4目录）
   df.pivot_table(values='Sales', index='Month', columns='Region', aggfunc='sum')
   ```
 
-#### 🔧练习32
+#### 🔧练习32:
 使用销售数据（或模拟数据），完成：
 1. 每月总销售额  
 2. 最畅销商品  
@@ -2455,14 +2481,15 @@ df.boxplot(column='Sales', by='Region'
 
 ⸻
 
-## Week 6：数据可视化
+## Week 6: 数据可视化
 📘 学习内容：
+```
 	•	matplotlib：折线图、柱状图、散点图
 	•	seaborn：分布图、热力图
 	•	图表美化：标题、标签、图例、颜色
 	•	双轴图、子图
 	•	交互式可视化：plotly
-
+```
 ### 📑Day 36: Matplotlib 基础
 **重点内容**：
 - 折线图、散点图
@@ -2570,15 +2597,14 @@ Altair 或 Plotly 实现交互式仪表盘
 
 ⸻
 
-## Week 7：爬虫与数据获取
-
+## Week 7: 爬虫与数据获取
 📘 学习内容：
+```
 	•	requests 请求网页/API,掌握网页与 API 数据获取的基本方法
 	•	BeautifulSoup 解析 HTML,熟悉 HTML 解析、JSON 提取与异常处理  
 	•	爬虫异常处理与重试,能独立爬取新闻、财经数据并保存到本地  
 	•	能调用金融 API（Alpha Vantage / Yahoo Finance）获取实时数据并绘图展示
----
-
+```
 ### 📑Day 43: Requests 基础与网页请求**
 **重点内容：**
 - 安装与导入：`pip install requests`
@@ -2689,14 +2715,14 @@ plt.show()
 
 ⸻
 
-## Week 8：算法与数据结构应用
-
+## Week 8: 算法与数据结构应用
 📘 学习内容：
+```
 	•	理解并实现常见算法（排序、查找、二分法）
 	•	掌握基本数据结构（栈、队列、堆、链表）
 	•	入门动态规划思想（Dynamic Programming）
 	•	能分析时间复杂度（Big-O）并编写高效代码  
----
+```
 ### 📑Day 50: 算法与复杂度基础**
 **重点内容：**
 - 什么是算法与数据结构
@@ -2805,16 +2831,15 @@ print("Quick:", quick_sort(data.copy()))
 ```
 ⸻
 
-## Week 9：模块化与性能优化
-
+## Week 9: 模块化与性能优化
 📘 学习内容：
+```
 	•	项目模块化
 	•	单元测试（pytest/unittest）
 	•	调试技巧（pdb, logging）
 	•	性能优化，代码优化
 	•	面试模拟
----
-
+```
 ### 🗓️ Day 57: 项目模块化设计
 
 **目标：** 理解模块化思想并设计项目结构。

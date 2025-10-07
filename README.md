@@ -1415,7 +1415,7 @@ print(Employee.is_workday(datetime.date(2025, 9, 19)))  # True / False
 	• 	学习正则表达式与迭代器/生成器（增强数据处理能力）
 	• 	通过小项目练习工程化思维
 ```
-### 📑 Day 22 ：os, sys, pathlib
+### 📑 Day 22: os, sys, pathlib
 	•	os.getcwd()  👉 就是 获取当前工作目录（Current Working Directory, CWD） 的函数。
 	•	os.listdir() 👉 用来 列出指定目录下的所有文件和文件夹名称（不递归子目录）。
 	•	sys.argv 	 👉 获取命令行参数
@@ -1460,7 +1460,7 @@ python count_py_files.py ./myproject
 2. 用 pathlib.Path 遍历文件夹 → 更现代，推荐替代 os.listdir()
 3. 如果不给参数，会提示用法
 
-### 📑 Day 23 ：datetime + 金融应用
+### 📑 Day 23: datetime + 金融应用
 	•	datetime.date, datetime.timedelta
 	•	判断周末，跳到下一个工作日
 ![datetime](Pics/datetime.png)
@@ -1590,7 +1590,7 @@ print(next_trading_day("2025-10-06", holidays))  # 工作日 → 输出 2025-10-
 2. 节假日判断：通过 holidays_dates 列表判断
 3. 输入/输出：都使用 "YYYY-MM-DD" 字符串格式，方便在金融系统或 CSV/数据库中使用
 
-### 📑 Day 24 ：collections
+### 📑 Day 24: collections
 	•	Counter → 词频统计
 	•	defaultdict → 避免 KeyError
 	•	deque → 双端队列（股票价格滑动窗口常用）
@@ -1856,7 +1856,7 @@ gradio
 pandas
 plotly
 ```
-### 📑 Day 25 ：itertools + functools
+### 📑 Day 25: itertools + functools
 用 itertools 生成所有可能.
 	•	itertools：product、permutations、combinations、groupby
 	•	functools：partial、lru_cache
@@ -1931,7 +1931,7 @@ if __name__ == "__main__":
 
 ```
 
-### 📑 Day 26 ：迭代器与生成器
+### 📑 Day 26: 迭代器与生成器
 用生成器懒惰地产出数据。yield 是 Python 里一个关键字,yield 把函数变成一个“生成器”（generator）
 ——函数不会一次性返回全部结果，而是“一个一个产出”数据。
 	•	自定义迭代器：实现 __iter__ 和 __next__
@@ -2098,7 +2098,7 @@ if __name__ == "__main__":
 
 ```
 
-### 📑 Day 27 ：正则表达式 （regular expressions）
+### 📑 Day 27: 正则表达式 （regular expressions）
 ![alt text](Pics/re_module.png)
 	•	常见模式：邮箱、手机号、日期、URL
 ![alt text](Pics/Normal.png)

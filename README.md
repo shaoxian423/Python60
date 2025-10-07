@@ -2284,7 +2284,7 @@ week4 大项目：全功能量化回测（见week4目录）
 	•	统计分析：均值、中位数、方差、相关性
 	•	分组聚合：groupby, pivot_table
 
-### 📑Day 29：认识 Pandas 与 Series / DataFrame**
+### 📑Day 29: 认识 Pandas 与 Series / DataFrame
 **学习重点：**
 - 导入 Pandas：`import pandas as pd`
 - Pandas 的两个核心数据结构：  
@@ -2305,7 +2305,7 @@ week4 大项目：全功能量化回测（见week4目录）
 
 ---
 
-### 📑Day 30：数据导入与初步查看**
+### 📑Day 30: 数据导入与初步查看
 **学习重点：**
 - 导入多种格式：
   ```python
@@ -2325,7 +2325,7 @@ week4 大项目：全功能量化回测（见week4目录）
 
 ---
 
-### 📑Day 31：数据清洗（缺失值与重复值）**
+### 📑Day 31: 数据清洗（缺失值与重复值）
 **学习重点：**
 - 缺失值处理：
   ```python
@@ -2345,7 +2345,7 @@ week4 大项目：全功能量化回测（见week4目录）
 
 ---
 
-### 📑Day 32：统计分析与分组聚合**
+### 📑Day 32: 统计分析与分组聚合**
 **学习重点：**
 - 基本统计：
   ```python
@@ -2367,7 +2367,7 @@ week4 大项目：全功能量化回测（见week4目录）
 
 ---
 
-### 📑Day 33：股票收益分析（面试模拟项目）**
+### 📑Day 33: 股票收益分析（面试模拟项目）
 **学习重点：**
 - 计算日收益率：
   ```python
@@ -2389,7 +2389,7 @@ week4 大项目：全功能量化回测（见week4目录）
 3. 波动率数值输出  
 
 ---
-### 📑Day 34：Pandas 进阶技巧与性能优化
+### 📑Day 34: Pandas 进阶技巧与性能优化
 
 📘 学习重点：
 
@@ -2416,7 +2416,7 @@ df['Category'] = df['Category'].astype('category')
 
 比较 for 循环与 apply、vectorized 的速度差异（可用 %timeit）
 
-### 📑Day 35：Pandas 可视化与综合实战
+### 📑Day 35: Pandas 可视化与综合实战
 
 📘 学习重点：
 
@@ -2463,7 +2463,7 @@ df.boxplot(column='Sales', by='Region'
 	•	双轴图、子图
 	•	交互式可视化：plotly
 
-### 📑Day 36：Matplotlib 基础
+### 📑Day 36: Matplotlib 基础
 **重点内容**：
 - 折线图、散点图
 - 设置标题、坐标轴、颜色、线型
@@ -2475,7 +2475,7 @@ df.boxplot(column='Sales', by='Region'
 
 ---
 
-### 📑Day 37：Matplotlib 进阶
+### 📑Day 37: Matplotlib 进阶
 **重点内容**：
 - 子图布局（`subplot`, `subplots`）
 - 条形图、饼图、直方图
@@ -2487,7 +2487,7 @@ df.boxplot(column='Sales', by='Region'
 
 ---
 
-### 📑Day 38：Seaborn 基础
+### 📑Day 38: Seaborn 基础
 **重点内容**：
 - 统计图：`histplot`, `boxplot`, `scatterplot`, `lineplot`
 - 设置风格 `sns.set(style='whitegrid')`
@@ -2499,7 +2499,7 @@ df.boxplot(column='Sales', by='Region'
 
 ---
 
-### 📑Day 39：Seaborn 高级
+### 📑Day 39: Seaborn 高级
 **重点内容**：
 - FacetGrid、catplot、pairplot、violinplot
 - 热力图 `sns.heatmap()` 分析相关性
@@ -2510,7 +2510,7 @@ df.boxplot(column='Sales', by='Region'
 
 ---
 
-### 📑Day 40：Plotly 交互式可视化
+### 📑Day 40: Plotly 交互式可视化
 **重点内容**：
 - Plotly Express 创建交互式折线、柱状、散点图
 - hover 信息、缩放、导出 HTML
@@ -2520,7 +2520,7 @@ df.boxplot(column='Sales', by='Region'
 - 区域销售柱状图 + hover 显示具体数值
 
 ---
-### 📑Day 41：Altair 声明式可视化
+### 📑Day 41: Altair 声明式可视化
 **重点内容**：
 - 简洁声明式语法，自动美观
 - 支持交互：缩放、选择、过滤
@@ -2542,7 +2542,7 @@ chart = alt.Chart(df).mark_line(point=True).encode(
 )
 chart.interactive()
 ```
-### 📑Day 42：综合可视化项目
+### 📑Day 42: 综合可视化项目
 
 综合任务：
 
@@ -2579,7 +2579,7 @@ Altair 或 Plotly 实现交互式仪表盘
 	•	能调用金融 API（Alpha Vantage / Yahoo Finance）获取实时数据并绘图展示
 ---
 
-### 📑Day 43：Requests 基础与网页请求**
+### 📑Day 43: Requests 基础与网页请求**
 **重点内容：**
 - 安装与导入：`pip install requests`
 - 发起 GET / POST 请求：`requests.get()`, `requests.post()`
@@ -2592,7 +2592,7 @@ Altair 或 Plotly 实现交互式仪表盘
 
 ---
 
-### 📑Day 44：HTML 解析与 BeautifulSoup**
+### 📑Day 44: HTML 解析与 BeautifulSoup**
 **重点内容：**
 - 安装：`pip install beautifulsoup4 lxml`
 - 创建解析器：`soup = BeautifulSoup(html, "lxml")`
@@ -2605,7 +2605,7 @@ Altair 或 Plotly 实现交互式仪表盘
 
 ---
 
-### 📑Day 45：JSON 数据解析与保存**
+### 📑Day 45: JSON 数据解析与保存**
 **重点内容：**
 - 使用 `response.json()` 获取 API 数据
 - 遍历嵌套字典与列表
@@ -2617,7 +2617,7 @@ Altair 或 Plotly 实现交互式仪表盘
 - 提取部分字段并保存为 CSV 文件
 
 ---
-### 📑Day 46：爬虫异常处理与重试机制**
+### 📑Day 46: 爬虫异常处理与重试机制**
 **重点内容：**
 - 常见异常：网络超时、404、连接拒绝
 - try-except 捕获异常
@@ -2630,7 +2630,7 @@ Altair 或 Plotly 实现交互式仪表盘
 
 ---
 
-### 📑Day 47：API 调用 — Alpha Vantage / Yahoo Finance**
+### 📑Day 47: API 调用 — Alpha Vantage / Yahoo Finance**
 **重点内容：**
 - 注册获取 API Key
 - 构造 URL 并请求 JSON 数据
@@ -2642,7 +2642,7 @@ Altair 或 Plotly 实现交互式仪表盘
 - 使用 Matplotlib 绘制收盘价趋势图
 
 ---
-### 📑Day 48：小项目1 — 新闻标题爬取**
+### 📑Day 48: 小项目1 — 新闻标题爬取**
 **项目目标：**
 - 爬取指定新闻网站的标题与时间
 - 解析 HTML 并保存到 CSV
@@ -2658,7 +2658,7 @@ Altair 或 Plotly 实现交互式仪表盘
 
 ---
 
-### 📑Day 49：小项目2 — 金融数据 API 实战**
+### 📑Day 49: 小项目2 — 金融数据 API 实战**
 **项目目标：**
 - 调用金融 API（Alpha Vantage 或 Yahoo Finance）
 - 获取股票或指数的时间序列数据
@@ -2697,7 +2697,7 @@ plt.show()
 	•	入门动态规划思想（Dynamic Programming）
 	•	能分析时间复杂度（Big-O）并编写高效代码  
 ---
-### 📑Day 50：算法与复杂度基础**
+### 📑Day 50: 算法与复杂度基础**
 **重点内容：**
 - 什么是算法与数据结构
 - 时间复杂度与空间复杂度
@@ -2710,7 +2710,7 @@ plt.show()
 
 ---
 
-### 📑Day 51：排序算法基础（1）**
+### 📑Day 51: 排序算法基础（1）**
 **重点内容：**
 - 冒泡排序（Bubble Sort）
 - 选择排序（Selection Sort）
@@ -2723,7 +2723,7 @@ plt.show()
 
 ---
 
-### 📑Day 52：排序算法进阶（2）**
+### 📑Day 52: 排序算法进阶（2）**
 **重点内容：**
 - 快速排序（Quick Sort）
 - 归并排序（Merge Sort）
@@ -2735,7 +2735,7 @@ plt.show()
 
 ---
 
-### 📑Day 53：查找算法与二分法**
+### 📑Day 53: 查找算法与二分法**
 **重点内容：**
 - 线性查找（Linear Search）
 - 二分查找（Binary Search）
@@ -2748,7 +2748,7 @@ plt.show()
 
 ---
 
-### 📑Day 54：常用数据结构**
+### 📑Day 54: 常用数据结构**
 **重点内容：**
 - 栈（Stack）：后进先出（LIFO）
 - 队列（Queue）：先进先出（FIFO）
@@ -2762,7 +2762,7 @@ plt.show()
 
 ---
 
-### 📑Day 55：动态规划（DP）入门**
+### 📑Day 55: 动态规划（DP）入门**
 **重点内容：**
 - 递归与重叠子问题
 - 记忆化（Memoization）与自底向上（Bottom-up）
@@ -2773,7 +2773,7 @@ plt.show()
 - 比较三者性能差异
 
 ---
-### 📑Day 56：项目实战与综合应用**
+### 📑Day 56: 项目实战与综合应用**
 
 #### 🧩 小项目 1：排序工具
 **目标：**
@@ -2815,7 +2815,7 @@ print("Quick:", quick_sort(data.copy()))
 	•	面试模拟
 ---
 
-### 🗓️ Day 57：项目模块化设计
+### 🗓️ Day 57: 项目模块化设计
 
 **目标：** 理解模块化思想并设计项目结构。
 
@@ -2843,7 +2843,7 @@ print("Quick:", quick_sort(data.copy()))
 
 ---
 
-### 🗓️ Day 58：函数与类的模块化
+### 🗓️ Day 58: 函数与类的模块化
 
 **目标：** 将功能逻辑封装为函数和类。
 
@@ -2860,7 +2860,7 @@ print("Quick:", quick_sort(data.copy()))
 
 ---
 
-### 🗓️ Day 59：单元测试基础
+### 🗓️ Day 59: 单元测试基础
 
 **目标：** 掌握 pytest / unittest 的使用。
 
@@ -2877,7 +2877,7 @@ print("Quick:", quick_sort(data.copy()))
 
 ---
 
-### 🗓️ Day 60：调试技巧
+### 🗓️ Day 60: 调试技巧
 
 **目标：** 掌握 pdb 和 logging 进行调试。
 
@@ -2894,7 +2894,7 @@ print("Quick:", quick_sort(data.copy()))
 
 ---
 
-### 🗓️ Day 61：性能分析
+### 🗓️ Day 61: 性能分析
 
 **目标：** 找出性能瓶颈并分析代码。
 
@@ -2912,7 +2912,7 @@ print("Quick:", quick_sort(data.copy()))
 
 ---
 
-### 🗓️ Day 62：代码优化技巧
+### 🗓️ Day 62: 代码优化技巧
 
 **目标：** 提升代码可读性与性能。
 
@@ -2930,7 +2930,7 @@ print("Quick:", quick_sort(data.copy()))
 
 ---
 
-### 🗓️ Day 63：项目重构与总结
+### 🗓️ Day 63: 项目重构与总结
 
 **目标：** 综合应用模块化、测试、调试与优化技能。
 

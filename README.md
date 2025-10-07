@@ -81,14 +81,62 @@
     	- [📑 Day 35: 可视化](#day-35pandas-可视化与综合实战)
         	- [🔧练习 销售与收益可视化](#练习35销售与收益可视化仪表板)
 	- [week 6: 数据可视化    ](#week-6数据可视化)
-
+		- [📑 Day 36: 认识pandas](#day-29-认识-pandas-与-series--dataframe)
+        - [🔧练习 创建并操作简单数据](#练习29)
+    	- [📑 Day 37: 数据导入与初步查看](#day-30-数据导入与初步查看)
+			- [🔧练习 读取 CSV / Excel / JSON](#练习30)
+    	- [📑 Day 38: 数据清洗缺失值与重复值](#day-31-数据清洗缺失值与重复值)
+        	- [🔧练习 处理缺失与重复值](#练习31)
+    	- [📑 Day 39: 统计分析与分组聚合](#day-32-统计分析与分组聚合)
+        	- [🔧练习 groupby + pivot_table](#练习32)
+    	- [📑 Day 40: 模拟项目](#day-33-股票收益分析面试模拟项目)
+        	- [🔧练习 收益率、累计收益、波动率](#练习33)
+		- [📑 Day 41: pandas进阶](#day-34-pandas-进阶技巧与性能优化)
+        	- [🔧练习 多级索引、apply、自定义函数](#练习34)
+    	- [📑 Day 42: 可视化](#day-35pandas-可视化与综合实战)
+        - [🔧练习 销售与收益可视化](#练习35销售与收益可视化仪表板)
 	- [week 7: 数据获取方法  ](#week-7爬虫与数据获取)
-
+		- [📑 Day 43: 认识pandas](#day-29-认识-pandas-与-series--dataframe)
+        - [🔧练习 创建并操作简单数据](#练习29)
+    	- [📑 Day 44: 数据导入与初步查看](#day-30-数据导入与初步查看)
+			- [🔧练习 读取 CSV / Excel / JSON](#练习30)
+    	- [📑 Day 45: 数据清洗缺失值与重复值](#day-31-数据清洗缺失值与重复值)
+        	- [🔧练习 处理缺失与重复值](#练习31)
+    	- [📑 Day 46: 统计分析与分组聚合](#day-32-统计分析与分组聚合)
+        	- [🔧练习 groupby + pivot_table](#练习32)
+    	- [📑 Day 47: 模拟项目](#day-33-股票收益分析面试模拟项目)
+        	- [🔧练习 收益率、累计收益、波动率](#练习33)
+		- [📑 Day 48: pandas进阶](#day-34-pandas-进阶技巧与性能优化)
+        	- [🔧练习 多级索引、apply、自定义函数](#练习34)
+    	- [📑 Day 49: 可视化](#day-35pandas-可视化与综合实战)
 	- [week 8: 算法与数据结构](#week-8算法与数据结构应用)
-
-	- [week 9: 机器学习基础  ](#week-9机器学习基础)
-
-	- [week 10: 综合考察     ](#week-10综合项目--模拟面试)
+		- [📑 Day 50: 认识pandas](#day-29-认识-pandas-与-series--dataframe)
+        - [🔧练习 创建并操作简单数据](#练习29)
+    	- [📑 Day 51: 数据导入与初步查看](#day-30-数据导入与初步查看)
+			- [🔧练习 读取 CSV / Excel / JSON](#练习30)
+    	- [📑 Day 52: 数据清洗缺失值与重复值](#day-31-数据清洗缺失值与重复值)
+        	- [🔧练习 处理缺失与重复值](#练习31)
+    	- [📑 Day 53: 统计分析与分组聚合](#day-32-统计分析与分组聚合)
+        	- [🔧练习 groupby + pivot_table](#练习32)
+    	- [📑 Day 54: 模拟项目](#day-33-股票收益分析面试模拟项目)
+        	- [🔧练习 收益率、累计收益、波动率](#练习33)
+		- [📑 Day 55: pandas进阶](#day-34-pandas-进阶技巧与性能优化)
+        	- [🔧练习 多级索引、apply、自定义函数](#练习34)
+    	- [📑 Day 56: 可视化](#day-35pandas-可视化与综合实战)
+	- [week 9: 模块化与性能优化  ](#week-9模块化与性能优化)
+		- [📑 Day 57: 认识pandas](#day-29-认识-pandas-与-series--dataframe)
+        - [🔧练习 创建并操作简单数据](#练习29)
+    	- [📑 Day 58: 数据导入与初步查看](#day-30-数据导入与初步查看)
+			- [🔧练习 读取 CSV / Excel / JSON](#练习30)
+    	- [📑 Day 59: 数据清洗缺失值与重复值](#day-31-数据清洗缺失值与重复值)
+        	- [🔧练习 处理缺失与重复值](#练习31)
+    	- [📑 Day 60: 统计分析与分组聚合](#day-32-统计分析与分组聚合)
+        	- [🔧练习 groupby + pivot_table](#练习32)
+    	- [📑 Day 61: 模拟项目](#day-33-股票收益分析面试模拟项目)
+        	- [🔧练习 收益率、累计收益、波动率](#练习33)
+		- [📑 Day 62: pandas进阶](#day-34-pandas-进阶技巧与性能优化)
+        	- [🔧练习 多级索引、apply、自定义函数](#练习34)
+    	- [📑 Day 63: 可视化](#️-day-63项目重构与总结)
 
 ## Week 1：Python 基础与环境
 
@@ -2421,7 +2469,7 @@ df.boxplot(column='Sales', by='Region'
 - 设置标题、坐标轴、颜色、线型
 - 保存图像 `plt.savefig()`
 
-**练习**：
+#### 🔧练习36:
 - 绘制日收益率折线图
 - 修改颜色、线型、标题和字体
 
@@ -2433,7 +2481,7 @@ df.boxplot(column='Sales', by='Region'
 - 条形图、饼图、直方图
 - 添加注释、文字、图例
 
-**练习**：
+#### 🔧练习37：
 - 绘制产品销售对比条形图
 - 收益分布直方图
 
@@ -2445,7 +2493,7 @@ df.boxplot(column='Sales', by='Region'
 - 设置风格 `sns.set(style='whitegrid')`
 - 使用 `hue` 分组增强可读性
 
-**练习**：
+#### 🔧练习38：
 - 绘制箱型图与散点图
 - 分析不同客户或区域的销售分布
 
@@ -2456,7 +2504,7 @@ df.boxplot(column='Sales', by='Region'
 - FacetGrid、catplot、pairplot、violinplot
 - 热力图 `sns.heatmap()` 分析相关性
 
-**练习**：
+#### 🔧练习39：
 - 绘制股票相关性热力图
 - 区域销售分布对比图
 
@@ -2467,7 +2515,7 @@ df.boxplot(column='Sales', by='Region'
 - Plotly Express 创建交互式折线、柱状、散点图
 - hover 信息、缩放、导出 HTML
 
-**练习**：
+#### 🔧练习40：
 - 绘制交互式股票累计收益图
 - 区域销售柱状图 + hover 显示具体数值
 
@@ -2478,7 +2526,7 @@ df.boxplot(column='Sales', by='Region'
 - 支持交互：缩放、选择、过滤
 - 与 Pandas DataFrame 集成完美
 
-**练习**：
+#### 🔧练习41：
 ```python
 import altair as alt
 import pandas as pd
@@ -2500,7 +2548,7 @@ chart.interactive()
 
 使用 Matplotlib + Seaborn + Plotly + Altair
 
-示例项目：
+#### 🔧练习42 示例项目：
 
 股票收益可视化
 
@@ -2525,67 +2573,377 @@ Altair 或 Plotly 实现交互式仪表盘
 ## Week 7：爬虫与数据获取
 
 📘 学习内容：
-	•	requests 请求网页/API
-	•	BeautifulSoup 解析 HTML
-	•	JSON 数据解析
-	•	爬虫异常处理与重试
-	•	API 调用：Alpha Vantage / Yahoo Finance
+	•	requests 请求网页/API,掌握网页与 API 数据获取的基本方法
+	•	BeautifulSoup 解析 HTML,熟悉 HTML 解析、JSON 提取与异常处理  
+	•	爬虫异常处理与重试,能独立爬取新闻、财经数据并保存到本地  
+	•	能调用金融 API（Alpha Vantage / Yahoo Finance）获取实时数据并绘图展示
+---
 
-📝 小项目1（综合练习）：
-爬取新闻标题，保存到 CSV。
+### 📑Day 43：Requests 基础与网页请求**
+**重点内容：**
+- 安装与导入：`pip install requests`
+- 发起 GET / POST 请求：`requests.get()`, `requests.post()`
+- 设置请求头（headers）、参数（params）
+- 响应内容：`response.text`, `response.status_code`, `response.json()`
 
-📝 小项目2（面试模拟）：
-调用金融 API，获取股票数据并绘制趋势图。
+#### 🔧练习43
+- 请求一个网页（如百度或新闻网站）并打印 HTML
+- 请求一个简单的公开 API（如 JSONPlaceholder）并解析返回结果
+
+---
+
+### 📑Day 44：HTML 解析与 BeautifulSoup**
+**重点内容：**
+- 安装：`pip install beautifulsoup4 lxml`
+- 创建解析器：`soup = BeautifulSoup(html, "lxml")`
+- 查找标签：`find()`, `find_all()`, `select()`
+- 获取属性与文本内容
+
+#### 🔧练习44
+- 爬取新闻网站首页的标题与链接
+- 提取所有 `<h2>` 或 `<a>` 标签文字
+
+---
+
+### 📑Day 45：JSON 数据解析与保存**
+**重点内容：**
+- 使用 `response.json()` 获取 API 数据
+- 遍历嵌套字典与列表
+- 保存数据到文件：`json.dump()`
+- 转换为 Pandas DataFrame 并保存为 CSV
+
+#### 🔧练习45
+- 访问一个返回 JSON 的 API
+- 提取部分字段并保存为 CSV 文件
+
+---
+### 📑Day 46：爬虫异常处理与重试机制**
+**重点内容：**
+- 常见异常：网络超时、404、连接拒绝
+- try-except 捕获异常
+- `time.sleep()` 控制访问频率
+- `requests` 的 `Session` 与 `Retry` 实现重试机制
+
+#### 🔧练习46
+- 编写一个带异常处理的爬虫函数
+- 当请求失败时自动重试最多 3 次
+
+---
+
+### 📑Day 47：API 调用 — Alpha Vantage / Yahoo Finance**
+**重点内容：**
+- 注册获取 API Key
+- 构造 URL 并请求 JSON 数据
+- 使用 Pandas 转换数据格式
+- 保存并可视化（Matplotlib 折线图）
+
+#### 🔧练习47
+- 调用 Alpha Vantage API 获取某支股票的历史数据
+- 使用 Matplotlib 绘制收盘价趋势图
+
+---
+### 📑Day 48：小项目1 — 新闻标题爬取**
+**项目目标：**
+- 爬取指定新闻网站的标题与时间
+- 解析 HTML 并保存到 CSV
+
+**实现要点：**
+- 使用 `requests` + `BeautifulSoup`
+- 数据字段：日期、标题、链接
+- 输出文件：`news_titles.csv`
+
+**进阶挑战：**
+- 添加关键词过滤（只保存包含“科技”、“经济”的标题）
+- 添加日期戳
+
+---
+
+### 📑Day 49：小项目2 — 金融数据 API 实战**
+**项目目标：**
+- 调用金融 API（Alpha Vantage 或 Yahoo Finance）
+- 获取股票或指数的时间序列数据
+- 计算并绘制收益率趋势图
+
+**实现步骤：**
+1. 使用 `requests` 获取 JSON 数据  
+2. 转换为 DataFrame  
+3. 计算日收益率 `df['Return'] = df['Close'].pct_change()`  
+4. 绘制趋势折线图  
+
+**示例代码：**
+```python
+import requests
+import pandas as pd
+import matplotlib.pyplot as plt
+
+symbol = "AAPL"
+url = f"https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol={symbol}&apikey=YOUR_API_KEY"
+data = requests.get(url).json()
+
+df = pd.DataFrame(data["Time Series (Daily)"]).T
+df = df.astype(float)
+df['Return'] = df['4. close'].pct_change()
+df['4. close'].plot(title=f"{symbol} Daily Close Price")
+plt.show()
+```
 
 ⸻
 
 ## Week 8：算法与数据结构应用
 
 📘 学习内容：
-	•	常见算法：排序、查找、二分法
-	•	数据结构：栈、队列、堆、链表
-	•	动态规划（DP）入门
-	•	时间复杂度 Big-O
+	•	理解并实现常见算法（排序、查找、二分法）
+	•	掌握基本数据结构（栈、队列、堆、链表）
+	•	入门动态规划思想（Dynamic Programming）
+	•	能分析时间复杂度（Big-O）并编写高效代码  
+---
+### 📑Day 50：算法与复杂度基础**
+**重点内容：**
+- 什么是算法与数据结构
+- 时间复杂度与空间复杂度
+- 常见复杂度：O(1)、O(n)、O(n²)、O(log n)
+- 简单案例分析：线性查找 vs 二分查找
 
-📝 小项目1（综合练习）：
-实现一个 排序工具（支持冒泡、快速排序）。
+#### 🔧练习50
+- 写一个线性查找函数
+- 比较线性查找和二分查找的效率差异
 
-📝 小项目2（面试模拟）：
-经典题：
-连续子数组最大和（Kadane 算法，动态规划）。
+---
 
+### 📑Day 51：排序算法基础（1）**
+**重点内容：**
+- 冒泡排序（Bubble Sort）
+- 选择排序（Selection Sort）
+- 插入排序（Insertion Sort）
+- 算法可视化理解（如列表交换的过程）
+
+#### 🔧练习51
+- 实现冒泡排序、插入排序
+- 统计每个算法的比较次数和交换次数
+
+---
+
+### 📑Day 52：排序算法进阶（2）**
+**重点内容：**
+- 快速排序（Quick Sort）
+- 归并排序（Merge Sort）
+- 排序算法的时间复杂度比较
+
+#### 🔧练习52
+- 分别实现快速排序和归并排序
+- 比较 10000 个随机数排序的速度差异
+
+---
+
+### 📑Day 53：查找算法与二分法**
+**重点内容：**
+- 线性查找（Linear Search）
+- 二分查找（Binary Search）
+- 在有序数组中查找元素
+- Python 标准库 `bisect` 的使用
+
+#### 🔧练习53
+- 手动实现二分查找函数
+- 使用 bisect 查找插入位置
+
+---
+
+### 📑Day 54：常用数据结构**
+**重点内容：**
+- 栈（Stack）：后进先出（LIFO）
+- 队列（Queue）：先进先出（FIFO）
+- 堆（Heap）：最小堆、最大堆
+- 链表（Linked List）：节点结构与遍历
+- Python 内置结构：`list`, `deque`, `heapq`
+
+#### 🔧练习54
+- 用 `list` 模拟栈和队列
+- 使用 `heapq` 实现最小堆并取出前 k 个元素
+
+---
+
+### 📑Day 55：动态规划（DP）入门**
+**重点内容：**
+- 递归与重叠子问题
+- 记忆化（Memoization）与自底向上（Bottom-up）
+- 示例：斐波那契数列、爬楼梯问题
+
+#### 🔧练习55
+- 分别用递归、记忆化 DP、循环实现 Fibonacci
+- 比较三者性能差异
+
+---
+### 📑Day 56：项目实战与综合应用**
+
+#### 🧩 小项目 1：排序工具
+**目标：**
+- 编写一个排序函数，支持冒泡与快速排序两种模式
+- 用户输入列表与算法类型，返回排序结果
+
+**示例代码：**
+```python
+def bubble_sort(arr):
+    n = len(arr)
+    for i in range(n):
+        for j in range(n - i - 1):
+            if arr[j] > arr[j + 1]:
+                arr[j], arr[j + 1] = arr[j + 1], arr[j]
+    return arr
+
+def quick_sort(arr):
+    if len(arr) <= 1:
+        return arr
+    pivot = arr[0]
+    left = [x for x in arr[1:] if x <= pivot]
+    right = [x for x in arr[1:] if x > pivot]
+    return quick_sort(left) + [pivot] + quick_sort(right)
+
+# 测试
+data = [5, 3, 8, 4, 2]
+print("Bubble:", bubble_sort(data.copy()))
+print("Quick:", quick_sort(data.copy()))
+```
 ⸻
 
-## Week 9：机器学习基础
-
-📘 学习内容：
-	•	机器学习流程（数据 → 训练 → 测试 → 评估）
-	•	监督学习：线性回归、逻辑回归、KNN
-	•	模型评估：MSE、准确率、混淆矩阵
-	•	scikit-learn 基本用法
-
-📝 小项目1（综合练习）：
-波士顿房价预测（线性回归）。
-
-📝 小项目2（面试模拟）：
-股票二分类预测（明日涨/跌）。
-
-⸻
-
-## Week 10：综合项目 & 模拟面试
+## Week 9：模块化与性能优化
 
 📘 学习内容：
 	•	项目模块化
 	•	单元测试（pytest/unittest）
-	•	调试（pdb, logging）
-	•	代码优化与面试模拟
+	•	调试技巧（pdb, logging）
+	•	性能优化，代码优化
+	•	面试模拟
+---
 
-📝 小项目1（综合练习）：
-个人理财助手：
-	•	输入支出/收入
-	•	输出收支统计与趋势图
+### 🗓️ Day 57：项目模块化设计
 
-📝 小项目2（面试模拟）：
-金融数据面试题：
-	•	给定股票/基金数据，计算 最大回撤、夏普比率、收益率
-	•	输出结果并可视化
+**目标：** 理解模块化思想并设计项目结构。
+
+**内容：**
+
+* 模块化的优势：可维护、可测试、可复用。
+* 设计目录结构和模块划分。
+* Python 包与模块的概念（`__init__.py`、import 语法）。
+
+#### 🔧练习57
+
+* 创建示例项目目录结构：
+
+  ```
+  project/
+  ├── src/
+  │   ├── data_handler.py
+  │   ├── analyzer.py
+  │   └── visualizer.py
+  ├── tests/
+  ├── main.py
+  └── requirements.txt
+  ```
+* 将不同功能拆分到独立模块。
+
+---
+
+### 🗓️ Day 58：函数与类的模块化
+
+**目标：** 将功能逻辑封装为函数和类。
+
+**内容：**
+
+* 函数与类的设计原则：单一职责、可复用。
+* 输入输出规范与文档化。
+* 模块间依赖管理。
+
+#### 🔧练习58
+
+* 将数据处理、分析、可视化功能封装到不同类或函数中。
+* 编写 docstring 注释。
+
+---
+
+### 🗓️ Day 59：单元测试基础
+
+**目标：** 掌握 pytest / unittest 的使用。
+
+**内容：**
+
+* 测试的重要性。
+* pytest 与 unittest 的基本用法。
+* 断言方法：`assertEqual`, `assertTrue`, `assertRaises` 等。
+
+#### 🔧练习59
+
+* 为 `data_handler.py` 和 `analyzer.py` 编写单元测试。
+* 运行测试并确保覆盖关键逻辑。
+
+---
+
+### 🗓️ Day 60：调试技巧
+
+**目标：** 掌握 pdb 和 logging 进行调试。
+
+**内容：**
+
+* 使用 `pdb.set_trace()` 设置断点，单步调试。
+* logging 模块：日志级别、日志格式、输出到文件。
+* 调试异常与追踪堆栈。
+
+#### 🔧练习60
+
+* 在 `analyzer.py` 中插入断点调试数据处理流程。
+* 为项目添加日志记录模块，记录关键操作与异常。
+
+---
+
+### 🗓️ Day 61：性能分析
+
+**目标：** 找出性能瓶颈并分析代码。
+
+**内容：**
+
+* timeit：测试小函数执行时间。
+* cProfile：分析整体程序性能。
+* 识别循环、I/O、算法复杂度问题。
+
+#### 🔧练习61
+
+* 使用 timeit 测试数据处理函数耗时。
+* 使用 cProfile 分析整个项目运行情况。
+* 输出性能报告。
+
+---
+
+### 🗓️ Day 62：代码优化技巧
+
+**目标：** 提升代码可读性与性能。
+
+**内容：**
+
+* 避免重复计算、优化循环、使用列表推导式。
+* 使用内置函数和标准库优化性能。
+* 变量命名、函数拆分、注释规范。
+
+#### 🔧练习62
+
+* 重构 `analyzer.py` 中重复代码。
+* 优化数据处理函数，减少内存占用。
+* 提升函数执行效率。
+
+---
+
+### 🗓️ Day 63：项目重构与总结
+
+**目标：** 综合应用模块化、测试、调试与优化技能。
+
+**内容：**
+
+* 检查项目模块依赖与代码结构。
+* 确保单元测试覆盖率高。
+* 日志记录完善。
+* 性能优化已完成。
+
+#### 🔧练习63
+
+* 完整运行项目，检查功能是否正确。
+* 提交最终版本至 GitHub。
+* 总结学习成果并记录优化前后的性能差异。
+

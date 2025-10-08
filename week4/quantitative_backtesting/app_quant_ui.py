@@ -1,7 +1,6 @@
 import gradio as gr
 import pandas as pd
 import plotly.graph_objects as go
-import numpy as np
 import time
 from strategy import generate_weight_combinations
 from backtest import run_backtest
@@ -13,11 +12,10 @@ prices = pd.read_csv("data/data.csv", index_col="Date", parse_dates=True)
 stock_list = list(prices.columns)
 cached_top10 = None
 
+
 # ================================
 # 回测逻辑
 # ================================
-
-
 def backtest_ui(selected_stocks, step=0.25):
     global cached_top10
     if not selected_stocks:
@@ -35,7 +33,7 @@ def backtest_ui(selected_stocks, step=0.25):
             "CAGR": res["CAGR"],
             "Sharpe": res["Sharpe"],
             "Max Drawdown": res["Max Drawdown"],
-            "CumReturn": res["CumReturn"]  # pd.Series
+            "CumReturn": res["CumReturn"]
         })
 
     summary_df = pd.DataFrame(summary_list)
@@ -54,44 +52,31 @@ def backtest_ui(selected_stocks, step=0.25):
 
     return top10_display, make_plot("Strategy 1", 0), "", gr.update(choices=choices, value=choices[0]), gr.update(maximum=slider_max, value=0)
 
-# ================================
-# 绘图函数（Plotly）
-# ================================
 
-
+# ================================
+# 绘图函数
+# ================================
 def make_plot(strategy_name, date_index):
     if cached_top10 is None or strategy_name is None:
         return go.Figure()
 
     idx = int(strategy_name.split(" ")[1]) - 1
     cumret = cached_top10.iloc[idx]["CumReturn"]
-
     date_index = min(date_index, len(cumret) - 1)
     shown_dates = cumret.index[:date_index + 1]
     shown_values = cumret.values[:date_index + 1]
 
     fig = go.Figure()
-    fig.add_trace(go.Scatter(
-        x=shown_dates,
-        y=shown_values,
-        mode="lines",
-        line=dict(color="royalblue", width=3),
-        name="Cumulative Return"
-    ))
-    fig.update_layout(
-        template="plotly_white",
-        title=f"Cumulative Return - {strategy_name}",
-        xaxis_title="Date",
-        yaxis_title="Cumulative Return",
-        height=400
-    )
+    fig.add_trace(go.Scatter(x=shown_dates, y=shown_values,
+                  mode="lines", line=dict(color="royalblue", width=3)))
+    fig.update_layout(template="plotly_white",
+                      title=f"Cumulative Return - {strategy_name}", height=400)
     return fig
+
 
 # ================================
 # 指标展示
 # ================================
-
-
 def plot_and_metrics(strategy_name, date_index):
     if cached_top10 is None or strategy_name is None:
         return go.Figure(), ""
@@ -109,12 +94,11 @@ def plot_and_metrics(strategy_name, date_index):
     )
     return make_plot(strategy_name, date_index), text
 
+
 # ================================
 # 动画函数
 # ================================
-
-
-def play_animation(strategy_name, current_idx, playing_state):
+def play_animation(strategy_name, current_idx, playing_state, speed):
     if cached_top10 is None or strategy_name is None:
         yield gr.update(), current_idx, False
         return
@@ -125,10 +109,9 @@ def play_animation(strategy_name, current_idx, playing_state):
     for i in range(current_idx, len(cumret)):
         if not playing_state:
             break
-        time.sleep(0.15)
+        time.sleep(speed)  # 动画速度由slider控制
         yield gr.update(value=i), i, True
 
-    # 动画结束
     yield gr.update(value=len(cumret) - 1), len(cumret) - 1, False
 
 
@@ -137,10 +120,10 @@ def stop_animation():
 
 
 # ================================
-# Gradio UI 架构
+# Gradio 5.x 兼容版 UI
 # ================================
 with gr.Blocks() as demo:
-    gr.Markdown("## 💹 Quant Backtesting Dashboard (Interactive + Animation)")
+    gr.Markdown("## 💹 Quant Backtesting Dashboard (Gradio 5.x Compatible)")
 
     with gr.Row():
         stocks_input = gr.CheckboxGroup(stock_list, label="Select Stocks")
@@ -158,11 +141,13 @@ with gr.Blocks() as demo:
     with gr.Row():
         play_btn = gr.Button("▶ Play")
         stop_btn = gr.Button("⏹ Stop")
+        speed_slider = gr.Slider(
+            0.05, 2.0, value=0.15, step=0.05, label="Animation Speed (sec/step)")
 
     playing_state = gr.State(False)
     current_index = gr.State(0)
 
-    # 回测
+    # ====== 新版事件系统绑定 ======
     run_btn.click(
         fn=backtest_ui,
         inputs=[stocks_input, step_input],
@@ -170,24 +155,24 @@ with gr.Blocks() as demo:
                  strategy_dropdown, date_slider]
     )
 
-    # 更新图表与指标
     strategy_dropdown.change(
         fn=plot_and_metrics,
         inputs=[strategy_dropdown, date_slider],
         outputs=[plot_out, metrics_text]
     )
+
     date_slider.change(
         fn=plot_and_metrics,
         inputs=[strategy_dropdown, date_slider],
         outputs=[plot_out, metrics_text]
     )
 
-    # 动画播放
     play_btn.click(
         fn=play_animation,
-        inputs=[strategy_dropdown, current_index, playing_state],
+        inputs=[strategy_dropdown, current_index, playing_state, speed_slider],
         outputs=[date_slider, current_index, playing_state]
     )
+
     stop_btn.click(fn=stop_animation, outputs=[playing_state])
 
 if __name__ == "__main__":

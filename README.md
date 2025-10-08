@@ -2315,97 +2315,408 @@ week4 大项目：全功能量化回测（见week4目录）
 - Pandas 的两个核心数据结构：  
   - `Series`：一维数组，带标签索引  
   - `DataFrame`：二维表格，带行列标签  
-- 创建、索引与切片：
-  ```python
-  import pandas as pd
-  s = pd.Series([10, 20, 30], index=['a', 'b', 'c'])
-  df = pd.DataFrame({'Name': ['A', 'B'], 'Sales': [200, 300]})
-  df.loc[0, 'Sales']  # 按标签
-  df.iloc[1, 0]       # 按位置
-  ```
+  
+![alt text](Pics/dataframe.png)
+
+使用场景区别:
+需求	                                 用 Series	        用 DataFrame
+记录一列数据（如股价、温度）	           ✅	            ❌（不必要）
+处理多列相关数据（如商品信息表）	       ❌				✅
+做列运算 / 行运算						  可以用矢量化操作	  更灵活，支持列与列之间操作
+做统计 / 可视化							  可单独做	         可做整个表格分析
+
+小结:
+Series = DataFrame 的一列
+DataFrame = 多个 Series 组成的二维表
+DataFrame 更复杂，更灵活；Series 更简单，轻量。
+
+1️⃣ 高效处理表格数据
+Pandas 提供了 Series（一维） 和 DataFrame（二维），能像 Excel 或 SQL 表格一样处理数据。
+支持混合数据类型（数值、字符串、时间序列等），而 Numpy 只能处理纯数值数组。
+能轻松完成：
+
+行列筛选、切片
+按条
+列运算、批量计算
+缺失值处理
+
+例子：
+```
+df = pd.DataFrame({'Name': ['A','B'], 'Sales':[200,300]})
+df[df['Sales'] > 200]
+```
+输出：
+```
+	Name  Sales
+1    B    300
+```
+2️⃣ 数据清洗与预处理的利器
+现实数据通常 不整洁（缺失值、重复值、格式不统一）
+
+Pandas 提供：
+
+dropna(), fillna()
+duplicated(), drop_duplicates()
+类型转换 astype()
+字符串处理 .str 方法
+
+例子：
+```
+df['Name'] = df['Name'].str.upper()
+```
+3️⃣ 强大的数据聚合与分组能力
+通过 groupby() 可以快速统计和聚合数据
+支持多层分组、透视表（pivot_table）
+
+例子：
+```
+df.groupby('Region')['Sales'].sum()
+```
+相当于 SQL 的 GROUP BY 功能，方便分析和报表生成
+
+4️⃣ 与 Python 数据生态无缝集成
+可以直接与 NumPy, Matplotlib, Seaborn, Scikit-learn 等库配合
+导入导出方便：CSV、Excel、SQL、JSON 等多种格式
+方便做数据分析、可视化、机器学习建模
+
+5️⃣ 高效、矢量化计算
+Pandas 内部大量使用 NumPy 向量化运算，避免 Python 原生循环
+对大规模数据（几十万行以上）处理速度远快于 Python 原生列表或字典
+
+例子：
+```
+df['Sales'] = df['Sales'] * 1.1  # 所有行一次性加 10%
+```
+6️⃣ 总结
+
+![pandas](Pics/pandas.png)
 
 #### 🔧练习29:
 - 创建自己的 `Series` 和 `DataFrame`
 - 练习 `.head()`, `.tail()`, `.info()`, `.describe()` 等常用方法
+```
+import pandas as pd
 
+# 1️⃣ 创建 Series: 单只股票的历史收盘价
+apple_prices = pd.Series(
+    [150, 152, 149, 155, 157, 160, 158],
+    index=pd.date_range(start='2025-10-01', periods=7, freq='D')
+)
+print("Apple 收盘价 Series:")
+print(apple_prices)
+
+# 2️⃣ 创建 DataFrame: 多只股票的价格与交易量
+stock_data = pd.DataFrame({
+    'Ticker': ['AAPL', 'MSFT', 'TSLA', 'GOOG', 'AMZN'],
+    'Price': [160, 310, 720, 2900, 3500],
+    'Volume': [5000000, 3000000, 4000000, 1500000, 2000000]
+})
+print("\n股票 DataFrame:")
+print(stock_data)
+
+# 3️⃣ 使用常用方法查看数据
+print("\n--- 前几行 head() ---")
+print(stock_data.head(3))   # 查看前3行
+
+print("\n--- 后几行 tail() ---")
+print(stock_data.tail(2))   # 查看后2行
+
+print("\n--- info() ---")
+print(stock_data.info())    # 查看数据类型和非空信息
+
+print("\n--- describe() ---")
+print(stock_data.describe()) # 数值列统计信息
+```
 ---
 
 ### 📑Day 30: 数据导入与初步查看
 **学习重点：**
 - 导入多种格式：
-  ```python
-  pd.read_csv('data.csv')
-  pd.read_excel('data.xlsx', sheet_name=0)
-  pd.read_json('data.json')
-  pd.read_sql('SELECT * FROM table', conn)
-  ```
+```python
+import pandas as pd
+import sqlite3  # 如果需要从数据库读取
+
+# CSV 文件
+df_csv = pd.read_csv('data.csv')
+
+# Excel 文件
+df_excel = pd.read_excel('data.xlsx', sheet_name=0)
+
+# JSON 文件
+df_json = pd.read_json('data.json')
+
+# SQL 数据库
+conn = sqlite3.connect('data.db')
+df_sql = pd.read_sql('SELECT * FROM sales', conn)
+conn.close()
+```
 - 基本查看与筛选：
-  - `.columns`, `.shape`, `.dtypes`
-  - 逻辑筛选：`df[df['Sales'] > 1000]`
-  - 列选择与重命名
+
+查看列名
+print(df_csv.columns)
+
+查看行列数
+print(df_csv.shape)
+
+查看每列的数据类型
+print(df_csv.dtypes)
+
+查看前几行和后几行
+print(df_csv.head())
+print(df_csv.tail())
+
+筛选满足条件的行，例如销售额 > 1000
+high_sales = df_csv[df_csv['Sales'] > 1000]
+
+选择特定列
+sales_only = df_csv[['Date', 'Sales']]
+
+重命名列
+df_csv.rename(columns={'Sales':'Revenue'}, inplace=True)
 
 #### 🔧练习30:
-- 导入一份 CSV 文件（如销售或股票数据）
-- 筛选出满足特定条件的数据，如“销售额 > 1000”
+```python
+import pandas as pd
 
+# 1️⃣ 导入 CSV
+df = pd.read_csv('stocks.csv', parse_dates=['Date'])
+print("数据预览:")
+print(df.head())
+
+# 2️⃣ 查看基本信息
+print("\n列名:", df.columns)
+print("行列数:", df.shape)
+print("数据类型:\n", df.dtypes)
+
+# 3️⃣ 筛选价格大于 500 的股票
+high_price = df[df['Price'] > 500]
+print("\n价格大于 500 的股票:")
+print(high_price)
+
+# 4️⃣ 选择 Ticker 和 Price 列
+ticker_price = df[['Ticker', 'Price']]
+print("\n只看股票和价格列:")
+print(ticker_price)
+
+# 5️⃣ 重命名列
+df.rename(columns={'Price':'Close Price', 'Volume':'Trading Volume'}, inplace=True)
+print("\n重命名后的 DataFrame:")
+print(df.head())
+```
 ---
-
 ### 📑Day 31: 数据清洗（缺失值与重复值）
 **学习重点：**
-- 缺失值处理：
-  ```python
-  df.isnull().sum()
-  df.fillna(0, inplace=True)
-  df.dropna(subset=['Price'], inplace=True)
-  ```
-- 重复值去除：
-  ```python
-  df.drop_duplicates(inplace=True)
-  ```
-- 数据类型转换：`df['Date'] = pd.to_datetime(df['Date'])`
+1️⃣ 缺失值处理（Missing Values）
+检查每列缺失值数量
+```
+df.isnull().sum()
+```
+用指定值填充缺失值
+```
+df.fillna(0, inplace=True)
+```
+删除某列缺失值的行，例如 Price 列为空
+```
+df.dropna(subset=['Price'], inplace=True)
+```
+说明：
+
+isnull() → 判断每个元素是否为空（NaN）
+sum() → 汇总每列缺失值数量
+fillna() → 填充缺失值
+dropna(subset=[…]) → 删除特定列为空的行
+
+2️⃣ 重复值处理（Duplicates）
+删除完全重复的行
+```
+df.drop_duplicates(inplace=True)
+```
+drop_duplicates() 会检查整行是否重复
+inplace=True 直接修改原 DataFrame
+
+3️⃣ 数据类型转换
+将日期列转换为 datetime 类型
+```
+df['Date'] = pd.to_datetime(df['Date'])
+```
+便于时间排序、时间序列分析
+可以直接使用 .sort_values('Date') 排序
 
 #### 🔧练习31:
 - 检查数据中的空值、重复行并清洗
 - 转换日期列格式并排序
+假设有 CSV 文件 stocks_dirty.csv 内容如下（有缺失值、重复行、日期为字符串）：
+```
+Date,Ticker,Price,Volume
+2025-10-01,AAPL,160,5000000
+2025-10-01,AAPL,160,5000000
+2025-10-02,MSFT,310,3000000
+2025-10-03,TSLA,,4000000
+2025-10-04,GOOG,2900,
+2025-10-05,AMZN,3500,2000000
+```
+示例代码
+```
+import pandas as pd
 
+# 1️⃣ 导入 CSV
+df = pd.read_csv('stocks_dirty.csv')
+print("原始数据：")
+print(df)
+
+# 2️⃣ 检查缺失值
+print("\n每列缺失值数量：")
+print(df.isnull().sum())
+
+# 3️⃣ 删除完全重复的行
+df.drop_duplicates(inplace=True)
+print("\n删除重复行后：")
+print(df)
+
+# 4️⃣ 填充缺失值或删除特定列缺失行
+# 例：Volume 缺失用 0 填充
+df['Volume'].fillna(0, inplace=True)
+
+# Price 列缺失直接删除
+df.dropna(subset=['Price'], inplace=True)
+print("\n缺失值处理后：")
+print(df)
+
+# 5️⃣ 转换日期列类型并排序
+df['Date'] = pd.to_datetime(df['Date'])
+df.sort_values('Date', inplace=True)
+print("\n转换日期并排序后：")
+print(df)
+```
+
+详细讲解
+
+检查缺失值
+```
+df.isnull().sum()
+```
+返回每列缺失值数量
+便于判断哪些列需要清洗
+
+删除重复行
+```
+df.drop_duplicates(inplace=True)
+```
+避免重复记录影响统计和分析
+
+处理缺失值
+```
+fillna(0) → 用 0 填充（如交易量缺失）
+dropna(subset=['Price']) → 删除关键列缺失的行（价格是分析关键数据）
+```
+数据类型转换与排序
+```
+df['Date'] = pd.to_datetime(df['Date'])
+df.sort_values('Date', inplace=True)
+```
+转换成 datetime 类型，才能做时间序列分析
+排序便于后续绘图和收益率计算
+
+💡 小技巧
+
+如果只是想看缺失行而不是删除，可以用：
+```
+df[df['Price'].isnull()]
+```
+如果要对某列缺失值填充均值：
+```
+df['Price'].fillna(df['Price'].mean(), inplace=True)
+```
 ---
 
 ### 📑Day 32: 统计分析与分组聚合**
 **学习重点：**
-- 基本统计：
-  ```python
-  df['Sales'].mean()
-  df['Sales'].std()
-  df.corr()
-  ```
-- 分组聚合：
-  ```python
-  df.groupby('Month')['Sales'].sum()
-  df.pivot_table(values='Sales', index='Month', columns='Region', aggfunc='sum')
-  ```
+1️⃣ 基本统计
+平均值
+```
+df['Sales'].mean()
+```
+标准差
+```
+df['Sales'].std()
+```
+相关性矩阵
+```
+df.corr()
+```
+1. .mean() → 平均销售额
+2. .std()  → 波动程度
+3. .corr() → 数值列间相关性
+
+2️⃣ 分组聚合
+按月份分组求销售总额
+```
+df.groupby('Month')['Sales'].sum()
+```
+透视表：按月份和地区统计销售额
+```
+df.pivot_table(values='Sales', index='Month', columns='Region', aggfunc='sum')
+```
+1. groupby()     → 类似 SQL GROUP BY
+2. pivot_table() → 类似 Excel 透视表
+3. aggfunc       → 可以是 sum, mean, max, count 等
 
 #### 🔧练习32:
 使用销售数据（或模拟数据），完成：
 1. 每月总销售额  
 2. 最畅销商品  
 3. 客户购买频率  
+假设有销售 CSV 文件 sales.csv：
+```
+Date,Customer,Product,Region,Sales
+2025-01-03,Alice,Pen,East,200
+2025-01-05,Bob,Book,West,150
+2025-02-02,Alice,Notebook,East,300
+2025-02-10,Charlie,Pen,North,250
+2025-03-15,Bob,Book,West,400
+```
+示例代码
+```
+import pandas as pd
 
+# 1️⃣ 导入 CSV 并添加 Month 列
+df = pd.read_csv('sales.csv', parse_dates=['Date'])
+df['Month'] = df['Date'].dt.month
+
+# 查看数据
+print("原始数据预览：")
+print(df.head())
+
+# 2️⃣ 每月总销售额
+monthly_sales = df.groupby('Month')['Sales'].sum()
+print("\n每月总销售额：")
+print(monthly_sales)
+
+# 3️⃣ 最畅销商品（按销售额总和）
+top_product = df.groupby('Product')['Sales'].sum().sort_values(ascending=False)
+print("\n最畅销商品：")
+print(top_product.head(1))  # 销售额最高的商品
+
+# 4️⃣ 客户购买频率（订单数量）
+customer_freq = df.groupby('Customer')['Sales'].count()
+print("\n客户购买频率（订单数量）：")
+print(customer_freq)
+
+# 5️⃣ 可选：按月份和地区统计销售额（透视表）
+pivot = df.pivot_table(values='Sales', index='Month', columns='Region', aggfunc='sum', fill_value=0)
+print("\n按月份和地区统计销售额：")
+print(pivot)
+```
 ---
 
 ### 📑Day 33: 股票收益分析（面试模拟项目）
 **学习重点：**
-- 计算日收益率：
-  ```python
-  df['Daily_Return'] = df['Close'].pct_change()
-  ```
-- 累计收益率：
-  ```python
-  df['Cumulative_Return'] = (1 + df['Daily_Return']).cumprod()
-  ```
-- 计算波动率（标准差）：
-  ```python
-  volatility = df['Daily_Return'].std()
-  ```
+
+![alt text](Pics/return.png)
+![alt text](Pics/risk.png)
+![alt text](Pics/risk_adjust.png)
+![alt text](Pics/Volatility-Related.png)
+![alt text](Pics/Portfolio.png)
 
 #### 🔧练习33
 导入某只股票的 CSV 数据，完成以下计算并画图：

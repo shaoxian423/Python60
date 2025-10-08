@@ -2319,11 +2319,8 @@ week4 大项目：全功能量化回测（见week4目录）
 ![alt text](Pics/dataframe.png)
 
 使用场景区别:
-需求	                                 用 Series	        用 DataFrame
-记录一列数据（如股价、温度）	           ✅	            ❌（不必要）
-处理多列相关数据（如商品信息表）	       ❌				✅
-做列运算 / 行运算						  可以用矢量化操作	  更灵活，支持列与列之间操作
-做统计 / 可视化							  可单独做	         可做整个表格分析
+
+![alt text](Pics/Servsdta.png)
 
 小结:
 Series = DataFrame 的一列
@@ -2335,10 +2332,10 @@ Pandas 提供了 Series（一维） 和 DataFrame（二维），能像 Excel 或
 支持混合数据类型（数值、字符串、时间序列等），而 Numpy 只能处理纯数值数组。
 能轻松完成：
 
-行列筛选、切片
-按条
-列运算、批量计算
-缺失值处理
+1. 行列筛选、切片
+2. 按条
+3. 列运算、批量计算
+4. 缺失值处理
 
 例子：
 ```
@@ -2521,10 +2518,10 @@ df.dropna(subset=['Price'], inplace=True)
 ```
 说明：
 
-isnull() → 判断每个元素是否为空（NaN）
-sum() → 汇总每列缺失值数量
-fillna() → 填充缺失值
-dropna(subset=[…]) → 删除特定列为空的行
+1. isnull() → 判断每个元素是否为空（NaN）
+2. sum() → 汇总每列缺失值数量
+3. fillna() → 填充缺失值
+4. dropna(subset=[…]) → 删除特定列为空的行
 
 2️⃣ 重复值处理（Duplicates）
 删除完全重复的行
@@ -2712,7 +2709,8 @@ print(pivot)
 ### 📑Day 33: 股票收益分析（面试模拟项目）
 **学习重点：**
 
-![alt text](Pics/return.png)
+
+![alt text](Pics/Return.png)
 ![alt text](Pics/risk.png)
 ![alt text](Pics/risk_adjust.png)
 ![alt text](Pics/Volatility-Related.png)

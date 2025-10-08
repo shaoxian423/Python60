@@ -2352,10 +2352,10 @@ df[df['Sales'] > 200]
 
 Pandas 提供：
 
-dropna(), fillna()
-duplicated(), drop_duplicates()
-类型转换 astype()
-字符串处理 .str 方法
+1. dropna(), fillna()
+2. duplicated(), drop_duplicates()
+3. 类型转换 astype()
+4. 字符串处理 .str 方法
 
 例子：
 ```
@@ -2721,34 +2721,213 @@ print(pivot)
 1. 日收益率  
 2. 累计收益率曲线（`matplotlib` 可视化）  
 3. 波动率数值输出  
+```
+import pandas as pd
+import matplotlib.pyplot as plt
+import numpy as np
 
+# 1️⃣ 导入股票数据 CSV（假设有 Date, Close 列）
+df = pd.read_csv('AAPL.csv', parse_dates=['Date'])
+
+# 2️⃣ 数据初步查看
+print("数据形状:", df.shape)
+print("前5行:\n", df.head())
+print("列名:", df.columns.tolist())
+print("数据类型:\n", df.dtypes)
+print("缺失值统计:\n", df.isnull().sum())
+
+# 3️⃣ 排序日期并重置索引
+df.sort_values('Date', inplace=True)
+df.reset_index(drop=True, inplace=True)
+
+# 4️⃣ 计算日收益率
+df['Daily_Return'] = df['Close'].pct_change()
+
+# 5️⃣ 计算累计收益率
+df['Cumulative_Return'] = (1 + df['Daily_Return']).cumprod()
+
+# 6️⃣ 计算波动率（年化）
+daily_vol = df['Daily_Return'].std()
+annual_vol = daily_vol * np.sqrt(252)
+print(f"日波动率: {daily_vol:.4f}, 年化波动率: {annual_vol:.4f}")
+
+# 7️⃣ 计算夏普比率（年化，假设无风险利率为0）
+sharpe_ratio = df['Daily_Return'].mean() / daily_vol * np.sqrt(252)
+print(f"年化夏普比率: {sharpe_ratio:.4f}")
+
+# 8️⃣ 计算回撤和最大回撤
+cum_max = df['Cumulative_Return'].cummax()
+df['Drawdown'] = (df['Cumulative_Return'] - cum_max) / cum_max
+max_drawdown = df['Drawdown'].min()
+print(f"最大回撤: {max_drawdown:.4f}")
+
+# 9️⃣ 计算年化收益率 CAGR
+days = (df['Date'].iloc[-1] - df['Date'].iloc[0]).days
+cagr = (df['Cumulative_Return'].iloc[-1]) ** (365 / days) - 1
+print(f"CAGR（年化收益率）: {cagr:.4f}")
+
+# 🔟 可视化累计收益率和回撤
+plt.figure(figsize=(12,5))
+plt.plot(df['Date'], df['Cumulative_Return'], label='Cumulative Return')
+plt.fill_between(df['Date'], df['Cumulative_Return'], cum_max, color='red', alpha=0.3, label='Drawdown')
+plt.title("AAPL 累计收益率 & 回撤")
+plt.xlabel("Date")
+plt.ylabel("Cumulative Return")
+plt.legend()
+plt.grid(True)
+plt.show()
+
+# 1️⃣1️⃣ 可视化日收益率分布
+plt.figure(figsize=(8,4))
+df['Daily_Return'].hist(bins=50)
+plt.title("AAPL 日收益率分布")
+plt.xlabel("Daily Return")
+plt.ylabel("Frequency")
+plt.grid(False)
+plt.show()
+```
 ---
 ### 📑Day 34: Pandas 进阶技巧与性能优化
 
 📘 学习重点：
+1️⃣ 多重索引（MultiIndex）
 
-多重索引（MultiIndex）：处理分层数据
+作用：处理分层数据，便于按多级条件筛选和聚合。
+
+示例：
 ```
+# 假设有销售数据
+df = pd.DataFrame({
+    'Region': ['North','North','South','South'],
+    'Month': ['Jan','Feb','Jan','Feb'],
+    'Sales': [200, 210, 150, 180]
+})
+
+# 设置多级索引
 df = df.set_index(['Region', 'Month'])
-df.loc['North']
-```
 
-apply / lambda 自定义函数：
+# 按 Region 筛选
+print(df.loc['North'])
+```
+说明：
+可以快速按一级或多级索引定位数据
+常用于股票数据：股票代码 + 日期，或者行业 + 股票
+
+2️⃣ apply / lambda 自定义函数
+作用：按行或按列自定义计算逻辑。
+示例：
 ```
 df['Profit_Rate'] = df.apply(lambda x: x['Profit'] / x['Sales'], axis=1)
 ```
+说明：
+axis=1 → 按行
+axis=0 → 按列
+面试提示：apply 方便灵活，但性能不如矢量化
 
-矢量化运算 vs 循环性能差异
-内存优化与类型转换：
+3️⃣ 矢量化运算 vs 循环性能差异
+示例数据：
+```
+import numpy as np
+arr = np.random.rand(1000000)
+```
+
+循环计算平方（慢）：
+```
+%%timeit
+result = []
+for x in arr:
+    result.append(x**2)
+```
+矢量化（快）：
+```
+%%timeit
+result = arr**2
+```
+说明：
+Pandas / NumPy 优势在于矢量化，避免 Python 层循环
+面试中常考性能优化方法
+
+4️⃣ 内存优化与类型转换
+
+示例：
 ```
 df['Category'] = df['Category'].astype('category')
 ```
+说明：
+分类类型比字符串节省内存
+对大数据集很重要
+
+其他优化：
+数值列可以用 float32 / int32
+读 CSV 时指定 dtype
 
 #### 🔧练习34:
 
 给销售或股票数据加多级索引（如 Region + Month）
-
 比较 for 循环与 apply、vectorized 的速度差异（可用 %timeit）
+```
+import pandas as pd
+import numpy as np
+import time
+
+# 1️⃣ 生成模拟股票数据（多只股票）
+np.random.seed(42)
+tickers = ['AAPL', 'TSLA', 'AMZN']
+dates = pd.date_range('2023-01-01', '2023-06-30', freq='B')  # 交易日
+data = []
+
+for t in tickers:
+    price = 100 + np.cumsum(np.random.normal(0, 1, len(dates)))
+    df_temp = pd.DataFrame({'Ticker': t, 'Date': dates, 'Close': price})
+    data.append(df_temp)
+
+df = pd.concat(data).reset_index(drop=True)
+
+# 2️⃣ 多级索引
+df = df.set_index(['Ticker', 'Date'])
+print("多级索引示例：\n", df.loc['AAPL'].head())
+
+# 3️⃣ apply / lambda 自定义计算日收益率
+df['Daily_Return_apply'] = df.groupby(level=0)['Close'].apply(lambda x: x.pct_change())
+
+# 4️⃣ 矢量化计算日收益率（更快）
+df['Daily_Return_vectorized'] = df.groupby(level=0)['Close'].pct_change()
+
+# 5️⃣ 性能对比
+sample = df.reset_index().loc[df['Ticker']=='AAPL', 'Close']
+
+# 循环计算平方（示例性能对比）
+start = time.time()
+result_loop = []
+for x in sample:
+    result_loop.append(x**2)
+print("循环耗时:", time.time() - start)
+
+# apply 计算平方
+start = time.time()
+result_apply = sample.apply(lambda x: x**2)
+print("apply 耗时:", time.time() - start)
+
+# 矢量化计算平方
+start = time.time()
+result_vector = sample**2
+print("矢量化耗时:", time.time() - start)
+
+# 6️⃣ 内存优化示例
+print("\n原始内存占用：")
+print(df.info(memory_usage='deep'))
+
+df = df.copy()
+df['Ticker'] = df.index.get_level_values(0).astype('category')  # 分类类型优化
+df['Close'] = df['Close'].astype('float32')                     # 类型优化
+
+print("\n优化后内存占用：")
+print(df.info(memory_usage='deep'))
+
+# 7️⃣ 小结输出
+print("\n示例完成：多级索引 + apply/矢量化计算 + 性能对比 + 内存优化")
+
+```
 
 ### 📑Day 35: Pandas 可视化与综合实战
 

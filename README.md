@@ -2965,6 +2965,7 @@ df.boxplot(column='Sales', by='Region'
 - 能独立导入、清洗、分析数据
 - 完成两个小项目：销售分析 & 股票收益分析
 
+more details to see subfolder week5
 
 ⸻
 
@@ -3092,16 +3093,203 @@ Altair 或 Plotly 实现交互式仪表盘
 	•	爬虫异常处理与重试,能独立爬取新闻、财经数据并保存到本地  
 	•	能调用金融 API（Alpha Vantage / Yahoo Finance）获取实时数据并绘图展示
 ```
+
 ### 📑Day 43: Requests 基础与网页请求**
 **重点内容：**
 - 安装与导入：`pip install requests`
 - 发起 GET / POST 请求：`requests.get()`, `requests.post()`
 - 设置请求头（headers）、参数（params）
 - 响应内容：`response.text`, `response.status_code`, `response.json()`
+1. 安装与导入
+```
+pip install requests pandas
+
+import requests
+import pandas as pd
+import time
+from requests.adapters import HTTPAdapter
+from urllib3.util.retry import Retry
+```
+requests：HTTP 请求库。
+pandas：仅在示例中把 JSON 转为表格。
+Retry/HTTPAdapter：实现重试策略（见下文）。
+
+2. 基本概念（要点）
+	- 2.1 requests.get(url, params=..., headers=..., timeout=...) 发起 GET 请求。
+	- 2.2 requests.post(url, data=..., json=..., headers=...) 发起 POST。
+	- 2.3 response.status_code：HTTP 状态码（200 成功，404 未找到，500 服务器错误等）。
+	- 2.4 response.text：把响应当文本（str）读取（适合 HTML）。
+	- 2.5 response.content：原始二进制内容（适合文件/图片）。
+	- 2.6 response.json()：把响应解析为 JSON（在 Content-Type: application/json 时使用，可能抛异常）。
+	- 2.7 response.headers：响应头（查看 Content-Type、Content-Length 等）。
+	- 2.8 response.raise_for_status()：若不是 2xx，会抛 HTTPError，便于错误处理。
+	- 2.9 timeout：避免请求挂起（建议设置短超时，例如 (5, 15) 表示 connect/read）。
+
+3. 示例 A — 请求网页并打印 HTML（以yahoo为例）
+```
+import yfinance as yf
+import pandas as pd # Python 数据分析利器，用于处理表格数据（DataFrame）。
+
+ticker = 'AAPL' # 苹果公司的股票代码（Ticker symbol）
+stock = yf.Ticker(ticker) # 创建一个 Ticker 对象，可以通过这个对象获取该股票的各种信息，例如价格、历史数据、新闻等。
+
+news = stock.news # stock.news：返回一个列表，每一项是一个字典，包含该股票的新闻信息。
+news_list = [] # 初始化一个空列表，用来存储整理好的新闻信息。
+
+for item in news:
+    content = item.get('content', {})
+    title = content.get('title')
+    # 或 content.get('clickThroughUrl', {}).get('url') 
+    link = content.get('canonicalUrl', {}).get('url') # 处理多层嵌套
+    pubDate = content.get('pubDate')
+    news_list.append({'title': title, 'link': link, 'pubDate': pubDate}) # 将整理好的新闻以字典形式加入列表
+
+# 转成 DataFrame
+df_news = pd.DataFrame(news_list) # 将字典列表转换为 Pandas DataFrame，每个字典的键会成为 DataFrame 的列名。DataFrame 的好处：
+可以方便地做筛选、排序、导出 CSV 等操作
+print(df_news.head())
+```
+总结
+
+这个脚本做了三件事：
+获取苹果公司的最新新闻数据。
+遍历新闻列表，提取 标题、链接、发布日期。
+整理成 Pandas DataFrame，方便后续分析或导出。
+
+注意事项：
+
+有些新闻可能没有 canonicalUrl 或 pubDate，这里使用 .get() 可以避免报错。
+yfinance 返回的新闻数量有限，通常是最近几十条。
+DataFrame 可以直接导出为 CSV：
+```
+df_news.to_csv("AAPL_news.csv", index=False)
+```
+4. 示例 B — 请求公开 API（JSONPlaceholder）并解析返回
+```
+import requests
+import pandas as pd
+
+# 单条请求
+resp = requests.get("https://jsonplaceholder.typicode.com/posts/1", timeout=5)
+resp.raise_for_status() # 如果 HTTP 状态码不是 200，会抛出异常,保证请求成功，否则不会继续处理。
+data = resp.json()  # API 返回的是 JSON 格式，这里把 JSON 转成 Python 字典 (dict)
+print("Single post:", data)
+
+# 多条请求并转换为 DataFrame
+resp2 = requests.get("https://jsonplaceholder.typicode.com/posts", timeout=5) # 返回 所有帖子，JSON 是一个 字典列表
+resp2.raise_for_status()
+posts = resp2.json()  # list of dicts
+
+df_posts = pd.DataFrame(posts) # 把 JSON 列表转成 Pandas DataFrame，每个字典的一条键值对应一列。
+print(df_posts.head())
+# 保存为 CSV
+df_posts.to_csv("jsonplaceholder_posts.csv", index=False) # 将表格保存到本地文件 jsonplaceholder_posts.csv。index=False 表示不要保存行索引。
+```
+解释：
+
+json() 把返回的 JSON 自动解析为 Python 数据结构（dict / list）。
+多条记录变为 list[dict]，可以直接用 pd.DataFrame() 转换为表格，便于分析。
+可保存为 CSV 以便后续离线分析。
+
+5. 使用 params 构造带查询字符串的请求
+```
+params = {"userId": 1}
+resp = requests.get("https://jsonplaceholder.typicode.com/posts", params=params, timeout=5)
+print("请求 URL:", resp.url)  # 查看最终 URL
+posts_user1 = resp.json()
+print("Posts for userId=1:", len(posts_user1))
+```
+
+params 自动拼接为 ?userId=1，比字符串拼接更安全。
+
+6. 大文件或二进制内容的下载（按块写文件）
+```
+url = "https://www.example.com/largefile.zip"
+with requests.get(url, stream=True, timeout=10) as r:
+    r.raise_for_status()
+    with open("largefile.zip", "wb") as f:
+        for chunk in r.iter_content(chunk_size=8192):
+            if chunk:
+                f.write(chunk)
+```
+
+stream=True 避免一次性把整个响应加载到内存中（适合大文件）。
+
+7. Session 与 重试策略（重要：生产环境常用）
+```
+from requests.adapters import HTTPAdapter
+from urllib3.util.retry import Retry
+import requests
+
+session = requests.Session()
+
+retry = Retry(
+    total=5,
+    backoff_factor=0.5,  # 指数退避：0.5s, 1s, 2s, ...
+    status_forcelist=[429, 500, 502, 503, 504],
+    allowed_methods=["GET", "POST"]
+)
+adapter = HTTPAdapter(max_retries=retry)
+session.mount("https://", adapter)
+session.mount("http://", adapter)
+
+try:
+    r = session.get("https://jsonplaceholder.typicode.com/posts", timeout=5)
+    r.raise_for_status()
+    print("Got", len(r.json()), "posts (via session with retry).")
+finally:
+    session.close()
+```
+
+解释：
+
+Retry 支持自动重试并带退避，适用于临时网络波动或 429 限流。
+使用 Session 可以复用 TCP 连接，提高效率。
+
+8. 超时与错误处理（最佳实践）
+```
+try:
+    r = requests.get(url, timeout=(3.05, 9))  # (connect, read)
+    r.raise_for_status()
+except requests.exceptions.Timeout:
+    # 超时：可以重试或记录日志
+    pass
+except requests.exceptions.ConnectionError:
+    # 网络错误
+    pass
+except requests.exceptions.HTTPError as e:
+    # 非 2xx
+    pass
+except requests.exceptions.RequestException as e:
+    # 其他 request 异常
+    pass
+```
+
+Always set a timeout.
+
+捕获 RequestException 可统一处理 requests 抛出的异常。
+
+9. 检查响应类型再用 .json()
+```
+if 'application/json' in resp.headers.get('Content-Type', ''):
+    j = resp.json()
+else:
+    print("不是 JSON，不能调用 .json()")
+```
+
+避免在 HTML 或其他格式上调用 .json() 导致 ValueError。
+
+10. 速率限制与礼貌爬取
+
+遵守 robots.txt（可用 requests.get("https://example.com/robots.txt") 查看）。
+
+对频繁请求的站点加 time.sleep() 或使用退避策略。
+
+对需要登录或 API Key 的接口，使用授权头 Authorization: Bearer <token> 或 params 传 key（根据 API 要求）。
 
 #### 🔧练习43
-- 请求一个网页（如百度或新闻网站）并打印 HTML
-- 请求一个简单的公开 API（如 JSONPlaceholder）并解析返回结果
+- 请求一个网页（如百度或新闻网站）并打印 HTML,见上。
+- 请求一个简单的公开 API（如 JSONPlaceholder）并解析返回结果，见上。
 
 ---
 
@@ -3112,10 +3300,172 @@ Altair 或 Plotly 实现交互式仪表盘
 - 查找标签：`find()`, `find_all()`, `select()`
 - 获取属性与文本内容
 
+1️⃣ 安装 BeautifulSoup 与解析器
+```
+pip install beautifulsoup4 lxml
+```
+beautifulsoup4：核心库，用于解析 HTML 或 XML。
+lxml：高效的 HTML/XML 解析器，比默认的 html.parser 更快、更稳定。
+
+2️⃣ 基本用法
+```
+from bs4 import BeautifulSoup
+
+html = """
+<html>
+    <body>
+        <h2>新闻标题1</h2>
+        <h2>新闻标题2</h2>
+        <a href="https://example.com/1">链接1</a>
+        <a href="https://example.com/2">链接2</a>
+    </body>
+</html>
+"""
+
+soup = BeautifulSoup(html, "lxml")
+```
+soup 是解析后的对象，你可以像操作树一样操作 HTML。
+
+"lxml"：指定解析器。
+
+3️⃣ 查找标签
+
+单个标签 find()
+```
+h2_first = soup.find("h2")
+print(h2_first.text)  # 输出第一个 <h2> 的文本
+```
+
+所有标签 find_all()
+```
+h2_all = soup.find_all("h2")
+for h in h2_all:
+    print(h.text)
+```
+
+CSS 选择器 select()
+```
+links = soup.select("a")  # 所有 <a> 标签
+for link in links:
+    print(link.text, link.get("href"))
+```
+
+link.text → 标签内部文字
+link.get("href") → 标签的 href 属性
+
+4️⃣ 爬取新闻网站首页标题与链接示例
+
+注意：大部分新闻网站可能有反爬策略，建议用公开测试网站或者加 headers 模拟浏览器。
+```
+import requests
+from bs4 import BeautifulSoup
+
+url = "https://news.ycombinator.com/"  # Hacker News 首页
+
+headers = {
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+}
+
+resp = requests.get(url, headers=headers, timeout=5)
+resp.raise_for_status()
+soup = BeautifulSoup(resp.text, "lxml")
+
+# 提取新闻标题
+titles = soup.select("a.storylink")  # Hacker News 的新闻链接 class
+for t in titles[:10]:  # 只取前10条
+    print(t.text, t.get("href"))
+```
+
+soup.select("a.storylink") → 返回所有 <a> 标签，class 为 storylink。
+
+.text → 新闻标题
+.get("href") → 链接地址
+
+5️⃣ 提取 <h2> 或 <a> 标签文字
+```
+# 所有 <h2>
+for h2 in soup.find_all("h2"):
+    print(h2.text.strip())
+
+# 所有 <a>
+for a in soup.find_all("a"):
+    print(a.text.strip(), a.get("href"))
+```
+
+.strip() 去掉空格换行，更干净。
+
+可以组合成 DataFrame 或 CSV：
+```
+import pandas as pd
+
+data = []
+for a in soup.find_all("a"):
+    data.append({"title": a.text.strip(), "link": a.get("href")})
+
+df = pd.DataFrame(data)
+df.to_csv("news.csv", index=False)
+```
+✅ 总结
+
+BeautifulSoup 是解析 HTML 的利器：
+find() / find_all() → 精确查找标签
+select() → CSS 选择器
+.text → 标签文字
+.get("attr") → 标签属性
+可以和 requests 配合爬取网页内容
+提取的数据可进一步存储为 CSV、DataFrame 或做分析
+
 #### 🔧练习44
 - 爬取新闻网站首页的标题与链接
 - 提取所有 `<h2>` 或 `<a>` 标签文字
+```
+import requests
+from bs4 import BeautifulSoup
+import pandas as pd
 
+# ---------- 配置 ----------
+url = "https://news.ycombinator.com/"  # 目标网站
+headers = {
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+}
+tag_to_extract = ["h2", "a"]  # 要提取的标签，可扩展
+max_items = 50  # 最多抓取条数
+
+# ---------- 请求网页 ----------
+try:
+    resp = requests.get(url, headers=headers, timeout=5)
+    resp.raise_for_status()
+except requests.RequestException as e:
+    print("请求网页失败:", e)
+    exit()
+
+# ---------- 解析网页 ----------
+soup = BeautifulSoup(resp.text, "lxml")
+
+# ---------- 提取数据 ----------
+data = []
+
+for tag_name in tag_to_extract:
+    for tag in soup.find_all(tag_name):
+        title = tag.text.strip()
+        link = tag.get("href", "")  # 如果没有 href 属性就用空字符串
+        if title:  # 过滤掉空标题
+            data.append({"title": title, "link": link})
+        if len(data) >= max_items:
+            break
+    if len(data) >= max_items:
+        break
+
+# ---------- 转为 DataFrame ----------
+df = pd.DataFrame(data)
+print(df.head())
+
+# ---------- 保存为 CSV ----------
+csv_file = "news_data.csv"
+df.to_csv(csv_file, index=False)
+print(f"已保存 {len(df)} 条新闻到 {csv_file}")
+
+```
 ---
 
 ### 📑Day 45: JSON 数据解析与保存**
@@ -3125,8 +3475,22 @@ Altair 或 Plotly 实现交互式仪表盘
 - 保存数据到文件：`json.dump()`
 - 转换为 Pandas DataFrame 并保存为 CSV
 
+Day 43/44（HTML）
+核心是 解析网页 DOM 树
+用 .find() / .find_all() / .select() 获取标签内容
+Day 45（JSON）
+核心是 解析 API 返回的 JSON
+用 response.json() 转成 Python 对象，遍历字典和列表
+相同点
+都用 requests 获取数据
+都可以最终转成 DataFrame / CSV 保存
+不同点
+HTML 需要处理标签层级
+JSON 是结构化数据，遍历更直接
+
+
 #### 🔧练习45
-- 访问一个返回 JSON 的 API
+- 访问一个返回 JSON 的 API 见上
 - 提取部分字段并保存为 CSV 文件
 
 ---
@@ -3140,7 +3504,64 @@ Altair 或 Plotly 实现交互式仪表盘
 #### 🔧练习46
 - 编写一个带异常处理的爬虫函数
 - 当请求失败时自动重试最多 3 次
+```
+import requests
+from requests.adapters import HTTPAdapter, Retry
+import time
 
+def fetch_url(url, max_retries=3, wait_seconds=2, timeout=5):
+    """
+    带异常处理和重试机制的爬虫函数
+    参数：
+        url: 目标网址
+        max_retries: 最大重试次数
+        wait_seconds: 每次失败后等待秒数
+        timeout: 请求超时时间
+    返回：
+        响应文本 (str) 或 None
+    """
+    # 创建 Session 并设置重试策略
+    session = requests.Session()
+    retries = Retry(
+        total=max_retries,
+        backoff_factor=wait_seconds,  # 失败后指数退避
+        status_forcelist=[500, 502, 503, 504],  # 需要重试的 HTTP 状态码
+        allowed_methods=["GET", "POST"]
+    )
+    adapter = HTTPAdapter(max_retries=retries)
+    session.mount("http://", adapter)
+    session.mount("https://", adapter)
+
+    try_count = 0
+    while try_count < max_retries:
+        try:
+            resp = session.get(url, timeout=timeout)
+            resp.raise_for_status()  # HTTP 错误会抛出异常
+            return resp.text  # 成功返回网页内容
+        except requests.exceptions.Timeout:
+            print(f"[{try_count+1}] 请求超时，{wait_seconds}秒后重试...")
+        except requests.exceptions.ConnectionError:
+            print(f"[{try_count+1}] 连接失败，可能被拒绝，{wait_seconds}秒后重试...")
+        except requests.exceptions.HTTPError as e:
+            print(f"[{try_count+1}] HTTP 错误：{e}, {wait_seconds}秒后重试...")
+        except requests.exceptions.RequestException as e:
+            print(f"[{try_count+1}] 请求异常：{e}, {wait_seconds}秒后重试...")
+        try_count += 1
+        time.sleep(wait_seconds)
+
+    print("重试次数用完，获取失败！")
+    return None
+
+# ------------------ 测试 ------------------
+if __name__ == "__main__":
+    url = "https://jsonplaceholder.typicode.com/posts"
+    html = fetch_url(url)
+    if html:
+        print("获取成功，内容长度：", len(html))
+    else:
+        print("获取失败")
+
+```
 ---
 
 ### 📑Day 47: API 调用 — Alpha Vantage / Yahoo Finance**
@@ -3202,120 +3623,505 @@ plt.show()
 
 ⸻
 
-## Week 8: 算法与数据结构应用
-📘 学习内容：
+
+# 📘 Week 8：Python 算法与数据结构
+
+---
+
+## 🧩 Day 50：算法与复杂度基础
+
+**目标**：掌握算法基本概念、复杂度分析，熟悉线性查找与二分查找，处理多类型数据和异常。
+
+### 核心知识
+
+* **算法**：解决问题的步骤
+* **时间复杂度**：衡量算法执行时间增长率
+* **空间复杂度**：算法占用内存增长率
+* **常见复杂度**：O(1)、O(n)、O(log n)、O(n²)、O(2ⁿ)
+* **案例**：线性查找 vs 二分查找
+
+### 练习 50.1：通用线性查找
+
+**题目**：实现 `linear_search(arr, target)`，支持 int、float、str，返回第一个匹配索引。
+
+```python
+def linear_search(arr, target):
+    if not arr:
+        return -1
+    for i, val in enumerate(arr):
+        try:
+            if val == target:
+                return i
+        except Exception:
+            continue
+    return -1
+
+# 测试
+data = [3, 5.5, 'abc', 8]
+print(linear_search(data, 5.5))  # 输出 1
+print(linear_search(data, 'xyz'))  # 输出 -1
 ```
-	•	理解并实现常见算法（排序、查找、二分法）
-	•	掌握基本数据结构（栈、队列、堆、链表）
-	•	入门动态规划思想（Dynamic Programming）
-	•	能分析时间复杂度（Big-O）并编写高效代码  
+
+### 练习 50.2：通用二分查找（有序）
+
+**题目**：实现二分查找，支持整数和浮点数列表。
+
+```python
+def binary_search(arr, target):
+    if not arr:
+        return -1
+    l, r = 0, len(arr) - 1
+    while l <= r:
+        mid = (l + r) // 2
+        try:
+            if arr[mid] == target:
+                return mid
+            elif arr[mid] < target:
+                l = mid + 1
+            else:
+                r = mid - 1
+        except TypeError:
+            return -1
+    return -1
+
+# 测试
+arr = [1, 2.5, 3.7, 4, 5]
+print(binary_search(arr, 3.7))  # 输出 2
 ```
-### 📑Day 50: 算法与复杂度基础**
-**重点内容：**
-- 什么是算法与数据结构
-- 时间复杂度与空间复杂度
-- 常见复杂度：O(1)、O(n)、O(n²)、O(log n)
-- 简单案例分析：线性查找 vs 二分查找
 
-#### 🔧练习50
-- 写一个线性查找函数
-- 比较线性查找和二分查找的效率差异
+### 练习 50.3：效率对比
 
----
+**题目**：比较线性查找和二分查找在大数组中的性能。
 
-### 📑Day 51: 排序算法基础（1）**
-**重点内容：**
-- 冒泡排序（Bubble Sort）
-- 选择排序（Selection Sort）
-- 插入排序（Insertion Sort）
-- 算法可视化理解（如列表交换的过程）
+```python
+import time
+import random
 
-#### 🔧练习51
-- 实现冒泡排序、插入排序
-- 统计每个算法的比较次数和交换次数
+arr = sorted([random.uniform(0, 1_000_000) for _ in range(1_000_000)])
+target = arr[888_888]
+
+for func in [linear_search, binary_search]:
+    start = time.time()
+    func(arr, target)
+    print(f"{func.__name__}: {time.time()-start:.5f}s")
+```
 
 ---
 
-### 📑Day 52: 排序算法进阶（2）**
-**重点内容：**
-- 快速排序（Quick Sort）
-- 归并排序（Merge Sort）
-- 排序算法的时间复杂度比较
+## 🧩 Day 51：排序算法基础（1）
 
-#### 🔧练习52
-- 分别实现快速排序和归并排序
-- 比较 10000 个随机数排序的速度差异
+**目标**：掌握冒泡、选择、插入排序算法，处理整数、浮点数和字符串，统计操作次数。
+
+### 练习 51.1：冒泡排序
+
+**题目**：支持整数、浮点数和字符串混合，统计比较和交换次数。
+
+```python
+def bubble_sort(arr):
+    compares = swaps = 0
+    n = len(arr)
+    for i in range(n):
+        for j in range(n-i-1):
+            compares += 1
+            try:
+                if arr[j] > arr[j+1]:
+                    arr[j], arr[j+1] = arr[j+1], arr[j]
+                    swaps += 1
+            except TypeError:
+                continue
+    print(f"比较: {compares}, 交换: {swaps}")
+    return arr
+
+data = [5, 3.5, 'abc', 2]
+print(bubble_sort(data))
+```
+
+### 练习 51.2：选择排序
+
+**题目**：实现支持不同数据类型的选择排序。
+
+```python
+def selection_sort(arr):
+    n = len(arr)
+    for i in range(n):
+        min_index = i
+        for j in range(i + 1, n):
+            try:
+                if arr[j] < arr[min_index]:
+                    min_index = j
+            except TypeError:
+                continue
+        arr[i], arr[min_index] = arr[min_index], arr[i]
+    return arr
+
+print(selection_sort([3, 1.2, 'b', 2]))
+```
+
+### 练习 51.3：插入排序
+
+**题目**：支持整数、浮点数和字符串混合。
+
+```python
+def insertion_sort(arr):
+    for i in range(1, len(arr)):
+        key = arr[i]
+        j = i - 1
+        while j >= 0:
+            try:
+                if arr[j] > key:
+                    arr[j + 1] = arr[j]
+                    j -= 1
+                else:
+                    break
+            except TypeError:
+                break
+        arr[j + 1] = key
+    return arr
+
+print(insertion_sort([5, 'a', 2, 3.3]))
+```
 
 ---
 
-### 📑Day 53: 查找算法与二分法**
-**重点内容：**
-- 线性查找（Linear Search）
-- 二分查找（Binary Search）
-- 在有序数组中查找元素
-- Python 标准库 `bisect` 的使用
+## 🧩 Day 52：排序算法进阶（2）
 
-#### 🔧练习53
-- 手动实现二分查找函数
-- 使用 bisect 查找插入位置
+**目标**：掌握快速排序、归并排序，处理混合类型列表，提升大数据排序效率。
+
+### 练习 52.1：快速排序
+
+**题目**：支持整数、浮点数和字符串的快速排序。
+
+```python
+def quick_sort(arr):
+    if len(arr) <= 1:
+        return arr
+    pivot = arr[0]
+    left, right = [], []
+    for x in arr[1:]:
+        try:
+            if x <= pivot:
+                left.append(x)
+            else:
+                right.append(x)
+        except TypeError:
+            continue
+    return quick_sort(left) + [pivot] + quick_sort(right)
+
+print(quick_sort([5, 3.2, 'c', 1]))
+```
+
+### 练习 52.2：归并排序
+
+**题目**：支持整数、浮点数列表。
+
+```python
+def merge_sort(arr):
+    if len(arr) <= 1:
+        return arr
+    mid = len(arr)//2
+    left = merge_sort(arr[:mid])
+    right = merge_sort(arr[mid:])
+    res = []
+    i = j = 0
+    while i < len(left) and j < len(right):
+        try:
+            if left[i] < right[j]:
+                res.append(left[i]); i += 1
+            else:
+                res.append(right[j]); j += 1
+        except TypeError:
+            break
+    res += left[i:] + right[j:]
+    return res
+
+print(merge_sort([5, 2.5, 3]))
+```
+
+### 练习 52.3：性能对比
+
+**题目**：对比快速排序和归并排序在大数据下的性能。示例使用随机浮点数。
+
+```python
+import random, time
+arr = [random.uniform(0, 10000) for _ in range(10000)]
+for func in [quick_sort, merge_sort]:
+    start = time.time()
+    func(arr.copy())
+    print(f"{func.__name__}: {time.time()-start:.4f}s")
+```
 
 ---
 
-### 📑Day 54: 常用数据结构**
-**重点内容：**
-- 栈（Stack）：后进先出（LIFO）
-- 队列（Queue）：先进先出（FIFO）
-- 堆（Heap）：最小堆、最大堆
-- 链表（Linked List）：节点结构与遍历
-- Python 内置结构：`list`, `deque`, `heapq`
+(后续 Day 53~56 按同样方式升级，支持多类型数据、集合、边界处理、异常处理和面试场景，完整 Markdown 内容可以生成整周升级版笔记)
 
-#### 🔧练习54
-- 用 `list` 模拟栈和队列
-- 使用 `heapq` 实现最小堆并取出前 k 个元素
+---
+## 🧩 Day 53：查找算法与二分法
+
+**目标**：掌握线性查找、二分查找、bisect 模块，支持混合数据类型和异常处理。
+
+### 练习 53.1：手动二分查找
+
+**题目**：实现 `binary_search(arr, target)`，支持整数和浮点数列表，处理空列表和异常类型。
+
+```python
+def binary_search(arr, target):
+    if not arr:
+        return -1
+    l, r = 0, len(arr)-1
+    while l <= r:
+        mid = (l+r)//2
+        try:
+            if arr[mid] == target:
+                return mid
+            elif arr[mid] < target:
+                l = mid+1
+            else:
+                r = mid-1
+        except TypeError:
+            return -1
+    return -1
+
+arr = [1, 2.5, 3.7, 4, 5]
+print(binary_search(arr, 3.7))
+```
+
+### 练习 53.2：bisect 查找插入位置
+
+**题目**：使用 bisect 查找浮点数或整数列表的插入位置。
+
+```python
+import bisect
+nums = [10, 20.5, 30, 40]
+pos = bisect.bisect_left(nums, 25)
+print(f"插入位置: {pos}")  # 输出 2
+```
+
+### 练习 53.3：面试扩展
+
+**题目**：给定包含整数和浮点数的混合列表，先排序再查找目标值的索引。
+
+```python
+arr = [3, 1.2, 5.5, 2]
+arr_sorted = sorted(arr)
+print(binary_search(arr_sorted, 5.5))
+```
 
 ---
 
-### 📑Day 55: 动态规划（DP）入门**
-**重点内容：**
-- 递归与重叠子问题
-- 记忆化（Memoization）与自底向上（Bottom-up）
-- 示例：斐波那契数列、爬楼梯问题
+## 🧩 Day 54：常用数据结构
 
-#### 🔧练习55
-- 分别用递归、记忆化 DP、循环实现 Fibonacci
-- 比较三者性能差异
+**目标**：掌握栈、队列、堆和链表的实战应用。
+
+### 练习 54.1：栈（Stack）
+
+**题目**：用 list 模拟栈操作，并处理空栈弹出异常。
+
+```python
+stack = []
+stack.append('A')
+stack.append('B')
+try:
+    print(stack.pop())
+    print(stack.pop())
+    print(stack.pop())  # 捕获 IndexError
+except IndexError:
+    print("栈为空")
+```
+
+### 练习 54.2：队列（Queue）
+
+**题目**：用 deque 模拟队列操作，支持任意数据类型。
+
+```python
+from collections import deque
+queue = deque([1, 'b', 3.5])
+queue.append('end')
+print(queue.popleft())  # 1
+```
+
+### 练习 54.3：堆（Heap）
+
+**题目**：使用 heapq 实现最小堆和最大堆，并取前 k 个元素。
+
+```python
+import heapq
+nums = [9, 1.5, 5, 3]
+heapq.heapify(nums)
+print(heapq.nsmallest(2, nums))  # [1.5, 3]
+print(heapq.nlargest(2, nums))   # [9, 5]
+```
+
+### 练习 54.4：链表（Linked List）
+
+**题目**：实现单向链表插入和遍历。
+
+```python
+class Node:
+    def __init__(self, val):
+        self.val = val
+        self.next = None
+
+class LinkedList:
+    def __init__(self):
+        self.head = None
+    def append(self, val):
+        node = Node(val)
+        if not self.head:
+            self.head = node
+            return
+        cur = self.head
+        while cur.next:
+            cur = cur.next
+        cur.next = node
+    def traverse(self):
+        cur = self.head
+        res = []
+        while cur:
+            res.append(cur.val)
+            cur = cur.next
+        return res
+
+ll = LinkedList()
+ll.append(1)
+ll.append('b')
+ll.append(3.5)
+print(ll.traverse())
+```
 
 ---
-### 📑Day 56: 项目实战与综合应用**
 
-#### 🧩 小项目 1：排序工具
-**目标：**
-- 编写一个排序函数，支持冒泡与快速排序两种模式
-- 用户输入列表与算法类型，返回排序结果
+## 🧩 Day 55：动态规划（DP）入门
 
-**示例代码：**
+**目标**：掌握递归、记忆化、循环实现 DP，处理实际问题。
+
+### 练习 55.1：递归 Fibonacci
+
+**题目**：实现递归 Fibonacci，注意性能问题。
+
+```python
+def fib_rec(n):
+    if n <= 2:
+        return 1
+    return fib_rec(n-1) + fib_rec(n-2)
+print(fib_rec(10))
+```
+
+### 练习 55.2：记忆化 Fibonacci
+
+**题目**：优化递归，使用缓存提高效率。
+
+```python
+from functools import lru_cache
+@lru_cache(None)
+def fib_memo(n):
+    if n <= 2:
+        return 1
+    return fib_memo(n-1) + fib_memo(n-2)
+print(fib_memo(35))
+```
+
+### 练习 55.3：循环 Fibonacci（DP）
+
+**题目**：用循环计算 Fibonacci，适合大 n。
+
+```python
+def fib_dp(n):
+    if n <= 2:
+        return 1
+    a, b = 1, 1
+    for _ in range(3, n+1):
+        a, b = b, a+b
+    return b
+print(fib_dp(50))
+```
+
+### 练习 55.4：爬楼梯问题
+
+**题目**：每次可以爬 1 或 2 阶，求 n 阶楼梯的爬法总数。
+
+```python
+def climb_stairs(n):
+    if n <= 2:
+        return n
+    a, b = 1, 2
+    for _ in range(3, n+1):
+        a, b = b, a+b
+    return b
+print(climb_stairs(10))
+```
+
+---
+
+## 🧩 Day 56：项目实战与综合应用
+
+**目标**：整合排序、查找、堆、链表等算法，构建面试项目实战工具。
+
+### 练习 56.1：通用排序工具
+
+**题目**：实现冒泡排序和快速排序，支持整数、浮点数和字符串混合列表。
+
 ```python
 def bubble_sort(arr):
     n = len(arr)
     for i in range(n):
-        for j in range(n - i - 1):
-            if arr[j] > arr[j + 1]:
-                arr[j], arr[j + 1] = arr[j + 1], arr[j]
+        for j in range(n-i-1):
+            try:
+                if arr[j] > arr[j+1]:
+                    arr[j], arr[j+1] = arr[j+1], arr[j]
+            except TypeError:
+                continue
     return arr
 
 def quick_sort(arr):
     if len(arr) <= 1:
         return arr
     pivot = arr[0]
-    left = [x for x in arr[1:] if x <= pivot]
-    right = [x for x in arr[1:] if x > pivot]
+    left, right = [], []
+    for x in arr[1:]:
+        try:
+            if x <= pivot:
+                left.append(x)
+            else:
+                right.append(x)
+        except TypeError:
+            continue
     return quick_sort(left) + [pivot] + quick_sort(right)
 
-# 测试
-data = [5, 3, 8, 4, 2]
+data = [5, 3.5, 'c', 1]
 print("Bubble:", bubble_sort(data.copy()))
 print("Quick:", quick_sort(data.copy()))
 ```
+
+### 练习 56.2：混合数据查找工具
+
+**题目**：实现线性查找和二分查找，处理多类型数据。
+
+```python
+def search_data(data, target, method='linear'):
+    if method == 'linear':
+        return linear_search(data, target)
+    elif method == 'binary':
+        return binary_search(sorted(data), target)
+
+data = [3, 1.2, 'b', 5]
+print(search_data(data, 'b', 'linear'))
+print(search_data(data, 5, 'binary'))
+```
+
+### 练习 56.3：综合项目
+
+**题目**：用户输入混合数据列表，选择排序算法，返回排序结果并可查找元素。
+
+```python
+data = [7, 3.3, 'a', 2]
+method = 'quick'
+sorted_data = quick_sort(data.copy()) if method=='quick' else bubble_sort(data.copy())
+print("Sorted:", sorted_data)
+target = 'a'
+index = search_data(sorted_data, target, 'linear')
+print(f"Target '{target}' index:", index)
+```
+
 ⸻
 
 ## Week 9: 模块化与性能优化

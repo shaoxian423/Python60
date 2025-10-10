@@ -106,11 +106,12 @@
     	- [📑 Day 47: api-调用](#day-47-api-调用--alpha-vantage--yahoo-finance)
         	- [🔧练习 API调用](#练习47)
 		- [📑 Day 48: 新闻标题爬取](#day-48-小项目1--新闻标题爬取)
-        	- [🔧练习 新闻标题爬取](#)
-    	- [📑 Day 49: api-实战](#day-49-小项目2--金融数据-api-实战)
-	- [week 8: 算法与数据结构](#week-8-算法与数据结构应用)
-		- [📑 Day 50: 算法与复杂度基础](#day-50-算法与复杂度基础)
-        - [🔧练习 线性查找函数](#练习50)
+        - [📑 Day 49: api-实战](#day-49-小项目2--金融数据-api-实战)
+	- [week 8: 算法与数据结构](#-week-8python-算法与数据结构)
+		- [📑 Day 50: 算法与复杂度基础](#-day-50算法与复杂度基础)
+        	- [🔧练习 线性查找函数](#练习-501通用线性查找)
+			- [🔧练习 线性查找函数](#练习-502通用二分查找有序)
+			- [🔧练习 线性查找函数](#练习-503效率对比)
     	- [📑 Day 51: 排序算法基础1](#day-51-排序算法基础1)
 			- [🔧练习 排序算法1](#练习51)
     	- [📑 Day 52: 排序算法进阶2](#day-52-排序算法进阶2)
@@ -3356,7 +3357,7 @@ link.get("href") → 标签的 href 属性
 4️⃣ 爬取新闻网站首页标题与链接示例
 
 注意：大部分新闻网站可能有反爬策略，建议用公开测试网站或者加 headers 模拟浏览器。
-```
+```python
 import requests
 from bs4 import BeautifulSoup
 
@@ -3376,26 +3377,19 @@ for t in titles[:10]:  # 只取前10条
     print(t.text, t.get("href"))
 ```
 
-soup.select("a.storylink") → 返回所有 <a> 标签，class 为 storylink。
+5️⃣ 提取 h2 或 a 标签文字
 
-.text → 新闻标题
-.get("href") → 链接地址
-
-5️⃣ 提取 <h2> 或 <a> 标签文字
-```
-# 所有 <h2>
+```python
 for h2 in soup.find_all("h2"):
     print(h2.text.strip())
-
-# 所有 <a>
+```
+```python
 for a in soup.find_all("a"):
     print(a.text.strip(), a.get("href"))
 ```
-
 .strip() 去掉空格换行，更干净。
-
 可以组合成 DataFrame 或 CSV：
-```
+```python
 import pandas as pd
 
 data = []
@@ -3405,15 +3399,15 @@ for a in soup.find_all("a"):
 df = pd.DataFrame(data)
 df.to_csv("news.csv", index=False)
 ```
-✅ 总结
+总结:
 
-BeautifulSoup 是解析 HTML 的利器：
-find() / find_all() → 精确查找标签
-select() → CSS 选择器
-.text → 标签文字
-.get("attr") → 标签属性
-可以和 requests 配合爬取网页内容
-提取的数据可进一步存储为 CSV、DataFrame 或做分析
+1. BeautifulSoup 是解析 HTML 的利器：
+2. find() / find_all() → 精确查找标签
+3. select() → CSS 选择器
+4. .text → 标签文字
+5. .get("attr") → 标签属性
+6. 可以和 requests 配合爬取网页内容
+7. 提取的数据可进一步存储为 CSV、DataFrame 或做分析
 
 #### 🔧练习44
 - 爬取新闻网站首页的标题与链接
@@ -3468,7 +3462,8 @@ print(f"已保存 {len(df)} 条新闻到 {csv_file}")
 ```
 ---
 
-### 📑Day 45: JSON 数据解析与保存**
+### 📑Day 45: JSON 数据解析与保存
+
 **重点内容：**
 - 使用 `response.json()` 获取 API 数据
 - 遍历嵌套字典与列表
@@ -3495,6 +3490,7 @@ JSON 是结构化数据，遍历更直接
 
 ---
 ### 📑Day 46: 爬虫异常处理与重试机制
+
 **重点内容：**
 - 常见异常：网络超时、404、连接拒绝
 - try-except 捕获异常
@@ -3564,7 +3560,8 @@ if __name__ == "__main__":
 ```
 ---
 
-### 📑Day 47: API 调用 — Alpha Vantage / Yahoo Finance**
+### 📑Day 47: API 调用 — Alpha Vantage / Yahoo Finance
+
 **重点内容：**
 - 注册获取 API Key
 - 构造 URL 并请求 JSON 数据
@@ -3576,7 +3573,8 @@ if __name__ == "__main__":
 - 使用 Matplotlib 绘制收盘价趋势图
 
 ---
-### 📑Day 48: 小项目1 — 新闻标题爬取**
+### 📑Day 48: 小项目1 — 新闻标题爬取
+
 **项目目标：**
 - 爬取指定新闻网站的标题与时间
 - 解析 HTML 并保存到 CSV
@@ -3592,7 +3590,8 @@ if __name__ == "__main__":
 
 ---
 
-### 📑Day 49: 小项目2 — 金融数据 API 实战**
+### 📑Day 49: 小项目2 — 金融数据 API 实战
+
 **项目目标：**
 - 调用金融 API（Alpha Vantage 或 Yahoo Finance）
 - 获取股票或指数的时间序列数据
@@ -3621,7 +3620,7 @@ df['4. close'].plot(title=f"{symbol} Daily Close Price")
 plt.show()
 ```
 ⸻
-# 📘 Week 8：Python 算法与数据结构
+## 📘 Week 8：Python 算法与数据结构
 ---
 ### 🧩 Day 50：算法与复杂度基础
 **目标**：掌握算法基本概念、复杂度分析，熟悉线性查找与二分查找，处理多类型数据和异常。

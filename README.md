@@ -3656,7 +3656,7 @@ plt.show()
 def linear_search(arr, target):
     if not arr:
         return -1
-    for i, val in enumerate(arr):
+    for i, val in enumerate(arr): # i是索引，val是元素，注意这里用的是python 的内置函数：enumberate（），它将同时获得索引和值
         try:
             if val == target:
                 return i
@@ -3673,21 +3673,22 @@ print(linear_search(data, 'xyz'))  # 输出 -1
 #### 练习 50.2: 通用二分查找（有序）
 
 **题目**:实现二分查找，支持整数和浮点数列表。
+注意这里的数组必须是有序的，升降序无所谓，但必须有序。
 
 ```python
 def binary_search(arr, target):
     if not arr:
         return -1
-    l, r = 0, len(arr) - 1
+    l, r = 0, len(arr) - 1 # multiple assignment,同时赋值两个变量，达到初始化左右边界的意思
     while l <= r:
-        mid = (l + r) // 2
+        mid = (l + r) // 2 # "//" 表示整数除法，mid 是索引值
         try:
-            if arr[mid] == target:
-                return mid
-            elif arr[mid] < target:
+            if arr[mid] == target: # arr[mid]是值
+                return mid # mid 是索引
+            elif arr[mid] < target: # 如果 中间的哪个值小于target，说明要找的值在右边，因此抛弃左边
                 l = mid + 1
             else:
-                r = mid - 1
+                r = mid - 1 # 反过来，抛弃右边
         except TypeError:
             return -1
     return -1
@@ -3695,6 +3696,53 @@ def binary_search(arr, target):
 # 测试
 arr = [1, 2.5, 3.7, 4, 5]
 print(binary_search(arr, 3.7))  # 输出 2
+```
+
+增加难度：python 实战例子：如何在无序的数组上先排序，保留原始索引，再用二分法查找。
+```python
+from typing import List, Tuple
+
+def prepare_sorted_with_index(arr: List) -> List[Tuple]:
+    """
+    给数组排序并保留原始索引
+    返回 [(value, original_index), ...] 的列表
+    """
+    return sorted([(val, idx) for idx, val in enumerate(arr)], key=lambda x: x[0])
+
+def binary_search_with_index(arr_with_idx: List[Tuple], target) -> int:
+    """
+    对排序后的带索引数组进行二分查找
+    返回目标在原始数组中的索引，找不到返回 -1
+    """
+    l, r = 0, len(arr_with_idx) - 1
+    while l <= r:
+        mid = (l + r) // 2
+        val, orig_idx = arr_with_idx[mid]
+        try:
+            if val == target:
+                return orig_idx
+            elif val < target:
+                l = mid + 1
+            else:
+                r = mid - 1
+        except TypeError:
+            return -1
+    return -1
+
+# ---------- 测试 ----------
+data = [5.5, 3, "abc", 10, 4.2, 7]
+target = 4.2
+
+# 1. 排序并保留原始索引
+sorted_data = prepare_sorted_with_index(data)
+print("排序后带索引的数据:", sorted_data)
+
+# 2. 二分查找
+index = binary_search_with_index(sorted_data, target)
+if index != -1:
+    print(f"找到 {target}，原始索引为 {index}")
+else:
+    print(f"{target} 未找到")
 ```
 
 #### 练习 50.3: 效率对比

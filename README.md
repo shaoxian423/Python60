@@ -3950,7 +3950,29 @@ nums = [10, 20.5, 30, 40]
 pos = bisect.bisect_left(nums, 25)
 print(f"插入位置: {pos}")  # 输出 2
 ```
+![alt text](Pics/bisect.png)
+insort举例：
+```python
+import bisect
 
+nums = [10, 20, 30, 40]
+bisect.insort(nums, 25)
+print(nums) # 输出 [10, 20, 25, 30, 40]
+```
+nums 原本是有序的。
+我们插入 25，insort() 自动找到合适的位置（通过二分查找）。
+插入后，列表依然有序。
+整个过程不需要重新排序（比 list.sort() 更高效）。
+
+小练习1：
+Title:
+Dynamic Leaderboard: Real-Time Insertion and Sorting
+
+Description:
+Accepts keyboard input of student name + score.
+Dynamically inserts the new entry into a descending leaderboard.
+Automatically maintains order without re-sorting the entire list.
+Displays the updated leaderboard after each entry.
 #### 练习 53.3: 面试扩展
 
 **题目**:给定包含整数和浮点数的混合列表，先排序再查找目标值的索引。

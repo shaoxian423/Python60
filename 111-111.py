@@ -1,42 +1,76 @@
-# 动态排行榜示例
+import pandas as pd
+import json
 
-# 排行榜列表，每个元素是 (成绩, 姓名)
-# 为了保持降序，分数在前面
-leaderboard = [(100, "Alice"), (95, "Bob"), (90, "Charlie")]
+# Step 0: Data
+data = [
+    {"Date": "2025-10-20", "UserID": 102, "Username": "Alice",
+        "Email": "alice@mail.com", "Score": 88},
+    {"Date": "2025-10-21", "UserID": 101,
+        "Username": "Bob", "Email": "", "Score": 92},
+    {"Date": "2025-10-22", "UserID": None, "Username": "alice",
+        "Email": "alice@mail.com", "Score": "error"},
+    {"Date": "2025-10-23", "UserID": 102, "Username": "Bob",
+        "Email": "bob@mail.com", "Score": 85},
+    {"Date": "2025-10-24", "UserID": 0.5,
+        "Username": "", "Email": None, "Score": 90},
+    {"Date": "2025-10-24", "UserID": 102, "Username": "Alice",
+        "Email": "alice@mail.com", "Score": 88}
+]
 
+# Step 1: Create DataFrame
+df = pd.DataFrame(data)
 
-def insert_entry(leaderboard, name, score):
-    """将新成绩插入排行榜（降序）"""
-    # 找到第一个比新成绩小的位置
-    pos = next((i for i, (s, _) in enumerate(
-        leaderboard) if s < score), len(leaderboard))
-    leaderboard.insert(pos, (score, name))
+# Step 2: Clean numeric columns
+for col in ['UserID', 'Score']:
+    df[col] = pd.to_numeric(df[col], errors='coerce')
+# 数字列用 Pandas 的 to_numeric 方法转换，非数字值会变为 NaN
 
+# Step 3: Clean string columns
+for col in ['Username', 'Email']:
+    df[col] = df[col].replace('', pd.NA)
+# 字符串列用 DataFrame/Series 自身方法替换空字符串为缺失值
 
-def print_leaderboard(leaderboard):
-    """打印排行榜"""
-    print("\n当前排行榜：")
-    print("----------------------------")
-    print("排名 | 姓名       | 成绩")
-    print("----------------------------")
-    for idx, (score, name) in enumerate(leaderboard, start=1):
-        print(f"{idx:>3}  | {name:<10} | {score}")
-    print("----------------------------\n")
+# Step 4: Date column to datetime
+df['Date'] = pd.to_datetime(df['Date'], errors='coerce')
+df = df.sort_values('Date')
+# Date 列用 Pandas 的 to_datetime 方法转换为 datetime 类型，然后按日期排序
+print("=== Cleaned DataFrame ===")
+print(df)
 
+# Step 5: Overall statistics
+report = {}
+for col in ['UserID', 'Username', 'Email', 'Score']:
+    series = df[col].dropna()
+    report[col] = {
+        'valid_count': int(series.count()),
+        'unique_count': int(series.nunique()),
+        'duplicates_count': int(series.count() - series.nunique()),
+        'values': [v.item() if hasattr(v, 'item') else v for v in series.tolist()]
+    }
 
-# 初始打印
-print_leaderboard(leaderboard)
+# Step 6: Daily stats
+daily_stats = df.groupby('Date').agg({
+    'UserID': 'count',
+    'Username': 'count',
+    'Email': 'count',
+    'Score': 'count'
+}).rename(columns=lambda x: f'{x}_valid_count').reset_index()
 
-# 循环键盘输入
-while True:
-    inp = input("请输入姓名和成绩（格式: 姓名 成绩），或输入 q 退出：")
-    if inp.lower() == 'q':
-        print("退出程序")
-        break
-    try:
-        name, score_str = inp.split()
-        score = float(score_str)
-        insert_entry(leaderboard, name, score)
-        print_leaderboard(leaderboard)
-    except ValueError:
-        print("输入格式错误，请输入：姓名 成绩，例如：David 88")
+# Convert Timestamp and numpy to native Python types
+daily_records = []
+for _, row in daily_stats.iterrows():
+    daily_records.append({k: (v.item() if hasattr(v, 'item') else str(v) if isinstance(v, pd.Timestamp) else v)
+                          for k, v in row.items()})
+
+# Step 7: Combine
+final_report = {
+    'overall': report,
+    'daily': daily_records
+}
+
+# Step 8: Write JSON safely
+with open('user_data_report.json', 'w') as f:
+    json.dump(final_report, f, indent=4)
+
+# Print
+print(json.dumps(final_report, indent=4))

@@ -4004,6 +4004,8 @@ try:
 except IndexError:
     print("栈为空")
 ```
+栈是 后进先出（LIFO） 数据结构
+栈顶元素总是 最后入栈的元素
 
 #### 练习 54.2: 队列（Queue）
 
@@ -4015,6 +4017,9 @@ queue = deque([1, 'b', 3.5])
 queue.append('end')
 print(queue.popleft())  # 1
 ```
+deque 是double-ended queue（双端队列） 的缩写，可以 高效实现队列（FIFO）或栈（LIFO）
+可以 两端快速添加和删除元素，相比列表，deque 在 队首插入/删除 更高效（O(1) 时间复杂度）
+队列特点：先进先出（FIFO），第一个进入的元素最先被移除。
 
 #### 练习 54.3: 堆（Heap）
 
@@ -4027,9 +4032,13 @@ heapq.heapify(nums)
 print(heapq.nsmallest(2, nums))  # [1.5, 3]
 print(heapq.nlargest(2, nums))   # [9, 5]
 ```
+![alt text](pics/heapq.png)
+heapq（堆）在 Python 面试中是非常高频的考点之一！
+尤其在算法、数据结构、数据分析类岗位（如后端开发、算法工程师、数据工程师）中。
+![alt text](pics/heapq1.png)
 
 #### 练习 54.4: 链表（Linked List）
-
+链表和内存管理的关系”是 操作系统和底层计算机科学中的经典应用
 **题目**:实现单向链表插入和遍历。
 
 ```python
@@ -4064,9 +4073,76 @@ ll.append('b')
 ll.append(3.5)
 print(ll.traverse())
 ```
+1️⃣ 内存分配与释放
+
+计算机程序在运行时，需要动态申请和释放内存。例如：
+
+C/C++ 中的 malloc() / free()
+
+操作系统中的堆（heap）管理
+
+问题：
+
+内存是有限的，且可能被多次分配和释放。
+
+分配过后形成碎片（free block 散落在不同地方）。
+
+2️⃣ 链表在内存管理中的作用
+
+链表提供了一种 动态、灵活记录内存块的方法：
+
+示例：空闲内存块链表
+
+每个节点表示一块空闲内存：
+
+Node:
+    start_address: 1000
+    size: 1024
+    next -> 下一块空闲内存
+
+
+当程序申请内存时：
+
+遍历链表找到合适的空闲块（first fit / best fit）
+
+将该块分割或删除
+
+当程序释放内存时：
+
+把释放的块插回链表
+
+可与相邻块合并
+
+优点：
+
+不需要连续的大块内存（数组就不行）
+
+插入和删除空闲块操作快（O(1) 或 O(n)）
+
+动态调整，适合碎片化情况
+
+3️⃣ 操作系统中的真实应用
+
+堆管理（Heap Management）：
+内核用链表管理 free list（空闲内存链表）
+内存池（Memory Pool）：
+预分配固定大小节点，用链表快速分配和回收
+
+分页/分段管理：
+空闲页或段也可用链表记录
+
+4️⃣ 小结
+
+链表在内存管理中核心价值在于：
+
+动态记录 内存块位置和大小
+高效插入/删除 内存块
+避免连续内存需求，降低碎片问题
+数组或固定结构无法灵活处理动态分配和释放，但链表正好擅长这种“动态、非连续”的场景。
 ---
 
 ### 🧩 Day 55: 动态规划（DP）入门
+![alt text](Pics/DP.png)
 
 **目标**:掌握递归、记忆化、循环实现 DP，处理实际问题。
 
@@ -4095,7 +4171,8 @@ def fib_memo(n):
     return fib_memo(n-1) + fib_memo(n-2)
 print(fib_memo(35))
 ```
-
+这里重点是导入python的内置装饰器@lru_cache，它的功能是缓存函数调用结果，当它写在函数前面时候
+就形成了装饰函数，当同样的参数再次调用函数时，会直接返回缓存的结果，而不用再次计算。
 #### 练习 55.3: 循环 Fibonacci（DP）
 
 **题目**:用循环计算 Fibonacci，适合大 n。
@@ -4105,12 +4182,21 @@ def fib_dp(n):
     if n <= 2:
         return 1
     a, b = 1, 1
-    for _ in range(3, n+1):
-        a, b = b, a+b
+    for _ in range(3, n+1): # 注意这里的n+1，是函数的边界问题！函数本身的“左闭右开”特性：
+        a, b = b, a+b # 这里a变成了b，b成了a+b
     return b
 print(fib_dp(50))
 ```
+关键点：
+_ 只是一个占位符，不代表任何实际值
+Python range(start, stop) 左闭右开
+包含 start
+不包含 stop
+所以 range(3, n) 会循环到 n-1，不会包含 n
+边界问题与 Fibonacci 序列下标无关
 
+在 Fibonacci 中，我们是从第 3 个数开始循环计算（因为前两个数已经初始化）
+为了计算到第 n 个数，循环终止值必须设置为 n+1，这样最后一次循环 i=n 时也会执行
 #### 练习 55.4: 爬楼梯问题
 
 **题目**:每次可以爬 1 或 2 阶，求 n 阶楼梯的爬法总数。
@@ -4129,74 +4215,871 @@ print(climb_stairs(10))
 ---
 
 ### 🧩 Day 56: 项目实战与综合应用
+#### 练习 56.1: 数据预处理和清洗的核心技能
+**目标**:数据清洗练习。
 
-**目标**:整合排序、查找、堆、链表等算法，构建面试项目实战工具。
+🧩 10 Real-World Data Cleaning Practice Problems (with Python Solutions)
 
-#### 练习 56.1: 通用排序工具
+🎯 Goal: Master core data cleaning techniques such as deduplication, filtering, exception handling, normalization, and statistical analysis through 10 realistic exercises inspired by actual data preprocessing tasks.
 
-**题目**:实现冒泡排序和快速排序，支持整数、浮点数和字符串混合列表。
+🧹 1️⃣ Remove Duplicates and Sort a Mixed List
 
+📘 Background
+A website exported a raw user data list that contains mixed information:
+
+User IDs (numbers)
+Usernames (strings)
+Invalid data (e.g., None, empty strings, duplicates, or wrong types)
+
+As a data engineer, your job is to:
+1️⃣ Clean the data
+2️⃣ Classify and count valid entries
+3️⃣ Generate a reporting dictionary
+
+Data Example:
+data = [102, 'Alice', 101, None, 'Bob', '', 'alice', 102, 'Bob', False, 0.5]
+
+Code:
 ```python
-def bubble_sort(arr):
-    n = len(arr)
-    for i in range(n):
-        for j in range(n-i-1):
-            try:
-                if arr[j] > arr[j+1]:
-                    arr[j], arr[j+1] = arr[j+1], arr[j]
-            except TypeError:
-                continue
-    return arr
+def clean_mixed_list(data):
+    unique = list(set(data)) # set(data) 会把列表 data 转换成 集合，保证无重复元素，list(set(...)) 再把集合变回列表，得到一个 顺序可能不同 的列表，比如 [3, 5, 'a', 'b'] 或 [5, 'b', 3, 'a']，集合本身是无序的。
+    nums = sorted([x for x in unique if isinstance(x, (int, float)) and not isinstance(x,bool)]) # 列表推导式（List Comprehension）
+    strs = sorted([x for x in unique if isinstance(x, str) and x.strip() !=""]) # 列表推导式（List Comprehension）
+    return nums + strs
 
-def quick_sort(arr):
-    if len(arr) <= 1:
-        return arr
-    pivot = arr[0]
-    left, right = [], []
-    for x in arr[1:]:
+print(clean_mixed_list(data))  # [0.5, 101, 102, 'Alice', 'Bob', 'alice']
+```
+重点：列表推导式的写法：[表达式 for 变量 in 可迭代对象 if 条件] -> expression for variable in iterable if condition
+
+📊 2️⃣ Count Valid Log Entries
+
+Scenario:
+Your log file contains invalid entries (e.g., None, numbers).
+Task:
+Count only valid string entries.
+
+Data Example:
+
+logs = ["login", None, "logout", 123, "login"]
+
+
+Code:
+```python
+def count_valid_logs(logs):
+    counter = {}
+    for item in logs:
+        if isinstance(item, str):
+            counter[item] = counter.get(item, 0) + 1
+    return counter
+
+print(count_valid_logs(logs))  # {'login': 2, 'logout': 1}
+```
+📈 3️⃣ Filter Invalid Values and Compute Average
+
+Scenario:
+Sensor readings include invalid or negative values.
+Task:
+Keep only positive numeric values and compute their average.
+
+Data Example:
+
+data = [10, -5, 'a', 20, 30]
+
+
+Code:
+```python
+def clean_and_average(data):
+    clean = []
+    for x in data:
         try:
-            if x <= pivot:
-                left.append(x)
-            else:
-                right.append(x)
-        except TypeError:
+            val = float(x)
+            if val > 0:
+                clean.append(val)
+        except (TypeError, ValueError):
             continue
-    return quick_sort(left) + [pivot] + quick_sort(right)
+    return sum(clean) / len(clean) if clean else 0
 
-data = [5, 3.5, 'c', 1]
-print("Bubble:", bubble_sort(data.copy()))
-print("Quick:", quick_sort(data.copy()))
+print(clean_and_average(data))  # 20.0
 ```
+📄 4️⃣ Remove Records with Missing Fields
+🧩 Advanced Scenario: User Data Cleaning, Reporting & Analytics (CSV + Dates + Multi-Column)
+📘 Background
 
-#### 练习 56.2: 混合数据查找工具
+You have a raw CSV file exported from a website containing user activity data, possibly with:
 
-**题目**:实现线性查找和二分查找，处理多类型数据。
+Date (date of record)
+
+UserID (numeric)
+
+Username (string)
+
+Email (string)
+
+Score (numeric, optional)
+
+Some invalid entries (None, empty strings, errors)
+
+Goals:
+1️⃣ Clean multiple columns while preserving duplicates and chronological order
+2️⃣ Generate counts of valid entries, duplicates, and unique values
+3️⃣ Group by date for daily statistics
+4️⃣ Output JSON report
 
 ```python
-def search_data(data, target, method='linear'):
-    if method == 'linear':
-        return linear_search(data, target)
-    elif method == 'binary':
-        return binary_search(sorted(data), target)
+import pandas as pd
+import json
 
-data = [3, 1.2, 'b', 5]
-print(search_data(data, 'b', 'linear'))
-print(search_data(data, 5, 'binary'))
+# Step 0: Data
+data = [
+    {"Date": "2025-10-20", "UserID": 102, "Username": "Alice", "Email": "alice@mail.com", "Score": 88},
+    {"Date": "2025-10-21", "UserID": 101, "Username": "Bob", "Email": "", "Score": 92},
+    {"Date": "2025-10-22", "UserID": None, "Username": "alice", "Email": "alice@mail.com", "Score": "error"},
+    {"Date": "2025-10-23", "UserID": 102, "Username": "Bob", "Email": "bob@mail.com", "Score": 85},
+    {"Date": "2025-10-24", "UserID": 0.5, "Username": "", "Email": None, "Score": 90},
+    {"Date": "2025-10-24", "UserID": 102, "Username": "Alice", "Email": "alice@mail.com", "Score": 88}
+]
+
+# Step 1: Create DataFrame
+df = pd.DataFrame(data)
+
+# Step 2: Clean numeric columns
+for col in ['UserID', 'Score']:
+    df[col] = pd.to_numeric(df[col], errors='coerce')
+# 数字列用 Pandas 的 to_numeric 方法转换，非数字值会变为 NaN
+
+# Step 3: Clean string columns
+for col in ['Username', 'Email']:
+    df[col] = df[col].replace('', pd.NA)
+# 字符串列用 DataFrame/Series 自身方法替换空字符串为缺失值
+
+# Step 4: Date column to datetime
+df['Date'] = pd.to_datetime(df['Date'], errors='coerce')
+df = df.sort_values('Date')
+# Date 列用 Pandas 的 to_datetime 方法转换为 datetime 类型，然后按日期排序
+print("=== Cleaned DataFrame ===")
+print(df)
+
+# Step 5: Overall statistics
+report = {}
+for col in ['UserID', 'Username', 'Email', 'Score']:
+    series = df[col].dropna()
+    report[col] = {
+        'valid_count': int(series.count()),
+        'unique_count': int(series.nunique()),
+        'duplicates_count': int(series.count() - series.nunique()),
+        'values': [v.item() if hasattr(v, 'item') else v for v in series.tolist()]
+    }
+
+# Step 6: Daily stats
+daily_stats = df.groupby('Date').agg({
+    'UserID': 'count',
+    'Username': 'count',
+    'Email': 'count',
+    'Score': 'count'
+}).rename(columns=lambda x: f'{x}_valid_count').reset_index()
+
+# Convert Timestamp and numpy to native Python types
+daily_records = []
+for _, row in daily_stats.iterrows():
+    daily_records.append({k: (v.item() if hasattr(v, 'item') else str(v) if isinstance(v, pd.Timestamp) else v)
+                          for k, v in row.items()})
+
+# Step 7: Combine
+final_report = {
+    'overall': report,
+    'daily': daily_records
+}
+
+# Step 8: Write JSON safely
+with open('user_data_report.json', 'w') as f:
+    json.dump(final_report, f, indent=4)
+
+# Print
+print(json.dumps(final_report, indent=4))
+
 ```
+```
+Sample Output (JSON)
+{
+    "overall": {
+        "UserID": {
+            "valid_count": 5,
+            "unique_count": 3,
+            "duplicates_count": 2,
+            "values": [102.0, 101.0, 102.0, 0.5, 102.0]
+        },
+        "Username": {
+            "valid_count": 5,
+            "unique_count": 3,
+            "duplicates_count": 2,
+            "values": ["Alice", "Bob", "alice", "Bob", "Alice"]
+        },
+        "Email": {
+            "valid_count": 4,
+            "unique_count": 3,
+            "duplicates_count": 1,
+            "values": ["alice@mail.com", "alice@mail.com", "bob@mail.com", "alice@mail.com"]
+        },
+        "Score": {
+            "valid_count": 5,
+            "unique_count": 4,
+            "duplicates_count": 1,
+            "values": [88.0, 92.0, 85.0, 90.0, 88.0]
+        }
+    },
+    "daily": [
+        {
+            "Date": "2025-10-20",
+            "UserID_valid_count": 1,
+            "Username_valid_count": 1,
+            "Email_valid_count": 1,
+            "Score_valid_count": 1
+        },
+        {
+            "Date": "2025-10-21",
+            "UserID_valid_count": 1,
+            "Username_valid_count": 1,
+            "Email_valid_count": 0,
+            "Score_valid_count": 1
+        },
+        {
+            "Date": "2025-10-22",
+            "UserID_valid_count": 0,
+            "Username_valid_count": 1,
+            "Email_valid_count": 1,
+            "Score_valid_count": 0
+        },
+        {
+            "Date": "2025-10-23",
+            "UserID_valid_count": 1,
+            "Username_valid_count": 1,
+            "Email_valid_count": 1,
+            "Score_valid_count": 1
+        },
+        {
+            "Date": "2025-10-24",
+            "UserID_valid_count": 2,
+            "Username_valid_count": 1,
+            "Email_valid_count": 1,
+            "Score_valid_count": 2
+        }
+    ]
+}
+🔹 Key Features
+
+Preserve duplicates & chronological order
+
+Important for time series or repeated user actions.
+
+Handle multiple invalid types
+
+Non-numeric → NaN
+
+Empty strings → pd.NA
+
+Generate overall statistics
+
+Valid entries, unique entries, duplicates, and full value lists
+
+Daily statistics by Date
+
+Count valid entries per column per day
+
+Export JSON report
+
+Easy to use in dashboards, further analytics, or downstream systems
+
+👥 5️⃣ Deduplicate by Multiple Fields
+
+Scenario:
+When merging multiple user datasets, some records are duplicates based on multiple columns.
+Task:
+Remove duplicates using both name and email as a composite key.
+
+Data Example:
+
+users = [
+    {'name': 'Alice', 'email': 'a@x.com'},
+    {'name': 'Bob', 'email': 'b@x.com'},
+    {'name': 'Alice', 'email': 'a@x.com'}
+]
+
+
+Code:
+```python
+def deduplicate_users(users):
+    seen = set()
+    result = []
+    for u in users:
+        key = (u['name'], u['email'])
+        if key not in seen:
+            seen.add(key)
+            result.append(u)
+    return result
+
+print(deduplicate_users(users))
+```
+🚶‍♂️ 6️⃣ Unique Users per Sliding Window
+
+Scenario:
+You want to analyze website traffic to find the number of unique users in every window of size k.
+Task:
+Compute the number of distinct users in each sliding window.
+
+Data Example:
+
+users = ['A', 'B', 'A', 'C', 'B', 'D']
+k = 3
+
+
+Code:
+```python
+def unique_users_in_window(users, k):
+    result = []
+    for i in range(len(users) - k + 1):
+        window = set(users[i:i+k])
+        result.append(len(window))
+    return result
+
+print(unique_users_in_window(users, k))  # [2, 3, 3, 3]
+```
+🧾 7️⃣ Filter Alphabetic Strings and Sort by Length
+
+Scenario:
+Your log contains mixed words and symbols.
+Task:
+Keep only words that contain letters only, and sort them by length.
+
+Data Example:
+
+words = ['hi', '123', 'test!', 'ok', 'Python']
+
+
+Code:
+```python
+def filter_and_sort_words(words):
+    valid = [w for w in words if w.isalpha()]
+    return sorted(valid, key=len)
+
+print(filter_and_sort_words(words))  # ['hi', 'ok', 'Python']
+```
+⚙️ 8️⃣ Normalize Numeric Data
+
+Scenario:
+You need to normalize numeric sensor values to a 0–1 range.
+Task:
+Ignore invalid entries, then apply normalization formula (x - min) / (max - min).
+
+Data Example:
+
+data = [10, 20, 30, None, 'x']
+
+
+Code:
+```python
+def normalize_data(data):
+    clean = [x for x in data if isinstance(x, (int, float))]
+    if not clean:
+        return []
+    mn, mx = min(clean), max(clean)
+    return [(x - mn) / (mx - mn) for x in clean]
+
+print(normalize_data(data))  # [0.0, 0.5, 1.0]
+```
+📉 9️⃣ Calculate Missing Field Rates
+
+Scenario:
+You need to audit database field completeness.
+Task:
+Calculate the missing rate for each field in a list of dictionaries.
+
+Data Example:
+
+records = [
+    {'name': 'Alice', 'email': 'a@x.com'},
+    {'name': 'Bob'},
+    {'email': 'b@x.com'}
+]
+
+
+Code:
+```python
+def missing_rate(records):
+    total = len(records)
+    keys = set(k for r in records for k in r.keys())
+    stats = {k: 0 for k in keys}
+    for r in records:
+        for k in keys:
+            if k not in r or not r[k]:
+                stats[k] += 1
+    return {k: stats[k] / total for k in stats}
+
+print(missing_rate(records))
+```
+⚠️ 🔟 Log Classification by Severity
+
+Scenario:
+You’re analyzing system logs and want to count the number of log messages by level.
+Task:
+Count occurrences of ERROR, WARN, and INFO messages.
+
+Data Example:
+
+logs = [
+    "[ERROR] Disk full",
+    "[WARN] Low memory",
+    "[INFO] Service started",
+    "[ERROR] Timeout"
+]
+
+
+Code:
+```python
+def classify_logs(logs):
+    levels = {'ERROR': 0, 'WARN': 0, 'INFO': 0}
+    for log in logs:
+        for key in levels.keys():
+            if isinstance(log, str) and key in log:
+                levels[key] += 1
+    return levels
+
+print(classify_logs(logs))  # {'ERROR': 2, 'WARN': 1, 'INFO': 1}
+```
+✅ Skill Map
+Skill Type	                Problems	            Techniques Covered
+Iteration & Filtering	    1, 2, 4	                Basic data cleanup
+Hash Map Counting	        2, 5, 10	            Frequency, duplication
+Exception Handling	        3, 8	                Error-tolerant data
+Sliding Window	            6	                    Time-series analysis
+Sorting & Normalization	    1, 7, 8	                Standardization
+Dict & Set Operations	    4, 5, 9	                Multi-field analysis
+
+#### 练习 56.2: 链表实战题集
+
+**题目**:如何用链表高效表示动态数据结构。
+
+1️⃣ Reverse a Linked List
+
+Goal: Reverse the nodes of a linked list.
+Scenario: Reversing process logs or undoing user actions.
+```python
+class Node:
+    def __init__(self, val):
+        self.val = val
+        self.next = None
+
+def reverse_list(head):
+    prev = None
+    curr = head
+    while curr:
+        nxt = curr.next
+        curr.next = prev
+        prev = curr
+        curr = nxt
+    return prev
+
+def print_list(head):
+    curr = head
+    while curr:
+        print(curr.val, end=" -> ")
+        curr = curr.next
+    print("None")
+
+# Example
+data = [1, 2, 3, 4, 5]
+head = Node(data[0])
+curr = head
+for val in data[1:]:
+    curr.next = Node(val)
+    curr = curr.next
+
+print("Original:")
+print_list(head)
+print("Reversed:")
+print_list(reverse_list(head))
+```
+2️⃣ Detect a Cycle in Linked List
+
+Goal: Determine if a linked list has a cycle.
+Scenario: Detect infinite loops in task scheduling or data pipelines.
+```python
+def has_cycle(head):
+    slow = fast = head
+    while fast and fast.next:
+        slow = slow.next
+        fast = fast.next.next
+        if slow == fast:
+            return True
+    return False
+
+# Example
+data = [3, 2, 0, -4]
+nodes = [Node(x) for x in data]
+for i in range(len(nodes)-1):
+    nodes[i].next = nodes[i+1]
+nodes[-1].next = nodes[1]  # Create cycle
+
+print("Cycle exists:", has_cycle(nodes[0]))
+```
+3️⃣ Merge Two Sorted Linked Lists
+
+Goal: Merge two sorted linked lists into a new sorted list.
+Scenario: Merging customer lists or sorted transaction logs.
+```python
+def merge_sorted_lists(l1, l2):
+    dummy = Node(0)
+    tail = dummy
+    while l1 and l2:
+        if l1.val < l2.val:
+            tail.next, l1 = l1, l1.next
+        else:
+            tail.next, l2 = l2, l2.next
+        tail = tail.next
+    tail.next = l1 or l2
+    return dummy.next
+
+# Example
+a = Node(1); a.next = Node(3); a.next.next = Node(5)
+b = Node(2); b.next = Node(4); b.next.next = Node(6)
+merged = merge_sorted_lists(a, b)
+print("Merged list:")
+print_list(merged)
+```
+4️⃣ Remove Duplicates from Sorted List
+
+Goal: Remove duplicate elements from a sorted linked list.
+Scenario: Clean up user data or remove redundant entries.
+```python
+def remove_duplicates(head):
+    curr = head
+    while curr and curr.next:
+        if curr.val == curr.next.val:
+            curr.next = curr.next.next
+        else:
+            curr = curr.next
+    return head
+
+# Example
+data = [1, 1, 2, 3, 3, 4]
+head = Node(data[0])
+curr = head
+for val in data[1:]:
+    curr.next = Node(val)
+    curr = curr.next
+print("After removing duplicates:")
+print_list(remove_duplicates(head))
+```
+5️⃣ Find the Middle of Linked List
+
+Goal: Find the middle node in a linked list.
+Scenario: Useful for splitting data, load balancing, or partitioning tasks.
+```python
+def find_middle(head):
+    slow = fast = head
+    while fast and fast.next:
+        slow = slow.next
+        fast = fast.next.next
+    return slow
+
+# Example
+data = [10, 20, 30, 40, 50, 60]
+head = Node(data[0])
+curr = head
+for val in data[1:]:
+    curr.next = Node(val)
+    curr = curr.next
+print("Middle node:", find_middle(head).val)
+```
+6️⃣ Delete a Node Without Head Reference
+
+Goal: Delete a node when only that node is given (not the head).
+Scenario: Used in memory cleanup when head pointer is lost.
+```python
+def delete_node(node):
+    if node and node.next:
+        node.val = node.next.val
+        node.next = node.next.next
+
+# Example
+data = [4, 5, 1, 9]
+head = Node(data[0])
+curr = head
+for val in data[1:]:
+    curr.next = Node(val)
+    curr = curr.next
+print("Before delete:")
+print_list(head)
+
+delete_node(head.next)  # Delete node with value 5
+print("After delete:")
+print_list(head)
+```
+7️⃣ Add Two Numbers (as Linked Lists)
+
+Goal: Add two numbers represented by linked lists (each node = one digit).
+Scenario: Simulate big number addition for accounting or finance systems.
+```python
+def add_two_numbers(l1, l2):
+    dummy = Node(0)
+    curr = dummy
+    carry = 0
+    while l1 or l2 or carry:
+        val = (l1.val if l1 else 0) + (l2.val if l2 else 0) + carry
+        carry, digit = divmod(val, 10)
+        curr.next = Node(digit)
+        curr = curr.next
+        l1 = l1.next if l1 else None
+        l2 = l2.next if l2 else None
+    return dummy.next
+
+# Example
+# 342 + 465 = 807
+a = Node(2); a.next = Node(4); a.next.next = Node(3)
+b = Node(5); b.next = Node(6); b.next.next = Node(4)
+result = add_two_numbers(a, b)
+print("Sum as list:")
+print_list(result)
+```
+✅ Summary Table
+#	Problem	                Real-world Scenario	        LeetCode Ref
+1	Reverse Linked List	    Undo history	            #206
+2	Detect Cycle	        Infinite loop detection	    #141
+3	Merge Two Lists	        Sorted data merge	        #21
+4	Remove Duplicates	    Clean data	                #83
+5	Find Middle	            Data partition	            #876
+6	Delete Node	            Memory cleanup	            #237
+7	Add Two Numbers	        Large number addition	    #2
 
 #### 练习 56.3: 综合项目
 
-**题目**:用户输入混合数据列表，选择排序算法，返回排序结果并可查找元素。
+**题目**:Task Scheduling, Inventory Management & Path Planning
 
+1️⃣ Task Scheduling – Minimum Time Between Tasks
+
+Scenario:
+CPU needs to schedule tasks with cooldown period n.
+Task:
+Given tasks represented by letters, return minimum intervals needed to finish all tasks.
+
+Data Example:
+
+tasks = ['A', 'A', 'A', 'B', 'B', 'C']
+n = 2
+
+
+Code:
 ```python
-data = [7, 3.3, 'a', 2]
-method = 'quick'
-sorted_data = quick_sort(data.copy()) if method=='quick' else bubble_sort(data.copy())
-print("Sorted:", sorted_data)
-target = 'a'
-index = search_data(sorted_data, target, 'linear')
-print(f"Target '{target}' index:", index)
+from collections import Counter
+import heapq
+
+def least_interval(tasks, n):
+    count = Counter(tasks)
+    max_heap = [-cnt for cnt in count.values()]
+    heapq.heapify(max_heap)
+    time = 0
+
+    while max_heap:
+        temp = []
+        for _ in range(n+1):
+            if max_heap:
+                temp.append(heapq.heappop(max_heap))
+        for cnt in temp:
+            if cnt + 1 < 0:
+                heapq.heappush(max_heap, cnt + 1)
+        time += n + 1 if max_heap else len(temp)
+    return time
+
+print(least_interval(tasks, n))  # Output: 8
 ```
+
+Skills: Greedy Algorithm, Priority Queue, Interval calculation
+
+2️⃣ Task Scheduling – Minimum Number of Arrows to Burst Balloons
+
+Scenario:
+Find minimum resources (arrows) to complete overlapping tasks (balloons).
+Task:
+Each balloon is an interval; compute minimum arrows to cover all.
+
+Data Example:
+
+points = [[10,16],[2,8],[1,6],[7,12]]
+
+
+Code:
+```python
+def find_min_arrows(points):
+    if not points:
+        return 0
+    points.sort(key=lambda x: x[1])
+    arrows = 1
+    end = points[0][1]
+    for start, finish in points[1:]:
+        if start > end:
+            arrows += 1
+            end = finish
+    return arrows
+
+print(find_min_arrows(points))  # Output: 2
+```
+
+Skills: Greedy Algorithm, Sorting, Interval Management
+
+3️⃣ Inventory Management – Top K Frequent Items
+
+Scenario:
+Track top-selling products.
+Task:
+Return the K most frequent items.
+
+Data Example:
+
+items = ['apple','banana','apple','orange','banana','apple']
+k = 2
+
+
+Code:
+```python
+from collections import Counter
+import heapq
+
+def top_k_frequent(items, k):
+    count = Counter(items)
+    return [item for item, freq in count.most_common(k)]
+
+print(top_k_frequent(items, k))  # Output: ['apple','banana']
+```
+
+Skills: Hash Table, Sorting, Heap
+
+4️⃣ Inventory Management – Insert Delete GetRandom Simulation
+
+Scenario:
+Simulate inventory operations supporting fast insertion, deletion, and random access.
+
+Code:
+```python
+import random
+
+class Inventory:
+    def __init__(self):
+        self.data = []
+        self.pos = {}
+
+    def insert(self, val):
+        if val in self.pos:
+            return False
+        self.data.append(val)
+        self.pos[val] = len(self.data) - 1
+        return True
+
+    def remove(self, val):
+        if val not in self.pos:
+            return False
+        idx = self.pos[val]
+        last = self.data[-1]
+        self.data[idx] = last
+        self.pos[last] = idx
+        self.data.pop()
+        del self.pos[val]
+        return True
+
+    def get_random(self):
+        return random.choice(self.data)
+
+# Example
+inv = Inventory()
+inv.insert('apple')
+inv.insert('banana')
+inv.insert('orange')
+inv.remove('banana')
+print(inv.get_random())  # Randomly 'apple' or 'orange'
+```
+
+Skills: Hash Map, Dynamic Updates, Random Access
+
+5️⃣ Path Planning – Climbing Stairs
+
+Scenario:
+Number of ways to climb n stairs, taking 1 or 2 steps.
+
+Data Example:
+n = 5
+
+Code:
+```python
+def climb_stairs(n):
+    if n <= 2:
+        return n
+    a, b = 1, 2
+    for _ in range(3, n+1):
+        a, b = b, a+b
+    return b
+
+print(climb_stairs(n))  # Output: 8
+```
+
+Skills: Dynamic Programming, State Transition, Boundary Conditions
+
+6️⃣ Path Planning – Unique Paths in Grid
+
+Scenario:
+Robot moves from top-left to bottom-right in a grid (m x n), can only move right or down.
+Data Example:
+
+m, n = 3, 3
+
+
+Code:
+
+def unique_paths(m, n):
+    dp = [1]*n
+    for _ in range(1, m):
+        for j in range(1, n):
+            dp[j] += dp[j-1]
+    return dp[-1]
+
+print(unique_paths(m, n))  # Output: 6
+
+
+Skills: Dynamic Programming, Space Optimization, Grid Traversal
+
+7️⃣ Path Planning – Minimum Path Sum
+
+Scenario:
+Find path with minimum sum from top-left to bottom-right of a grid.
+Data Example:
+
+grid = [
+    [1,3,1],
+    [1,5,1],
+    [4,2,1]
+]
+
+
+Code:
+
+def min_path_sum(grid):
+    m, n = len(grid), len(grid[0])
+    for i in range(1, n):
+        grid[0][i] += grid[0][i-1]
+    for i in range(1, m):
+        grid[i][0] += grid[i-1][0]
+    for i in range(1, m):
+        for j in range(1, n):
+            grid[i][j] += min(grid[i-1][j], grid[i][j-1])
+    return grid[-1][-1]
+
+print(min_path_sum(grid))  # Output: 7
+
+
+Skills: Dynamic Programming, State Transition, Grid Traversal
+
+✅ Skill Map Summary
+Category	                        Problem	Skills                              Practiced
+Task Scheduling	                    Least Interval / Min Arrows	                Greedy, Sorting, Heap, Interval Management
+Inventory Management	            Top K Frequent / Insert Delete GetRandom	Hash Map, Heap, Random Access, Dynamic Updates
+Path Planning	                    Climb Stairs / Unique Paths / Min Path Sum	Dynamic Programming, State Transition, Boundary Conditions
 ⸻
 
 ## Week 9: 模块化与性能优化
@@ -4340,3 +5223,212 @@ print(f"Target '{target}' index:", index)
 * 提交最终版本至 GitHub。
 * 总结学习成果并记录优化前后的性能差异。
 
+## Week 10: From Intermediate to Advanced Programming
+
+📘 学习内容:
+
+• Advanced Data Structures (Graphs, Trees)
+• Advanced Dynamic Programming
+• Greedy + Heap Applications
+• Concurrency & Async Programming
+• System Design Basics
+• Performance Profiling & Optimization
+• Integrated Mini Project
+
+### 🗓️ Day 64: Advanced Data Structures – Graphs & Trees
+
+目标: 掌握图与树的高级数据结构及应用。
+
+内容:
+
+图类型: 有向/无向、有权/无权
+
+图表示: 邻接表、邻接矩阵
+
+常用操作: BFS、DFS、拓扑排序
+
+树遍历: 中序、前序、后序、层序
+
+#### 🔧练习64
+# BFS for graph
+graph = {
+    'A': ['B', 'C'],
+    'B': ['D', 'E'],
+    'C': ['F'],
+    'D': [], 'E': [], 'F': []
+}
+
+def bfs(start):
+    queue = [start]
+    visited = set()
+    while queue:
+        node = queue.pop(0)
+        if node not in visited:
+            print(node)
+            visited.add(node)
+            queue.extend(graph[node])
+
+bfs('A')  # Output: A B C D E F
+
+### 🗓️ Day 65: Advanced Dynamic Programming
+
+目标: 学习复杂动态规划模式。
+
+内容:
+
+序列 DP: 最长递增子序列 (LIS)
+
+区间 DP: 矩阵链乘法
+
+网格 DP: Minimum Path Sum, Unique Paths II
+
+状态 DP: Bitmask DP, Subset DP
+
+#### 🔧练习65
+# Longest Increasing Subsequence
+nums = [10,9,2,5,3,7,101,18]
+dp = [1]*len(nums)
+for i in range(len(nums)):
+    for j in range(i):
+        if nums[i] > nums[j]:
+            dp[i] = max(dp[i], dp[j]+1)
+print(max(dp))  # Output: 4
+
+### 🗓️ Day 66: Greedy + Heap – Advanced Applications
+
+目标: 使用堆解决间隔、优先级和资源分配问题。
+
+内容:
+
+使用堆实现任务优先队列
+
+间隔调度与区间合并
+
+Top-K 问题
+
+#### 🔧练习66
+import heapq
+
+tasks = [(2, 5), (1, 3), (4, 7)]
+tasks.sort(key=lambda x: x[0])
+heap = []
+for start, end in tasks:
+    if heap and heap[0] <= start:
+        heapq.heappop(heap)
+    heapq.heappush(heap, end)
+print(len(heap))  # Minimum resources needed
+
+### 🗓️ Day 67: Concurrency & Async Programming
+
+目标: 掌握多线程与异步编程。
+
+内容:
+
+线程、锁、队列
+
+异步 I/O (asyncio)
+
+线程安全与竞态条件
+
+#### 🔧练习67
+import asyncio
+
+async def task(i):
+    print(f'Start {i}')
+    await asyncio.sleep(1)
+    print(f'End {i}')
+
+async def main():
+    await asyncio.gather(task(1), task(2), task(3))
+
+asyncio.run(main())
+
+### 🗓️ Day 68: System Design Basics
+
+目标: 理解可扩展系统架构设计。
+
+内容:
+
+微服务与 API
+
+数据库分区、缓存策略 (Redis, LRU)
+
+消息队列: Kafka, RabbitMQ
+
+高并发处理
+
+#### 🔧练习68
+
+设计 URL Shortener 系统:
+
+API: create, redirect
+
+数据库: url_id, original_url
+
+缓存热访问 URL
+
+绘制系统架构图
+
+### 🗓️ Day 69: Performance Profiling & Optimization
+
+目标: 优化大规模应用性能。
+
+内容:
+
+算法优化: O(n²) → O(n log n)
+
+内存分析: tracemalloc
+
+并行处理: multiprocessing, concurrent.futures
+
+缓存策略: memoization, LRU
+
+#### 🔧练习69
+from functools import lru_cache
+
+@lru_cache(None)
+def fib(n):
+    if n < 2: return n
+    return fib(n-1) + fib(n-2)
+
+print(fib(100))  # Fast calculation using cache
+
+### 🗓️ Day 70: Integrated Mini Project
+
+目标: 综合应用高级数据结构、DP、堆、并发和性能优化。
+
+项目示例: Task Scheduler with Priority + Concurrency + Reporting
+
+输入: 任务列表（duration, priority, dependencies）
+
+功能:
+
+最小化总完成时间的任务调度 (greedy + heap)
+
+支持并行执行 (async / threads)
+
+输出性能报告 (time, memory)
+
+#### 🔧练习70
+
+使用图或优先队列建模任务
+
+实现调度算法
+
+使用异步或多线程执行
+
+分析性能并优化
+
+✅ Week 10 Outcome
+
+掌握图、树及复杂动态规划
+
+能解决高级贪心 + 堆问题
+
+掌握并发和异步编程
+
+理解基础系统设计概念
+
+进行性能分析与优化
+
+能独立完成综合小项目

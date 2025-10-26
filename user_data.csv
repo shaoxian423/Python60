@@ -1,0 +1,11 @@
+Date	UserID	Username	Email	Score
+2025-10-20	102	Alice	alice@mail.com
+	88
+2025-10-21	101	Bob	''	92
+2025-10-22	None	alice	alice@mail.com
+	'error'
+2025-10-23	102	Bob	bob@mail.com
+	85
+2025-10-24	0.5	''	None	90
+2025-10-24	102	Alice	alice@mail.com
+	88

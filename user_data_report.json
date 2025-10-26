@@ -1,0 +1,88 @@
+{
+    "overall": {
+        "UserID": {
+            "valid_count": 5,
+            "unique_count": 3,
+            "duplicates_count": 2,
+            "values": [
+                102.0,
+                101.0,
+                102.0,
+                0.5,
+                102.0
+            ]
+        },
+        "Username": {
+            "valid_count": 5,
+            "unique_count": 3,
+            "duplicates_count": 2,
+            "values": [
+                "Alice",
+                "Bob",
+                "alice",
+                "Bob",
+                "Alice"
+            ]
+        },
+        "Email": {
+            "valid_count": 4,
+            "unique_count": 2,
+            "duplicates_count": 2,
+            "values": [
+                "alice@mail.com",
+                "alice@mail.com",
+                "bob@mail.com",
+                "alice@mail.com"
+            ]
+        },
+        "Score": {
+            "valid_count": 5,
+            "unique_count": 4,
+            "duplicates_count": 1,
+            "values": [
+                88.0,
+                92.0,
+                85.0,
+                90.0,
+                88.0
+            ]
+        }
+    },
+    "daily": [
+        {
+            "Date": "2025-10-20 00:00:00",
+            "UserID_valid_count": 1,
+            "Username_valid_count": 1,
+            "Email_valid_count": 1,
+            "Score_valid_count": 1
+        },
+        {
+            "Date": "2025-10-21 00:00:00",
+            "UserID_valid_count": 1,
+            "Username_valid_count": 1,
+            "Email_valid_count": 0,
+            "Score_valid_count": 1
+        },
+        {
+            "Date": "2025-10-22 00:00:00",
+            "UserID_valid_count": 0,
+            "Username_valid_count": 1,
+            "Email_valid_count": 1,
+            "Score_valid_count": 0
+        },
+        {
+            "Date": "2025-10-23 00:00:00",
+            "UserID_valid_count": 1,
+            "Username_valid_count": 1,
+            "Email_valid_count": 1,
+            "Score_valid_count": 1
+        },
+        {
+            "Date": "2025-10-24 00:00:00",
+            "UserID_valid_count": 2,
+            "Username_valid_count": 1,
+            "Email_valid_count": 1,
+            "Score_valid_count": 2
+        }
+    ]
+}
